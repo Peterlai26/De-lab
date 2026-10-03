@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>สนามฝึก DE</title>
-<meta name="description" content="เรียนและฝึก Differential Equations แบบเกม กับน้องอินทิ: บทเรียนสั้น 18 บท รวมลาปลาซ และเกมฝึก 6 แบบ">
+<meta name="description" content="เรียนและฝึก Differential Equations แบบเกม กับน้องอินทิ: บทเรียนสั้น 18 บท รวมลาปลาซ เกมฝึก 6 แบบ โจทย์ 150 ข้อ หน้าทบทวนจุดที่พลาด และโหมดคู่ติวสำหรับพี่">
 <meta property="og:title" content="สนามฝึก DE">
 <meta property="og:description" content="เรียนและฝึก Differential Equations แบบเกม กับน้องอินทิ">
 <meta name="theme-color" content="#2563eb">
@@ -82,10 +82,10 @@ section.view{display:flex;flex-direction:column;gap:18px;padding-top:12px}
 @keyframes shake{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 .shake{animation:shake .25s 2}
 .choices{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
-.choices .btn{display:flex;flex-direction:column;gap:0;line-height:1.35}
+.choices .btn{display:flex;flex-direction:column;gap:0;line-height:1.35;min-width:0;overflow-x:auto}
 .choices .btn small{color:var(--muted);font-size:.78rem}
-.fb{border-radius:18px;padding:12px 14px;font-size:.96rem;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start;animation:rise .3s}
-.fb > *:not(svg){grid-column:2}
+.fb{border-radius:18px;padding:12px 14px;font-size:.96rem;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:start;animation:rise .3s}
+.fb > *:not(svg){grid-column:2;min-width:0;overflow-x:auto}
 .fb > svg{grid-row:1 / span 4}
 .fb.good{background:var(--good-soft);border:2px solid var(--good)}
 .fb.bad{background:var(--bad-soft);border:2px solid var(--bad)}
@@ -101,7 +101,7 @@ section.view{display:flex;flex-direction:column;gap:18px;padding-top:12px}
 .mascot .bob{animation:bob 2.6s ease-in-out infinite;transform-origin:50% 90%}
 @keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-3px) rotate(-2deg)}}
 .say{display:flex;gap:10px;align-items:flex-end}
-.bubble{position:relative;background:var(--card);border:2px solid var(--line);border-radius:20px 20px 20px 6px;padding:12px 15px;box-shadow:0 4px 0 var(--line);min-width:0;flex:1}
+.bubble{position:relative;background:var(--card);border:2px solid var(--line);border-radius:20px 20px 20px 6px;padding:12px 15px;box-shadow:0 4px 0 var(--line);min-width:0;flex:1;overflow-x:auto}
 /* home */
 .hero{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;background:var(--grape);color:#fff;border-radius:26px;padding:16px 18px;box-shadow:0 6px 0 var(--grape-d);overflow:hidden}
 .hero h2{font-size:1.7rem}
@@ -261,9 +261,38 @@ ul.tight{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
 mjx-container{color:inherit}
 .eq mjx-container[display="true"]{margin:.3em 0!important}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:50;width:100%;height:100%}
+.pill.rv{background:var(--bad-soft);color:var(--bad)}
+/* review */
+.rv-banner{display:flex;align-items:center;gap:12px;width:100%;text-align:left;cursor:pointer;background:var(--card);border:2px solid var(--bad);border-radius:20px;padding:12px 14px;box-shadow:0 4px 0 var(--bad);color:var(--ink);font:inherit}
+.rv-banner:active{transform:translateY(3px);box-shadow:0 1px 0 var(--bad)}
+.rv-banner.clear{border-color:var(--good);box-shadow:0 4px 0 var(--good)}
+.rv-banner > div{flex:1;min-width:0;display:flex;flex-direction:column;line-height:1.4}
+.rv-banner b{font-family:var(--f-display);font-weight:400;font-size:1.15rem}
+.rv-banner > div span{font-size:.86rem;color:var(--muted)}
+.rv-n{flex:none;min-width:44px;height:44px;border-radius:999px;display:grid;place-items:center;background:var(--bad);color:var(--card);font:400 1.3rem var(--f-display);padding:0 8px}
+.rv-banner.clear .rv-n{background:var(--good)}
+.mode .lv .miss{color:var(--bad);font-weight:600}
+.mode:disabled{opacity:.55;cursor:default}
+.mode:disabled:hover,.mode:disabled:active{transform:none}
+/* tutor mode */
+html.tutor{font-size:110%}
+html.tutor body{font-size:1rem}
+html.tutor .eq{font-size:1.3rem}
+.tflag{margin-left:6px;font-weight:700;color:var(--accent)}
+.tutor-sw{display:flex;flex-direction:column;gap:4px;margin-top:12px;padding-top:12px;border-top:2px dashed var(--line)}
+.tutor-sw input[type=checkbox]{width:22px;height:22px;accent-color:var(--grape);flex:none}
+.tutor-sw .chk{font-size:1rem}
+.tutor-box{border:2px dashed var(--accent);border-radius:18px;background:var(--accent-soft);padding:10px 14px;min-width:0}
+.tutor-box > summary{cursor:pointer;font-family:var(--f-display);font-size:1.08rem;color:var(--ink);padding:2px 0}
+.tutor-box .tb{display:flex;flex-direction:column;gap:12px;margin-top:10px;min-width:0}
+.tutor-box .tb > div{overflow-x:auto;min-width:0}
+.tutor-box ol{margin:4px 0 0;padding-left:1.3em;display:flex;flex-direction:column;gap:10px}
+.tutor-box li details{margin-top:2px}
+.tutor-box li summary{cursor:pointer;font-size:.86rem;color:var(--muted)}
+.tutor-box .lbl{display:block;font-size:.8rem;font-weight:700;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-@media (max-width:480px){nav.tabs button{font-size:1rem;padding:6px 6px}nav.tabs button svg{width:18px;height:18px}h1{font-size:1.5rem}h2{font-size:1.45rem}.card{padding:14px}.choices{grid-template-columns:1fr 1fr}.hero{grid-template-columns:auto 1fr}.hero h2{font-size:1.4rem}}
-@media (max-width:360px){.choices{grid-template-columns:1fr}.diffs{grid-template-columns:1fr}}
+@media (max-width:480px){nav.tabs button{font-size:1rem;padding:6px 6px}nav.tabs button svg{width:18px;height:18px}h1{font-size:1.5rem}h2{font-size:1.45rem}.card{padding:14px}.choices{grid-template-columns:repeat(2,minmax(0,1fr))}#revCh{grid-template-columns:minmax(0,1fr)}.hero{grid-template-columns:auto 1fr}.hero h2{font-size:1.4rem}}
+@media (max-width:360px){.choices{grid-template-columns:minmax(0,1fr)}.diffs{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -271,7 +300,7 @@ mjx-container{color:inherit}
 <div class="wrap">
   <header class="top">
     <span id="logo"></span>
-    <div><div class="eyebrow">ติว Differential Equations กับน้องอินทิ</div><h1>สนามฝึก <span class="dy">DE</span></h1></div>
+    <div><div class="eyebrow">ติว Differential Equations กับน้องอินทิ<span class="tflag" id="tutorFlag" hidden>· โหมดคู่ติว</span></div><h1>สนามฝึก <span class="dy">DE</span></h1></div>
     <button class="theme-btn" id="themeBtn"></button>
   </header>
   <nav class="tabs" role="tablist" id="tabs">
@@ -282,6 +311,7 @@ mjx-container{color:inherit}
 
   <section class="view" id="v-home">
     <div class="hero" id="hero"></div>
+    <div id="rvHome"></div>
     <div class="say" id="roadSay"></div>
     <div class="road" id="road"></div>
     <details class="plan-box">
@@ -294,6 +324,8 @@ mjx-container{color:inherit}
         <li><b>จับผิดเฉลย</b> โหมดยาก 20 นาที แข่งเป็นทีม ชี้บรรทัดผิดพร้อมบอกวิธีแก้ถึงได้คะแนน</li>
         <li><b>แล็บปิดตาย</b> 20 นาที เกมปิดวัน แบ่งทีมแข่งกันจับเวลา</li>
       </ol>
+      <div class="tutor-sw"><label class="chk"><input type="checkbox" id="tutorSw"> <b>โหมดคู่ติว (ฉายจอ)</b></label>
+        <p class="small muted">ตัวอักษรใหญ่ขึ้น และทุกโจทย์ในเกมจะมีกล่อง "พี่ติว" ให้แตะเปิดดูเฉลยพร้อมคำถามชวนคิดไว้ถามน้องสด นักสืบสมการโหมดยากจะไม่จับเวลา ปิดได้ที่สวิตช์เดิม</p></div>
     </details>
     <div class="row"><button class="btn ghost small" id="resetAll">ล้างความคืบหน้าทั้งหมด</button><span class="small muted" id="resetMsg"></span></div>
   </section>
@@ -306,8 +338,15 @@ mjx-container{color:inherit}
     <div id="lesson" hidden></div>
   </section>
 
+  <section class="view" id="v-review" hidden>
+    <div class="gbar"><button class="back" id="rvBack" aria-label="กลับหน้าแรก">‹</button><h2>ทบทวนจุดที่พลาด</h2></div>
+    <div class="say" id="rvSay"></div>
+    <div class="modes" id="rvCards"></div>
+  </section>
+
   <section class="view" id="v-games" hidden>
     <div class="say" id="gamesSay"></div>
+    <div id="rvGames"></div>
     <div class="modes" id="modeCards"></div>
   </section>
 
@@ -333,7 +372,7 @@ const el=(tag,attrs={},html='')=>{const e=document.createElement(tag);for(const 
 function typeset(node){if(node&&window.MathJax&&MathJax.typesetPromise){MathJax.typesetClear&&MathJax.typesetClear([node]);MathJax.typesetPromise([node]).catch(()=>{});}}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 const KEY='de-lab-v2';
-const P0=()=>({det:{},cat:{},bug:{},ord:{},rev:{},learn:{},diff:{},best:{},played:{}});
+const P0=()=>({det:{},cat:{},bug:{},ord:{},rev:{},learn:{},diff:{},best:{},played:{},miss:{},tutor:0});
 let P=P0();
 try{let s=localStorage.getItem(KEY);if(!s){const o=localStorage.getItem('de-lab-v1');if(o){const v=JSON.parse(o);P.learn=v.learn||{};P.cat=v.cat||{};}}else P=Object.assign(P0(),JSON.parse(s));}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(P));}catch(e){}}
@@ -785,7 +824,7 @@ function renderStep(){
   if(s.k==='reveal'){const rb=$('#rvBtn');rb.onclick=()=>{const [t,w]=s.lines[LS.rev++];const d=el('div',{class:'reveal-line'},`\\(\\displaystyle ${t}\\)${w?`<span class="why">${w}</span>`:''}`);$('#rv').appendChild(d);typeset(d);
     if(LS.rev>=s.lines.length){rb.hidden=true;$('#lnext').disabled=false;}};}
   if(s.k==='quiz'){const order=shuffle(s.o.map((_,i)=>i));
-    order.forEach(i=>{const b=el('button',{class:'btn'},s.o[i]);b.onclick=()=>{if(LS.answered)return;const fb=$('#lfb');
+    order.forEach(i=>{const b=el('button',{class:'btn','data-i':i},s.o[i]);b.onclick=()=>{if(LS.answered)return;const fb=$('#lfb');
       if(i===s.a){LS.answered=true;b.classList.add('ok');fb.innerHTML=`<div class="fb good"><b>${['เยี่ยม!','ถูกต้อง!','เก่งมาก!','ใช่เลย!'][Math.floor(Math.random()*4)]}</b><div>${s.why}</div></div>`;$('#lnext').disabled=false;celebrate(35);}
       else{LS.miss++;b.classList.add('no');b.disabled=true;fb.innerHTML=`<div class="fb bad"><b>ยังไม่ใช่ ลองอีกที</b><div>ตัดตัวเลือกนี้ออกได้แล้ว ลองนึกถึงสิ่งที่เพิ่งอ่านมา</div></div>`;}
       typeset(fb);};$('#lq').appendChild(b);});}
@@ -1008,7 +1047,7 @@ addRoom(ROOMS_FIN,'ประตูทางออก (รากเชิงซ�
   q:T`y''+a\,y'+b\,y=0\quad\text{มีคำตอบ}\quad y=e^{-x}\left(C_1\cos2x+C_2\sin2x\right)`,inputs:[{label:'a',a:2},{label:'b',a:5}],
   hint:T`ราก \(-1\pm2i\) → \((m+1)^2+4=m^2+2m+5\)`});
 ROOMS_FIN[0].t='ประตูทางออก';
-function pickRooms(){return shuffle(ROOMS_MID).slice(0,5).concat(shuffle(ROOMS_FIN).slice(0,1)).map((r,i)=>Object.assign({},r,{title:`ประตู ${i+1} · ${r.t}`}));}
+function pickRooms(){const src=RVW==='escape'?shuffle(missItems('escape')).slice(0,6):shuffle(ROOMS_MID).slice(0,5).concat(shuffle(ROOMS_FIN).slice(0,1));return src.map((r,i)=>Object.assign({},r,{title:`ประตู ${i+1} · ${r.t}`}));}
 
 /* ---------- 6. บทเรียนลาปลาซ ---------- */
 UNITS.push({n:'การแปลงลาปลาซ',c:'mint'});
@@ -1053,10 +1092,351 @@ LESSONS.push(
   {k:'talk',m:'happy',t:'เครื่องมือสุดท้าย: <b>คูณกันในโลก s</b> เท่ากับ<b>คอนโวลูชัน</b>ในโลก t ใช้แก้สมการที่มีอินทิกรัลของ y ปนอยู่'},
   {k:'show',h:'ทฤษฎีบทคอนโวลูชัน',t:T`<div class="eq">\[(f*g)(t)=\int_0^t f(\tau)\,g(t-\tau)\,d\tau\]\[\mathcal L\{f*g\}=F(s)\,G(s)\]</div>`},
   {k:'quiz',q:T`\(\mathcal L\left\{\displaystyle\int_0^t (t-\tau)\,y(\tau)\,d\tau\right\}\) เท่ากับ`,o:[T`\(\dfrac{Y}{s^2}\)`,T`\(s^2Y\)`,T`\(\dfrac{Y}{s}\)`,T`\(\dfrac{1}{s^2}\)`],a:0,why:T`อินทิกรัลนี้คือ \(t*y\) และ \(\mathcal L\{t\}=\frac{1}{s^2}\) จึงได้ \(\frac{1}{s^2}\cdot Y\)`},
-  {k:'reveal',h:T`ลองทำ \(y(t)=t+\displaystyle\int_0^t(t-\tau)\,y(\tau)\,d\tau\)`,lines:[[T`Y=\dfrac{1}{s^2}+\dfrac{1}{s^2}\,Y`,'แปลงทั้งสองข้าง'],[T`Y\left(1-\dfrac{1}{s^2}\right)=\dfrac{1}{s^2}\;\Rightarrow\;Y=\dfrac{1}{s^2-1}`,'แก้หา Y'],[T`y=\sinh t`,'ตาราง: \(\mathcal L\{\sinh t\}=\frac{1}{s^2-1}\)']]},
+  {k:'reveal',h:T`ลองทำ \(y(t)=t+\displaystyle\int_0^t(t-\tau)\,y(\tau)\,d\tau\)`,lines:[[T`Y=\dfrac{1}{s^2}+\dfrac{1}{s^2}\,Y`,'แปลงทั้งสองข้าง'],[T`Y\left(1-\dfrac{1}{s^2}\right)=\dfrac{1}{s^2}\;\Rightarrow\;Y=\dfrac{1}{s^2-1}`,'แก้หา Y'],[T`y=\sinh t`,T`ตาราง: \(\mathcal L\{\sinh t\}=\frac{1}{s^2-1}\)`]]},
   {k:'talk',m:'wow',t:'ครบทุกเนื้อหาแล้ว! ไปลุยด่าน <b>แล็บปิดตาย</b> ที่มีโจทย์ลาปลาซปนอยู่ หรือกลับไปเล่นเกมอื่นเพื่อทวนทุกบท'}
  ]}
 );
+
+/* ================= ชุดขยาย 2: UC / ตัวดำเนินการผกผัน / แปรผันพารามิเตอร์ / ลาปลาซ ================= */
+DET.push(
+ {id:'d35',q:T`\frac{dy}{dx}+y\tan x=\sec x`,ok:['lin'],why:T`อยู่ในรูป \(y'+P(x)y=Q(x)\) โดย \(P=\tan x\) ได้ \(\mu=e^{\int\tan x\,dx}=\sec x\)`,w:{sep:T`ฝั่งขวา \(\sec x-y\tan x\) เป็นผลบวก แยกเป็นผลคูณ \(f(x)g(y)\) ไม่ได้`,ber:T`ไม่มี \(y^n\) ฝั่งขวา (\(n=0\)) จึงเป็นเชิงเส้นธรรมดา`}},
+ {id:'d36',q:T`y''+y=\sec x`,ok:['nth'],why:T`สัมประสิทธิ์คงที่ หา \(y_c=C_1\cos x+C_2\sin x\) ได้ แต่ \(\sec x\) ไม่อยู่ในตาราง UC ต้องใช้ variation of parameters`,w:{lap:T`ไม่มีเงื่อนไขเริ่มต้น และ \(\mathcal L\{\sec t\}\) ไม่มีในตาราง`,lin:T`เป็นอันดับ 2 ไม่ใช่ \(y'+Py=Q\)`}},
+ {id:'d37',q:T`y''+4y=\cos 2x`,ok:['nth'],why:T`สัมประสิทธิ์คงที่ ราก \(\pm2i\) ทำให้ \(\cos2x\) ซ้ำกับ \(y_c\) ต้องเดา \(x(A\cos2x+B\sin2x)\) หรือใช้ตัวดำเนินการผกผันแบบคูณ \(x\)`,w:{lap:T`ไม่มีเงื่อนไขเริ่มต้น และฝั่งขวาเป็นฟังก์ชันธรรมดา ใช้สมการช่วยกับ UC เร็วกว่า`,hom:T`"homogeneous" ในบทอันดับ n หมายถึงฝั่งขวาเป็น 0 ข้อนี้ฝั่งขวาเป็น \(\cos2x\)`}},
+ {id:'d38',q:T`y''+y=\delta(t-\pi),\quad y(0)=0,\ y'(0)=1`,ok:['lap'],why:T`ฝั่งขวาเป็นเดลต้า (แรงกระแทกที่ \(t=\pi\)) และมีเงื่อนไขเริ่มต้นครบ ลาปลาซได้ \(Y=\frac{1+e^{-\pi s}}{s^2+1}\)`,w:{nth:T`หา \(y_c\) ได้ แต่ \(\delta\) ใช้ UC หรือ variation ไม่ได้ตรงๆ`}},
+ {id:'d39',q:T`y''-3y'+2y=x\,e^{x}\sin x`,ok:['nth'],why:T`สัมประสิทธิ์คงที่ ราก \(1,2\) ส่วน \(1\pm i\) (จาก \(e^x\sin x\)) ไม่ใช่ราก จึงเดา \(e^{x}[(Ax+B)\cos x+(Cx+D)\sin x]\) โดยไม่ต้องคูณ \(x\) เพิ่ม`,w:{lap:T`ไม่มีเงื่อนไขเริ่มต้น และฝั่งขวาเป็นสูตรเดียวตลอด UC ตรงกว่า`,lin:T`เป็นอันดับ 2 ไม่ใช่อันดับ 1`}},
+ {id:'d40',q:T`(D+1)^2\,y=x^2e^{-x}`,ok:['nth'],why:T`สัมประสิทธิ์คงที่ ใช้ตัวดำเนินการผกผันกฎ \(e^{ax}V\): \(\frac{1}{(D+1)^2}e^{-x}x^2=e^{-x}\frac{1}{D^2}x^2=\frac{x^4e^{-x}}{12}\)`,w:{lap:T`ไม่มีเงื่อนไขเริ่มต้น สมการช่วยกับตัวดำเนินการผกผันเร็วกว่า`,ber:T`\(D\) คือตัวดำเนินการอนุพันธ์ \((D+1)^2y=y''+2y'+y\) ไม่ใช่ \(y^2\)`}},
+ {id:'d41',q:T`y''+y=t\,u(t-2),\quad y(0)=0,\ y'(0)=0`,ok:['lap'],why:T`ฝั่งขวาเปิดสวิตช์ที่ \(t=2\) ใช้กฎเลื่อนครั้งที่ 2 โดยเขียน \(t=(t-2)+2\) ได้ \(\mathcal L\{t\,u(t-2)\}=e^{-2s}\left(\frac{1}{s^2}+\frac{2}{s}\right)\)`,w:{nth:T`ฝั่งขวาเปลี่ยนสูตรที่ \(t=2\) UC ใช้ตรงๆ ไม่ได้`}},
+ {id:'d42',q:T`y''-4y'+4y=\frac{e^{2x}}{x^2}`,ok:['nth'],why:T`สัมประสิทธิ์คงที่ \(y_c=(C_1+C_2x)e^{2x}\) แต่ \(\frac{1}{x^2}\) ไม่อยู่ในตาราง UC ต้องใช้ variation of parameters ได้ \(y_p=-e^{2x}\ln|x|\)`,w:{lap:T`ไม่มีเงื่อนไขเริ่มต้น และ \(\frac{e^{2t}}{t^2}\) แปลงลาปลาซไม่ได้ (อินทิกรัลลู่ออกที่ 0)`,hom:T`ฝั่งขวาไม่ใช่ 0 และไม่ใช่วิธีแทน \(y=ux\)`}},
+ {id:'d43',q:T`y(t)=1+\int_0^t \sin(t-\tau)\,y(\tau)\,d\tau`,ok:['lap'],why:T`อินทิกรัลคือคอนโวลูชัน \(\sin t*y\) แปลงได้ \(Y=\frac1s+\frac{Y}{s^2+1}\) ดังนั้น \(Y=\frac1s+\frac{1}{s^3}\) และ \(y=1+\frac{t^2}{2}\)`,w:{sep:T`มีอินทิกรัลของ \(y\) อยู่ แยกตัวแปรไม่ได้`,nth:T`ยังไม่อยู่ในรูป \(\phi(D)y=Q\) เพราะมีอินทิกรัลของ \(y\)`}},
+ {id:'d44',q:T`y'''-y'=e^{x}+x`,ok:['nth'],why:T`ราก \(0,\pm1\) ทั้ง \(e^x\) (ราก 1) และพหุนาม (ราก 0) ซ้ำกับ \(y_c\) จึงเดา \(Axe^{x}+x(Bx+C)\) ได้ \(A=\tfrac12,\ B=-\tfrac12,\ C=0\)`,w:{lap:T`ไม่มีเงื่อนไขเริ่มต้น UC เร็วกว่า`,lin:T`เป็นอันดับ 3 ไม่ใช่อันดับ 1`}}
+);
+BUGS.push(
+ {id:'b18',tag:'UC · ดิฟผลคูณ',q:T`y''-4y=e^{2x}`,lines:[
+   T`m^2-4=0\;\Rightarrow\;m=\pm2`,
+   T`y_c=C_1e^{2x}+C_2e^{-2x}`,
+   T`e^{2x}\text{ ซ้ำกับ }y_c\;\Rightarrow\;y_p=Axe^{2x}`,
+   T`y_p''=4Axe^{2x}`,
+   T`4Axe^{2x}-4Axe^{2x}=e^{2x}\;\Rightarrow\;0=e^{2x}\ \text{หา }A\text{ ไม่ได้}`],bug:3,fix:T`y_p''=4Ae^{2x}+4Axe^{2x}\;\Rightarrow\;4Ae^{2x}=e^{2x}\;\Rightarrow\;A=\tfrac14`,
+   why:T`\(xe^{2x}\) เป็นผลคูณ ดิฟต้องใช้กฎผลคูณ ได้ \(y_p''=(4A+4Ax)e^{2x}\) ลืมพจน์ \(4Ae^{2x}\) ไปตัวเดียวก็ได้ \(0=e^{2x}\)`},
+ {id:'b19',tag:'UC · eˣ sin x ซ้ำกับ y_c',q:T`y''-2y'+2y=e^{x}\sin x`,lines:[
+   T`m^2-2m+2=0\;\Rightarrow\;m=1\pm i`,
+   T`y_c=e^{x}\left(C_1\cos x+C_2\sin x\right)`,
+   T`\text{เดา }y_p=Ae^{x}\sin x`,
+   T`\text{แทนค่าได้ }0=e^{x}\sin x\;\Rightarrow\;\text{ใช้ UC ไม่ได้}`],bug:2,fix:T`y_p=xe^{x}(A\cos x+B\sin x)\;\Rightarrow\;A=-\tfrac12,\ B=0\;\Rightarrow\;y_p=-\tfrac12xe^{x}\cos x`,
+   why:T`ราก \(1\pm i\) ตรงกับ \(e^{x}\sin x\) จึงซ้ำกับ \(y_c\) ต้องคูณ \(x\) และต้องเดาทั้ง \(\cos\) และ \(\sin\) เสมอ`},
+ {id:'b20',tag:'ตัวดำเนินการผกผัน · ตัวส่วนเป็น 0',q:T`(D^2+4)\,y=\sin2x`,lines:[
+   T`m^2+4=0\;\Rightarrow\;m=\pm2i`,
+   T`y_c=C_1\cos2x+C_2\sin2x`,
+   T`y_p=\frac{1}{D^2+4}\sin2x=\frac{\sin2x}{-2^2+4}`,
+   T`=\frac{\sin2x}{0}\;\Rightarrow\;\text{สมการนี้ไม่มี }y_p`],bug:2,fix:T`\phi(-a^2)=0\ \text{ใช้สูตรลัดไม่ได้}:\ \frac{1}{D^2+a^2}\sin ax=-\frac{x}{2a}\cos ax\;\Rightarrow\;y_p=-\frac{x}{4}\cos2x`,
+   why:T`แทน \(D^2=-a^2\) ได้ก็ต่อเมื่อตัวส่วนไม่เป็น 0 ถ้าเป็น 0 แปลว่า \(\sin2x\) ซ้ำกับ \(y_c\) ต้องใช้สูตรที่คูณ \(x\) ไม่ใช่สรุปว่าไม่มีคำตอบ`},
+ {id:'b21',tag:'ตัวดำเนินการผกผัน · กฎ e^{ax}V',q:T`(D-1)^2\,y=x\,e^{x}`,lines:[
+   T`(m-1)^2=0\;\Rightarrow\;y_c=(C_1+C_2x)e^{x}`,
+   T`y_p=\frac{1}{(D-1)^2}\left(e^{x}x\right)=e^{x}\frac{1}{(D-1)^2}x`,
+   T`\frac{1}{(1-D)^2}x=(1+2D+\dots)x=x+2`,
+   T`y_p=(x+2)e^{x}`],bug:1,fix:T`e^{x}\frac{1}{\left((D+1)-1\right)^2}x=e^{x}\frac{1}{D^2}x=\frac{x^3}{6}e^{x}`,
+   why:T`ดึง \(e^{ax}\) ออกมาแล้วต้องแทน \(D\) ด้วย \(D+a\) เสมอ สังเกตว่า \((x+2)e^x\) อยู่ใน \(y_c\) พอดี แทนกลับได้ 0 จึงเป็น \(y_p\) ไม่ได้`},
+ {id:'b22',tag:'Variation of parameters · เครื่องหมาย',q:T`y''+y=\sec x`,lines:[
+   T`y_1=\cos x,\ y_2=\sin x,\ W=1`,
+   T`u_1'=\frac{y_2\,g}{W}=\tan x\;\Rightarrow\;u_1=-\ln|\cos x|`,
+   T`u_2'=\frac{y_1\,g}{W}=1\;\Rightarrow\;u_2=x`,
+   T`y_p=-\cos x\ln|\cos x|+x\sin x`],bug:1,fix:T`u_1'=-\frac{y_2\,g}{W}=-\tan x\;\Rightarrow\;u_1=\ln|\cos x|\;\Rightarrow\;y_p=\cos x\ln|\cos x|+x\sin x`,
+   why:T`สูตรคือ \(u_1'=-\frac{y_2g}{W}\) มีเครื่องหมายลบ ตรวจได้โดยแทนกลับ: คำตอบในบรรทัดสุดท้ายให้ \(y''+y=4\cos x-\sec x\) ไม่ใช่ \(\sec x\)`},
+ {id:'b23',tag:'Variation of parameters · Wronskian',q:T`y''-2y'+y=\frac{e^{x}}{x}`,lines:[
+   T`(m-1)^2=0\;\Rightarrow\;y_1=e^{x},\ y_2=xe^{x}`,
+   T`W=e^{x}\cdot xe^{x}-xe^{x}\cdot e^{x}=0`,
+   T`W=0\;\Rightarrow\;y_1,y_2\ \text{ไม่อิสระ ใช้วิธีนี้ไม่ได้}`],bug:1,fix:T`y_2'=(1+x)e^{x}\;\Rightarrow\;W=e^{2x},\ u_1=-x,\ u_2=\ln|x|\;\Rightarrow\;y_p=xe^{x}\ln|x|`,
+   why:T`\(y_2=xe^x\) ดิฟต้องได้ \((1+x)e^x\) ตามกฎผลคูณ คู่ \(e^x,\ xe^x\) จากรากซ้ำเป็นอิสระเสมอ ถ้าได้ \(W=0\) ให้สงสัยว่าดิฟผิด`},
+ {id:'b24',tag:'ลาปลาซ · กฎเลื่อนครั้งที่ 1',q:T`\mathcal L\{e^{2t}\sin3t\}`,lines:[
+   T`\mathcal L\{\sin3t\}=\frac{3}{s^2+9}`,
+   T`\text{คูณ }e^{2t}\;\Rightarrow\;\text{เลื่อน }s\to s+2`,
+   T`F(s)=\frac{3}{(s+2)^2+9}`,
+   T`F(s)=\frac{3}{s^2+4s+13}`],bug:1,fix:T`\mathcal L\{e^{at}f\}=F(s-a)\;\Rightarrow\;s\to s-2,\ F(s)=\frac{3}{(s-2)^2+9}=\frac{3}{s^2-4s+13}`,
+   why:T`คูณ \(e^{at}\) ในโลก \(t\) คือแทน \(s\) ด้วย \(s-a\) ในโลก \(s\) ข้อนี้ \(a=2\) จึงเป็น \(s-2\) จำง่ายๆ: \(\mathcal L\{e^{2t}\}=\frac{1}{s-2}\)`},
+ {id:'b25',tag:'ลาปลาซ · กฎเลื่อนครั้งที่ 2',q:T`\mathcal L\{t\,u(t-2)\}`,lines:[
+   T`\text{สูตร: }\mathcal L\{u(t-a)\,g(t-a)\}=e^{-as}G(s)`,
+   T`a=2`,
+   T`g(t-2)=t\;\Rightarrow\;g(t)=t`,
+   T`\mathcal L\{t\,u(t-2)\}=\frac{e^{-2s}}{s^2}`],bug:2,fix:T`t=(t-2)+2\;\Rightarrow\;g(t)=t+2\;\Rightarrow\;e^{-2s}\left(\frac{1}{s^2}+\frac{2}{s}\right)`,
+   why:T`ถ้า \(g(t-2)=t\) แล้ว \(g(t)=t+2\) (แทน \(t\) ด้วย \(t+2\)) ต้องจัดฟังก์ชันให้อยู่ในรูปของ \(t-2\) ก่อนใช้สูตร`},
+ {id:'b26',tag:'ลาปลาซ · เดลต้า',q:T`y''+y=\delta(t-\pi),\quad y(0)=0,\ y'(0)=0`,lines:[
+   T`s^2Y+Y=e^{-\pi s}`,
+   T`Y=\frac{e^{-\pi s}}{s^2+1}`,
+   T`\mathcal L^{-1}\left\{\frac{1}{s^2+1}\right\}=\sin t`,
+   T`y=u(t-\pi)\sin t`],bug:3,fix:T`y=u(t-\pi)\sin(t-\pi)=-u(t-\pi)\sin t`,
+   why:T`\(e^{-as}F(s)\) แปลงกลับเป็น \(u(t-a)f(t-a)\) ต้องเลื่อน \(t\) ในตัว \(f\) ด้วย และ \(\sin(t-\pi)=-\sin t\) เครื่องหมายจึงกลับ`},
+ {id:'b27',tag:'ลาปลาซ · คอนโวลูชัน',q:T`\int_0^t (t-\tau)\,e^{\tau}\,d\tau\ \text{ด้วยลาปลาซ}`,lines:[
+   T`\text{อินทิกรัลนี้คือ }t*e^{t}`,
+   T`\mathcal L=\frac{1}{s^2}\cdot\frac{1}{s-1}`,
+   T`\frac{1}{s^2(s-1)}=\frac{1}{s-1}-\frac{1}{s^2}`,
+   T`\text{ผลลัพธ์}=e^{t}-t`],bug:2,fix:T`\frac{1}{s^2(s-1)}=\frac{1}{s-1}-\frac{1}{s}-\frac{1}{s^2}\;\Rightarrow\;e^{t}-1-t`,
+   why:T`ตัวส่วน \(s^2\) ต้องมีเศษส่วนย่อยทั้ง \(\frac{A}{s}\) และ \(\frac{B}{s^2}\) ตรวจง่ายๆ: ที่ \(t=0\) อินทิกรัลต้องเป็น 0 แต่ \(e^0-0=1\)`}
+);
+ORD.push(
+ {id:'o14',tag:'UC · ซ้ำกับค่าคงที่',q:T`y''+2y'=4x`,steps:[
+   T`m^2+2m=0\;\Rightarrow\;m=0,-2`,
+   T`y_c=C_1+C_2e^{-2x}`,
+   T`\text{ค่าคงที่ซ้ำกับ }y_c\;\Rightarrow\;y_p=x(Ax+B)=Ax^2+Bx`,
+   T`2A+2(2Ax+B)=4x`,
+   T`4A=4,\ 2A+2B=0\;\Rightarrow\;A=1,\ B=-1`,
+   T`y=C_1+C_2e^{-2x}+x^2-x`],fake:T`y_p=Ax+B`},
+ {id:'o15',tag:'UC · xeˣ ซ้ำกับ y_c',q:T`y''-y=x\,e^{x}`,steps:[
+   T`m=\pm1\;\Rightarrow\;y_c=C_1e^{x}+C_2e^{-x}`,
+   T`e^{x}\text{ ซ้ำ}\;\Rightarrow\;y_p=(Ax^2+Bx)\,e^{x}`,
+   T`\text{แทนค่า: }(4Ax+2A+2B)\,e^{x}=xe^{x}`,
+   T`4A=1,\ 2A+2B=0\;\Rightarrow\;A=\tfrac14,\ B=-\tfrac14`,
+   T`y=C_1e^{x}+C_2e^{-x}+\tfrac14(x^2-x)\,e^{x}`],fake:T`y_p=(Ax+B)\,e^{x}`},
+ {id:'o16',tag:'ตัวดำเนินการผกผัน · sin x',q:T`(D^2-3D+2)\,y=e^{3x}+\sin x`,steps:[
+   T`m=1,2\;\Rightarrow\;y_c=C_1e^{x}+C_2e^{2x}`,
+   T`y_{p1}=\frac{e^{3x}}{9-9+2}=\frac{e^{3x}}{2}`,
+   T`y_{p2}=\frac{1}{D^2-3D+2}\sin x=\frac{1}{1-3D}\sin x\quad(D^2\to-1)`,
+   T`=\frac{1+3D}{1-9D^2}\sin x=\frac{(1+3D)\sin x}{10}=\frac{\sin x+3\cos x}{10}`,
+   T`y=C_1e^{x}+C_2e^{2x}+\frac{e^{3x}}{2}+\frac{\sin x+3\cos x}{10}`],fake:T`y_{p2}=\frac{\sin x}{(-1)^2-3(-1)+2}=\frac{\sin x}{6}`},
+ {id:'o17',tag:'ตัวดำเนินการผกผัน · กฎ e^{ax}V',q:T`(D+1)^2\,y=e^{-x}\cos x`,steps:[
+   T`(m+1)^2=0\;\Rightarrow\;y_c=(C_1+C_2x)\,e^{-x}`,
+   T`y_p=\frac{1}{(D+1)^2}\left(e^{-x}\cos x\right)=e^{-x}\,\frac{1}{D^2}\cos x`,
+   T`\frac{1}{D^2}\cos x=-\cos x\quad\text{(อินทิเกรตสองครั้ง)}`,
+   T`y=(C_1+C_2x)\,e^{-x}-e^{-x}\cos x`],fake:T`y_p=e^{-x}\,\frac{1}{(D+1)^2}\cos x`},
+ {id:'o18',tag:'Variation of parameters · tan x',q:T`y''+y=\tan x`,steps:[
+   T`y_1=\cos x,\ y_2=\sin x,\ W=1`,
+   T`u_1'=-\sin x\tan x=\cos x-\sec x`,
+   T`u_1=\sin x-\ln|\sec x+\tan x|`,
+   T`u_2'=\cos x\tan x=\sin x\;\Rightarrow\;u_2=-\cos x`,
+   T`y_p=u_1y_1+u_2y_2=-\cos x\ln|\sec x+\tan x|`],fake:T`u_1'=\sin x\tan x`},
+ {id:'o19',tag:'ลาปลาซ · กฎเลื่อนครั้งที่ 1',q:T`Y(s)=\frac{s+3}{s^2+2s+5}\ \ \text{จงหา }y(t)`,steps:[
+   T`s^2+2s+5=(s+1)^2+4`,
+   T`s+3=(s+1)+2`,
+   T`Y=\frac{s+1}{(s+1)^2+4}+\frac{2}{(s+1)^2+4}`,
+   T`y=e^{-t}\left(\cos2t+\sin2t\right)`],fake:T`y=e^{t}\left(\cos2t+\sin2t\right)`},
+ {id:'o20',tag:'ลาปลาซ · เดลต้า',q:T`y''+4y=\delta(t-\pi),\quad y(0)=0,\ y'(0)=1`,steps:[
+   T`s^2Y-1+4Y=e^{-\pi s}`,
+   T`Y=\frac{1}{s^2+4}+\frac{e^{-\pi s}}{s^2+4}`,
+   T`\mathcal L^{-1}\left\{\frac{1}{s^2+4}\right\}=\tfrac12\sin2t`,
+   T`y=\tfrac12\sin2t+\tfrac12u(t-\pi)\sin2(t-\pi)`,
+   T`y=\tfrac12\sin2t\,\left(1+u(t-\pi)\right)`],fake:T`\mathcal L\{\delta(t-\pi)\}=\frac{e^{-\pi s}}{s}`},
+ {id:'o21',tag:'ลาปลาซ · คอนโวลูชัน',q:T`y(t)=t-\int_0^t (t-\tau)\,y(\tau)\,d\tau`,steps:[
+   T`\text{อินทิกรัลคือ }t*y`,
+   T`Y=\frac{1}{s^2}-\frac{Y}{s^2}`,
+   T`Y\left(1+\frac{1}{s^2}\right)=\frac{1}{s^2}`,
+   T`Y=\frac{1}{s^2+1}`,
+   T`y=\sin t`],fake:T`\mathcal L\{t*y\}=\frac{1}{s^2}+Y`},
+ {id:'o22',tag:'ลาปลาซ · ฟังก์ชันขั้นบันได',q:T`y''+y=u(t-\pi),\quad y(0)=0,\ y'(0)=0`,steps:[
+   T`s^2Y+Y=\frac{e^{-\pi s}}{s}`,
+   T`Y=e^{-\pi s}\,\frac{1}{s(s^2+1)}`,
+   T`\frac{1}{s(s^2+1)}=\frac1s-\frac{s}{s^2+1}`,
+   T`y=u(t-\pi)\left(1-\cos(t-\pi)\right)`,
+   T`y=u(t-\pi)\left(1+\cos t\right)`],fake:T`y=u(t-\pi)\left(1-\cos t\right)`}
+);
+REV.push(
+ {id:'r20',sol:T`y=C_1e^{x}+C_2e^{2x}+3x\,e^{2x}`,tag:'UC · ซ้ำกับ y_c',steps:[
+   {q:'ส่วนที่คูณ \\(C_1,C_2\\) บอกว่าด้านซ้ายคือ',o:[T`y''-3y'+2y`,T`y''+3y'+2y`,T`y''-3y'`,T`y''-2y`],a:0,why:T`ราก \(1,2\) ได้ \((m-1)(m-2)=m^2-3m+2\)`},
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y''-3y'+2y=3e^{2x}`,T`y''-3y'+2y=3xe^{2x}`,T`y''-3y'+2y=e^{2x}`,T`y''-3y'+2y=0`],a:0,why:T`\(e^{2x}\) ซ้ำกับ \(y_c\) จึงมี \(x\) คูณใน \(y_p\) แทน \(3xe^{2x}\) ลงไปได้ \(3e^{2x}\)`}]},
+ {id:'r21',sol:T`y=C_1\cos x+C_2\sin x+\tfrac12x\sin x`,tag:'UC · เรโซแนนซ์',steps:[
+   {q:'ส่วนที่คูณ \\(C_1,C_2\\) บอกว่าด้านซ้ายคือ',o:[T`y''+y`,T`y''-y`,T`y''+2y`,T`y'+y`],a:0,why:T`\(\cos x,\sin x\) มาจากราก \(\pm i\) ได้ \(m^2+1\)`},
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y''+y=\cos x`,T`y''+y=\sin x`,T`y''+y=\tfrac12\sin x`,T`y''+y=x\sin x`],a:0,why:T`แทน \(y_p=\tfrac12x\sin x\) ได้ \(y_p''+y_p=\cos x\) ที่มี \(x\) เพราะ \(\cos x\) ซ้ำกับ \(y_c\)`}]},
+ {id:'r22',sol:T`y=(C_1+C_2x)\,e^{-x}+\tfrac12x^2e^{-x}`,tag:'ตัวดำเนินการผกผัน',steps:[
+   {q:'ส่วนที่คูณ \\(C_1,C_2\\) บอกว่าด้านซ้ายคือ',o:[T`y''+2y'+y`,T`y''-2y'+y`,T`y''+y`,T`y''+2y'`],a:0,why:T`รากซ้ำ \(-1\) ได้ \((m+1)^2=m^2+2m+1\)`},
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`(D+1)^2y=e^{-x}`,T`(D+1)^2y=xe^{-x}`,T`(D+1)^2y=\tfrac12e^{-x}`,T`(D+1)^2y=x^2e^{-x}`],a:0,why:T`\(\frac{1}{(D+1)^2}e^{-x}=e^{-x}\frac{1}{D^2}1=\frac{x^2}{2}e^{-x}\) ตรงกับ \(y_p\)`}]},
+ {id:'r23',sol:T`Y(s)=\frac{s+4}{s^2+3s+2}`,lab:'ได้ Y(s) จากการแปลงลาปลาซมาแบบนี้',tag:'ลาปลาซ · ย้อนหา IVP',steps:[
+   {q:'ตัวส่วนบอกว่าสมการคือ',o:[T`y''+3y'+2y=0`,T`y''-3y'+2y=0`,T`y''+2y'+3y=0`,T`y''+3y'+4y=0`],a:0,why:T`\(\mathcal L\{y''+3y'+2y\}\) ได้ \((s^2+3s+2)Y\) บวกพจน์จากเงื่อนไขเริ่มต้น`},
+   {q:'เงื่อนไขเริ่มต้นคือ',o:[T`y(0)=1,\ y'(0)=1`,T`y(0)=1,\ y'(0)=4`,T`y(0)=4,\ y'(0)=1`,T`y(0)=0,\ y'(0)=4`],a:0,why:T`ตัวเศษคือ \(s\,y(0)+y'(0)+3y(0)=s+4\) จึงได้ \(y(0)=1\) และ \(y'(0)=4-3=1\)`}]},
+ {id:'r24',sol:T`y=e^{-t}\cos2t`,lab:'คำตอบเฉพาะที่ได้มา',tag:'ลาปลาซ · ย้อนหา IVP',steps:[
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y''+2y'+5y=0`,T`y''-2y'+5y=0`,T`y''+2y'+3y=0`,T`y''+4y=0`],a:0,why:T`ราก \(-1\pm2i\) ได้ \((m+1)^2+4=m^2+2m+5\)`},
+   {q:'เงื่อนไขเริ่มต้นคือ',o:[T`y(0)=1,\ y'(0)=-1`,T`y(0)=1,\ y'(0)=0`,T`y(0)=1,\ y'(0)=2`,T`y(0)=0,\ y'(0)=-1`],a:0,why:T`\(y(0)=1\) และ \(y'=-e^{-t}\cos2t-2e^{-t}\sin2t\) ที่ \(t=0\) ได้ \(-1\)`}]},
+ {id:'r25',sol:T`y=u(t-2)\left(1-e^{-(t-2)}\right)`,lab:'คำตอบของ y′ + y = f(t), y(0) = 0',tag:'ลาปลาซ · กฎเลื่อนครั้งที่ 2',steps:[
+   {q:'\\(Y(s)\\) คือ',o:[T`\frac{e^{-2s}}{s(s+1)}`,T`\frac{e^{-2s}}{s+1}`,T`\frac{1}{s(s+1)}`,T`\frac{e^{2s}}{s(s+1)}`],a:0,why:T`\(1-e^{-t}\leftrightarrow\frac1s-\frac{1}{s+1}=\frac{1}{s(s+1)}\) แล้วเลื่อนไป \(t=2\) คูณ \(e^{-2s}\)`},
+   {q:'ฝั่งขวา \\(f(t)\\) คือ',o:[T`u(t-2)`,T`\delta(t-2)`,T`1-u(t-2)`,T`e^{-2t}`],a:0,why:T`\((s+1)Y=\frac{e^{-2s}}{s}=\mathcal L\{u(t-2)\}\)`}]},
+ {id:'r26',sol:T`y=-u(t-\pi)\sin t`,lab:'คำตอบของ IVP ที่เริ่มจากนิ่ง y(0) = y′(0) = 0',tag:'ลาปลาซ · เดลต้า',steps:[
+   {q:'\\(Y(s)\\) คือ',o:[T`\frac{e^{-\pi s}}{s^2+1}`,T`-\frac{e^{-\pi s}}{s^2+1}`,T`\frac{e^{-\pi s}}{s}`,T`\frac{1}{s^2+1}`],a:0,why:T`\(-\sin t=\sin(t-\pi)\) จึงเป็น \(u(t-\pi)\sin(t-\pi)\leftrightarrow\frac{e^{-\pi s}}{s^2+1}\)`},
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y''+y=\delta(t-\pi)`,T`y''+y=-\delta(t-\pi)`,T`y''+y=u(t-\pi)`,T`y''-y=\delta(t-\pi)`],a:0,why:T`\((s^2+1)Y=e^{-\pi s}=\mathcal L\{\delta(t-\pi)\}\) เครื่องหมายลบมาจาก \(\sin(t-\pi)\) ไม่ใช่จากแรง`}]},
+ {id:'r27',sol:T`y=t-\sin t`,lab:'ผลลัพธ์ของคอนโวลูชัน',tag:'ลาปลาซ · คอนโวลูชัน',steps:[
+   {q:'\\(Y(s)\\) แยกเป็นผลคูณได้เป็น',o:[T`\frac{1}{s^2}\cdot\frac{1}{s^2+1}`,T`\frac{1}{s}\cdot\frac{1}{s^2+1}`,T`\frac{1}{s^2}\cdot\frac{s}{s^2+1}`,T`\frac{1}{(s^2+1)^2}`],a:0,why:T`\(\frac{1}{s^2}-\frac{1}{s^2+1}=\frac{1}{s^2(s^2+1)}\)`},
+   {q:'ดังนั้น \\(y\\) คือคอนโวลูชัน',o:[T`t*\sin t`,T`1*\sin t`,T`t*\cos t`,T`\sin t*\sin t`],a:0,why:T`\(\frac{1}{s^2}\leftrightarrow t\) และ \(\frac{1}{s^2+1}\leftrightarrow\sin t\) ผลคูณในโลก \(s\) คือคอนโวลูชันในโลก \(t\)`}]},
+ {id:'r28',sol:T`y=C_1\cos x+C_2\sin x+x\sin x+\cos x\ln|\cos x|`,tag:'Variation of parameters',steps:[
+   {q:'ส่วนที่คูณ \\(C_1,C_2\\) บอกว่าด้านซ้ายคือ',o:[T`y''+y`,T`y''-y`,T`y''+2y`,T`y'+y`],a:0,why:T`\(\cos x,\sin x\) มาจากราก \(\pm i\)`},
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y''+y=\sec x`,T`y''+y=\tan x`,T`y''+y=\csc x`,T`y''+y=\cos x`],a:0,why:T`\(u_1=\ln|\cos x|,\ u_2=x\) มาจาก \(u_1'=-\tan x,\ u_2'=1\) ซึ่งได้เมื่อ \(g=\sec x\)`}]}
+);
+addRoom(ROOMS_MID,'ถังไนโตรเจนเหลว',{story:'ฝาถังมีสมการกับข้อความว่า "เดา y_p = Axe^x รหัส = A"',
+  q:T`y''-y=e^{x}`,inputs:[{label:'A',a:0.5}],
+  hint:T`\(e^x\) ซ้ำกับ \(y_c=C_1e^x+C_2e^{-x}\) แทน \(y_p=Axe^x\) ได้ \(2Ae^x=e^x\) (ตอบเป็นเศษส่วนได้)`});
+addRoom(ROOMS_MID,'เครื่องวัด pH',{story:'หน้าจอบอกว่า y_p = k·e^(2x) รหัส = 100k',
+  q:T`(D^2+1)\,y=e^{2x}`,inputs:[{label:'100k',a:20}],
+  hint:T`สูตรลัด \(\frac{1}{\phi(D)}e^{ax}=\frac{e^{ax}}{\phi(a)}\) แทน \(D=2\)`});
+addRoom(ROOMS_MID,'ตู้ปลอดเชื้อ',{story:'ป้ายเขียนว่า y_p = k·x·sin 3x รหัส = 1/k',
+  q:T`y''+9y=\cos3x`,inputs:[{label:'1/k',a:6}],
+  hint:T`\(\cos3x\) ซ้ำกับ \(y_c\) ใช้ \(\frac{1}{D^2+a^2}\cos ax=\frac{x}{2a}\sin ax\) โดย \(a=3\)`});
+addRoom(ROOMS_MID,'เครื่อง PCR',{story:'แก้ด้วย variation of parameters โดยให้ y₁ = eˣ, y₂ = e⁻ˣ แผงต้องการค่า W และ u₂′ ที่ x = 0',
+  q:T`y''-y=e^{x},\qquad W=y_1y_2'-y_2y_1',\quad u_2'=\frac{y_1\,g}{W}`,inputs:[{label:'W',a:-2},{label:'u₂′(0)',a:-0.5}],
+  hint:T`\(W=e^x(-e^{-x})-e^{-x}e^x=-2\) แล้ว \(u_2'=\frac{e^x\cdot e^x}{-2}\) แทน \(x=0\)`});
+addRoom(ROOMS_MID,'จอสเปกโทรมิเตอร์',{story:'จอแสดง F(s) ของสัญญาณ e^(−t)·cos 2t รหัส = 100·F(0)',
+  q:T`F(s)=\mathcal L\{e^{-t}\cos2t\}`,inputs:[{label:'100·F(0)',a:20}],
+  hint:T`\(\mathcal L\{\cos2t\}=\frac{s}{s^2+4}\) เลื่อน \(s\to s+1\) ได้ \(\frac{s+1}{(s+1)^2+4}\)`});
+addRoom(ROOMS_MID,'ประตูหน่วงเวลา',{story:'ประตูเปิดช้าไป 2 วินาที แผงต้องการค่า k, a, n ในรูป F(s) = k·e^(−as)/sⁿ',
+  q:T`\mathcal L\{u(t-2)\,(t-2)^2\}=\frac{k\,e^{-as}}{s^{n}}`,inputs:[{label:'k',a:2},{label:'a',a:2},{label:'n',a:3}],
+  hint:T`อยู่ในรูป \(u(t-a)g(t-a)\) แล้ว โดย \(g(t)=t^2\leftrightarrow\frac{2}{s^3}\)`});
+addRoom(ROOMS_MID,'เครื่องกระตุ้นไฟฟ้า',{story:'เครื่องปล่อยไฟกระตุกครั้งเดียวที่ t = 1 รหัส = 100·y ที่ t = 1 + ln 2',
+  q:T`y'+2y=\delta(t-1),\qquad y(0)=0`,inputs:[{label:'100·y',a:25}],
+  hint:T`\((s+2)Y=e^{-s}\Rightarrow y=u(t-1)e^{-2(t-1)}\) แทน \(t-1=\ln2\) ได้ \(e^{-2\ln2}=\tfrac14\)`});
+addRoom(ROOMS_MID,'ตู้แช่แข็ง −80°C',{story:'อุณหภูมิในตู้สะสมตามสมการอินทิกรัลนี้ รหัส = y(4)',
+  q:T`y(t)=1+\int_0^t\sin(t-\tau)\,y(\tau)\,d\tau`,inputs:[{label:'y(4)',a:9}],
+  hint:T`คอนโวลูชัน: \(Y=\frac1s+\frac{Y}{s^2+1}\Rightarrow Y=\frac1s+\frac1{s^3}\Rightarrow y=1+\frac{t^2}{2}\)`});
+addRoom(ROOMS_FIN,'ประตูทางออก (UC ผสม)',{story:'แผงสุดท้ายบอกว่า y_p = k·x·eˣ·cos x รหัสคือ k',
+  q:T`y''-2y'+2y=e^{x}\sin x`,inputs:[{label:'k',a:-0.5}],
+  hint:T`ราก \(1\pm i\) ซ้ำกับ \(e^x\sin x\) เดา \(xe^x(A\cos x+B\sin x)\) แทนแล้วได้ \(A=-\tfrac12,\ B=0\)`});
+
+/* ---------- คำถามชวนคิดสำหรับโหมดคู่ติว [คำถาม, แนวคำตอบ] ---------- */
+const TQ={
+ d1:[[T`ถ้าเปลี่ยน \(x(1+y^2)\) เป็น \(x+y^2\) ยังแยกตัวแปรได้ไหม`,T`ไม่ได้ \(x+y^2\) เป็นผลบวก แยกเป็น \(f(x)g(y)\) ไม่ได้`]],
+ d2:[[T`ถ้าเปลี่ยน \((y-x)\) เป็น \((y+x)\) ข้อนี้ใช้วิธีไหนได้อีก`,T`\(M_y=1=N_x\) จึงเป็น exact ด้วย (และยังเอกพันธ์อยู่)`]],
+ d3:[[T`ถ้าเปลี่ยน \(y\) ใน \(M\) เป็น \(2y\) ยัง exact ไหม`,T`ไม่ \(M_y=2\) แต่ \(N_x=1\)`]],
+ d4:[[T`คูณ \(\mu=x^{-2}\) แล้วเช็กให้ดูว่า exact จริง`,T`\(M=2+\frac{y}{x^2},\ N=y-\frac1x\) ได้ \(M_y=\frac{1}{x^2}=N_x\)`]],
+ d5:[[T`\(\mu\) เท่ากับเท่าไร`,T`\(e^{\int 2/x\,dx}=x^2\)`],[T`ถ้าเปลี่ยน \(\sin x\) เป็น \(y\sin x\) ยังเป็นเชิงเส้นไหม`,T`ยังเป็น และแยกตัวแปรได้ด้วย: \(y'=y\left(\sin x-\frac2x\right)\)`]],
+ d6:[[T`ถ้าเปลี่ยน \(\frac{x}{y}\) เป็น \(\frac{x}{y^2}\) ต้องให้ \(u\) เท่ากับอะไร`,T`\(n=-2\Rightarrow u=y^{3}\)`]],
+ d7:[[T`แทน \(u=y^{-1}\) แล้วได้สมการใหม่อะไร`,T`\(u'-3u=-e^{3x}\) (เชิงเส้นใน \(u\))`]],
+ d8:[[T`ถ้าเปลี่ยน \(6y\) เป็น \(6.25y\) รากเป็นแบบไหน`,T`\((m-2.5)^2=0\) รากซ้ำ ได้ \((C_1+C_2x)e^{2.5x}\)`]],
+ d9:[[T`ถ้าฝั่งขวาเป็น \(\sin2x\) แทน ใช้สูตรลัด \(\frac{1}{\phi(-a^2)}\) ได้ไหม`,T`ไม่ได้ ตัวส่วน \(-4+4=0\) ต้องคูณ \(x\): \(y_p=-\frac{x}{4}\cos2x\)`]],
+ d10:[[T`ทำไมข้อนี้ไม่เป็นเอกพันธ์ ทั้งที่หน้าตาเป็นเศษส่วน`,T`\(xy^2\) ดีกรี 3 แต่ \(5x\) ดีกรี 1`]],
+ d11:[[T`ถ้าเลือกวิธีเบอร์นูลลี ต้องให้ \(u\) เท่ากับอะไร`,T`\(n=2\Rightarrow u=y^{-1}\)`]],
+ d12:[[T`คำตอบทั่วไปคืออะไร`,T`\(\mu=\frac1x\Rightarrow\left(\frac yx\right)'=x\Rightarrow y=\frac{x^3}{2}+Cx\)`]],
+ d13:[[T`ถ้าเปลี่ยนเป็น \(e^{x}+e^{y}\) ยังแยกตัวแปรได้ไหม`,'ไม่ได้ ผลบวกแยกเป็นผลคูณไม่ได้']],
+ d14:[[T`ทำไมวิธี exact เร็วกว่าแทน \(y=ux\) ในข้อนี้`,'exact อินทิเกรตตรงๆ จบในไม่กี่บรรทัด ไม่ต้องแยกตัวแปรแล้วแทนกลับ']],
+ d15:[[T`มองเป็นเชิงเส้นใน \(x\) (ให้ \(x\) เป็นฟังก์ชันของ \(y\)) ได้อย่างไร`,T`หารด้วย \(y\,dy\): \(\frac{dx}{dy}+\frac2y x=e^{y}\)`]],
+ d16:[[T`ถ้าเปลี่ยนเป็น \(y'''-y=0\) รากเป็นอย่างไร`,T`\(m^3=1\Rightarrow m=1,\ -\tfrac12\pm\tfrac{\sqrt3}{2}i\)`]],
+ d17:[[T`\(\mu\) คืออะไร`,T`\(e^{x}\)`]],
+ d18:[[T`ทำทั้งสองวิธีแล้วคำตอบตรงกันไหม`,T`ตรง ได้ \(y=C\sqrt{x^2+1}\) ทั้งคู่`]],
+ d19:[[T`ถ้าใช้เบอร์นูลลี ต้องให้ \(u\) เท่ากับอะไร`,T`\(n=-1\Rightarrow u=y^2\)`]],
+ d20:[[T`ถ้า \(\frac{M_y-N_x}{N}\) ไม่ใช่ฟังก์ชันของ \(x\) ล้วน จะลองอะไรต่อ`,T`ลอง \(\frac{N_x-M_y}{M}\) ว่าเป็นของ \(y\) ล้วนไหม`]],
+ d21:[[T`ถ้าเปลี่ยน \(x^2y^2\) เป็น \(x^2y\) จะเป็นแบบไหน`,T`เชิงเส้น (และแยกตัวแปรได้): \(xy'=y(x^2-1)\)`]],
+ d22:[[T`ถ้าตัวส่วนเป็น \(x+2y+1\) ยังเอกพันธ์ไหม`,'ไม่ ค่าคงที่ 1 มีดีกรี 0 ไม่เท่ากับพจน์อื่น']],
+ d23:[[T`คำตอบ \(x^2y+x\cos y=C\) มาจากไหน`,T`\(\int M\,dx=x^2y+x\cos y+g(y)\) แล้ว \(g'(y)=0\)`]],
+ d24:[[T`แทน \(y=ux\) แล้วแก้ต่อได้อะไร`,T`\(\cot u\,du=\frac{dx}{x}\Rightarrow\sin\frac yx=Cx\)`]],
+ d25:[[T`ต้องเดา \(y_p\) แบบไหน และได้ค่าเท่าไร`,T`\(Ax^2e^{-2x}\) ได้ \(A=\tfrac12\)`]],
+ d26:[[T`ทำไม \(\sqrt{x^2-y^2}\) ไม่ทำให้ดีกรีเพี้ยน`,T`\(\sqrt{x^2-y^2}\) มีดีกรี 1 เท่ากับ \(y\)`]],
+ d27:[[T`ถ้าเปลี่ยนเป็น \(\frac{y+\cos x}{1+y^2}\) ยังแยกได้ไหม`,'ไม่ได้ ตัวเศษเป็นผลบวกของฟังก์ชัน x กับ y']],
+ d28:[[T`คูณ \(\mu=y^{-2}\) แล้ว \(M,N\) ใหม่คืออะไร`,T`\(M=1+\frac{2x}{y},\ N=-\frac{x^2}{y^2}\) ได้ \(M_y=-\frac{2x}{y^2}=N_x\)`]],
+ d29:[[T`ถ้าเปลี่ยน \(\delta(t-2)\) เป็น \(u(t-2)\) แล้ว \(Y(s)\) เปลี่ยนเป็นอะไร`,T`\(\frac{e^{-2s}}{s(s+1)(s+2)}\)`]],
+ d30:[[T`เขียนฝั่งขวาด้วย \(u\) ให้อยู่ในรูป \(g(t-1)\)`,T`\(t-t\,u(t-1)=t-\left[(t-1)+1\right]u(t-1)\)`]],
+ d31:[[T`ถ้าเปลี่ยนเครื่องหมายหน้าอินทิกรัลเป็นลบ คำตอบเป็นอะไร`,T`\(Y=\frac{1}{s^2+1}\Rightarrow y=\sin t\)`]],
+ d32:[[T`ลองแก้ด้วยสมการช่วย + UC แล้วเทียบผล`,T`\(y_p=-\frac{e^t}{3}\) ได้ \(y=\tfrac34e^{2t}+\tfrac7{12}e^{-2t}-\tfrac13e^{t}\) เท่ากับวิธีลาปลาซ`]],
+ d33:[[T`ทำไมต้องเขียน \(\sin t\) เป็น \(-\sin(t-\pi)\) ก่อนแปลง`,T`กฎเลื่อนครั้งที่ 2 ต้องการรูป \(g(t-\pi)\,u(t-\pi)\)`]],
+ d34:[[T`ถ้าไม่มีเงื่อนไข \(y(0)=1\) วิธีไหนสะดวกสุด`,T`เชิงเส้นหรือแยกตัวแปร ได้ \(y=2+Ce^{-2x}\)`]],
+ d35:[[T`\(\mu\) เท่ากับเท่าไร และคำตอบคืออะไร`,T`\(\mu=\sec x\) ได้ \(y=\sin x+C\cos x\)`]],
+ d36:[[T`ถ้าเปลี่ยน \(\sec x\) เป็น \(\cos x\) ยังต้องใช้ variation ไหม`,T`ไม่ต้อง ใช้ UC ได้ (คูณ \(x\) เพราะซ้ำ): \(y_p=\tfrac12x\sin x\)`]],
+ d37:[[T`ถ้าเปลี่ยน \(\cos2x\) เป็น \(\cos3x\) ยังต้องคูณ \(x\) ไหม`,T`ไม่ต้อง \(y_p=\frac{\cos3x}{-9+4}=-\frac{\cos3x}{5}\)`]],
+ d38:[[T`แก้แล้วหลัง \(t=\pi\) เกิดอะไรขึ้น`,T`\(y=\sin t\,(1-u(t-\pi))\) แรงกระแทกหยุดการแกว่งพอดี หลัง \(t=\pi\) ได้ \(y=0\)`]],
+ d39:[[T`ถ้าด้านซ้ายเป็น \(y''-2y'+2y\) แทน ต้องเดาต่างไปอย่างไร`,T`ราก \(1\pm i\) ซ้ำกับ \(e^x\sin x\) ต้องคูณ \(x\) ทั้งก้อน`]],
+ d40:[[T`ถ้าฝั่งขวาเป็น \(e^{-x}\) เฉยๆ \(y_p\) คืออะไร`,T`\(e^{-x}\frac{1}{D^2}1=\frac{x^2}{2}e^{-x}\)`]],
+ d41:[[T`ทำไมต้องเขียน \(t=(t-2)+2\) ก่อนแปลง`,T`กฎเลื่อนครั้งที่ 2 ต้องการ \(g(t-2)\) ถ้าไม่จัดจะได้ผิดเป็น \(\frac{e^{-2s}}{s^2}\)`]],
+ d42:[[T`ทำไม UC ใช้กับ \(\frac{e^{2x}}{x^2}\) ไม่ได้`,T`ดิฟแล้วได้พจน์ใหม่ไม่รู้จบ (\(x^{-3},x^{-4},\dots\)) จึงเดารูปปิดไม่ได้`]],
+ d43:[[T`ตรวจว่า \(y=1+\frac{t^2}{2}\) ทำให้สมการจริง`,T`\(\int_0^t\sin(t-\tau)\left(1+\frac{\tau^2}{2}\right)d\tau=\frac{t^2}{2}\)`]],
+ d44:[[T`ทำไมต้องคูณ \(x\) ทั้ง \(e^x\) และพหุนาม`,T`\(m=1\) ซ้ำกับ \(e^x\) และ \(m=0\) ซ้ำกับค่าคงที่ใน \(y_c\)`]],
+ b1:[[T`ถ้าหารด้วย \(\cos x\sin y\) แทน จะแยกตัวแปรได้ไหม`,T`ไม่ได้ หน้า \(dx\) จะเหลือ \(\frac{\cos y}{\sin y}\) ต้องหารด้วย \(\cos y\sin x\)`]],
+ b2:[[T`ตรวจคำตอบสุดท้ายยังไงให้รู้ว่าผิด`,T`ดิฟ \(e^x+xy+\cos y\) เทียบ \(y\) ได้ \(x-\sin y\ne N\)`]],
+ b3:[[T`ถ้า \(y(1)=1\) แล้ว \(C\) เท่ากับเท่าไร`,T`\(1=\frac15+C\Rightarrow C=\frac45\)`]],
+ b4:[[T`ใช้สูตรที่ถูกแล้วแยกตัวแปรได้อะไร`,T`\(x\frac{du}{dx}=\frac1u\Rightarrow u\,du=\frac{dx}{x}\)`]],
+ b5:[[T`คูณ IF แล้วยังไม่ exact ควรสงสัยอะไรก่อน`,'คำนวณ μ ผิด (เครื่องหมายหรือสูตร) ก่อนจะสรุปว่าโจทย์ทำไม่ได้']],
+ b6:[[T`ถ้าเป็น \(y''-4y'+3y=0\) คำตอบคืออะไร`,T`\(m=1,3\Rightarrow C_1e^{x}+C_2e^{3x}\)`]],
+ b7:[[T`ถ้าเปลี่ยน \(5y\) เป็น \(2y\) คำตอบคืออะไร`,T`\(m=-1\pm i\Rightarrow e^{-x}(C_1\cos x+C_2\sin x)\)`]],
+ b8:[[T`ถ้าฝั่งขวาเป็น \(e^{3x}\) ต้องคูณ \(x\) ไหม`,T`ไม่ต้อง 3 ไม่ใช่ราก: \(y_p=\frac{e^{3x}}{4}\)`]],
+ b9:[[T`ตรวจคำตอบที่ถูก \(y=e^{3x}+Ce^{2x}\) อย่างไร`,T`\(y'-2y=3e^{3x}+2Ce^{2x}-2e^{3x}-2Ce^{2x}=e^{3x}\)`]],
+ b10:[[T`by parts ข้อนี้ควรเลือกอะไรเป็น \(u\)`,T`\(u=y,\ dv=e^{y}dy\)`]],
+ b11:[[T`คำตอบสุดท้ายในรูป \(y\) คืออะไร`,T`\(y=\frac{1}{Cx-x\ln|x|}\)`]],
+ b12:[[T`ถ้า \(N\) เป็น \(x^2+1\) แทน \(g(y)\) คืออะไร`,T`\(g'(y)=1\Rightarrow g=y\Rightarrow x^2y+3x+y=C\)`]],
+ b13:[[T`ถ้า \(y(1)=2\) แล้ว \(C\) เท่ากับเท่าไร`,T`\(2=1\cdot(0+C)\Rightarrow C=2\)`]],
+ b14:[[T`ถ้า \(y'(0)=1\) แทน คำตอบเฉพาะคืออะไร`,T`\(C_1=1,\ C_2=0\Rightarrow y=e^{x}\)`]],
+ b15:[[T`ถ้า \(y(0)=2\) คำตอบคืออะไร`,T`\(y=2\) คงที่ เพราะ 2 เป็นจุดสมดุลของ \(y'=6-3y\)`]],
+ b16:[[T`ถ้าตัวเศษเป็น \(s+3\) แทน จะได้อะไร`,T`\(e^{-t}(\cos2t+\sin2t)\)`]],
+ b17:[[T`ถ้า \(y'(0)=0\) คำตอบคืออะไร`,T`\(Y=\frac{s}{s^2+4}\Rightarrow y=\cos2t\)`]],
+ b18:[[T`ถ้าฝั่งขวาเป็น \(e^{3x}\) ต้องเดาอะไร`,T`\(Ae^{3x}\) ไม่ซ้ำ ได้ \(A=\frac15\)`]],
+ b19:[[T`ถ้าฝั่งขวาเป็น \(e^{x}\sin2x\) ต้องคูณ \(x\) ไหม`,T`ไม่ต้อง \(1\pm2i\) ไม่ใช่ราก`]],
+ b20:[[T`ถ้าเป็น \((D^2+4)y=\sin x\) ใช้สูตรลัดได้ไหม`,T`ได้ \(y_p=\frac{\sin x}{-1+4}=\frac{\sin x}{3}\)`]],
+ b21:[[T`รู้ได้ยังไงว่า \((x+2)e^x\) ผิดแน่โดยไม่ต้องแทนค่า`,T`มันอยู่ใน \(y_c=(C_1+C_2x)e^x\) แทนแล้วได้ 0 เสมอ`]],
+ b22:[[T`เครื่องหมายลบใน \(u_1'\) มาจากไหน`,T`แก้ระบบ \(u_1'y_1+u_2'y_2=0,\ u_1'y_1'+u_2'y_2'=g\) ด้วยกฎคราเมอร์`]],
+ b23:[[T`ถ้า \(W=0\) จริงๆ แปลว่าอะไร`,T`\(y_1,y_2\) ไม่อิสระ แปลว่าเลือกคำตอบพื้นฐานผิดคู่`]],
+ b24:[[T`\(\mathcal L\{e^{-2t}\sin3t\}\) เท่ากับเท่าไร`,T`\(\frac{3}{(s+2)^2+9}\)`]],
+ b25:[[T`\(\mathcal L\{(t-2)u(t-2)\}\) ต่างจากข้อนี้อย่างไร`,T`ได้ \(\frac{e^{-2s}}{s^2}\) เฉยๆ ไม่มีพจน์ \(\frac{2e^{-2s}}{s}\)`]],
+ b26:[[T`ถ้าแรงกระแทกเกิดที่ \(t=2\pi\) แทน คำตอบคืออะไร`,T`\(y=u(t-2\pi)\sin t\) เพราะ \(\sin(t-2\pi)=\sin t\)`]],
+ b27:[[T`ตรวจคำตอบ \(e^t-1-t\) ที่ \(t=0\) ได้อะไร ทำไมต้องเป็นค่านั้น`,'ได้ 0 เพราะอินทิกรัลจาก 0 ถึง 0 เป็น 0']],
+ o1:[[T`บรรทัดหลอกผิดตรงไหน`,T`ต้องแยก \(\frac{1+x^2}{x}=\frac1x+x\) ก่อน ไม่ใช่ \(\ln|1+x^2|\)`]],
+ o2:[[T`ทำไม \(dy=u\,dx\) เป็นบรรทัดหลอก`,T`ลืมพจน์ \(x\,du\) จากกฎผลคูณ`]],
+ o3:[[T`ถ้าได้ \(g(y)=-\sin y\) ตรวจยังไงว่าผิด`,T`ดิฟ \(-\sin y\) ได้ \(-\cos y\ne\cos y\)`]],
+ o4:[[T`ทำไม \(\mu\) ต้องเป็น \(e^{+\int P\,dx}\)`,T`เพื่อให้ \((\mu y)'=\mu y'+\mu Py\) ตรงกับฝั่งซ้ายที่คูณ \(\mu\) แล้ว`]],
+ o5:[[T`ถ้า \(n=2\) แทน ต้องให้ \(u\) เท่ากับอะไร`,T`\(u=y^{-1}\)`]],
+ o6:[[T`ถ้าฝั่งขวาเป็น \(e^{-x}\) ต้องเดาอะไร`,T`\(-1\) เป็นรากด้วย เดา \(Axe^{-x}\) ได้ \(A=-\frac13\)`]],
+ o7:[[T`ถ้าเปลี่ยน \(\csc x\) เป็น \(\sec x\) ได้ \(u_1,u_2\) อะไร`,T`\(u_1=\ln|\cos x|,\ u_2=x\)`]],
+ o8:[[T`ทำไม \(y=Ce^{2x}\) เป็นบรรทัดหลอก`,T`\(\int 2x\,dx=x^2\) ไม่ใช่ \(2x\)`]],
+ o9:[[T`ทำไม \(\mu=y^2\) ผิด`,T`\(e^{\int -2/y\,dy}=y^{-2}\)`]],
+ o10:[[T`ถ้าเปลี่ยน \(5y\) เป็น \(10y\) คำตอบคืออะไร`,T`\(m=-1\pm3i\Rightarrow e^{-x}(C_1\cos3x+C_2\sin3x)\)`]],
+ o11:[[T`ตรวจ \(y=2-e^{-3t}\) ยังไง`,T`\(y(0)=1\) และ \(y'+3y=3e^{-3t}+6-3e^{-3t}=6\)`]],
+ o12:[[T`ถ้า \(y(0)=1,\ y'(0)=0\) แทน คำตอบคืออะไร`,T`\(Y=\frac{s+3}{(s+1)(s+2)}\Rightarrow y=2e^{-t}-e^{-2t}\)`]],
+ o13:[[T`ทำไม \(1-e^{-t}\) เป็นบรรทัดหลอก`,T`ต้องเลื่อนทั้งก้อน แทน \(t\) ด้วย \(t-1\) ทุกที่`]],
+ o14:[[T`ทำไมเดา \(Ax+B\) ไม่ได้`,T`ค่าคงที่ \(B\) ซ้ำกับ \(C_1\) ใน \(y_c\) แทนแล้วหายไป`]],
+ o15:[[T`ทำไมเดา \((Ax+B)e^x\) ไม่พอ`,T`\(Be^x\) ซ้ำกับ \(y_c\) ต้องคูณ \(x\) ทั้งก้อน`]],
+ o16:[[T`ทำไมแทน \(D=-1\) ไม่ได้`,T`สูตรลัดแทนได้เฉพาะ \(D^2=-a^2\) ส่วน \(D\) ที่เหลือต้องย้ายไปตัวเศษด้วยการคูณ conjugate`]],
+ o17:[[T`ถ้าฝั่งขวาเป็น \(e^{-x}\) เฉยๆ \(y_p\) คืออะไร`,T`\(\frac{x^2}{2}e^{-x}\)`]],
+ o18:[[T`ทำไมคำตอบเหลือแค่ \(-\cos x\ln|\sec x+\tan x|\)`,T`พจน์ \(\sin x\cos x\) จาก \(u_1y_1\) หักกับ \(-\cos x\sin x\) จาก \(u_2y_2\) พอดี`]],
+ o19:[[T`ถ้าตัวเศษเป็น \(s\) แทน จะได้อะไร`,T`\(s=(s+1)-1\Rightarrow e^{-t}\left(\cos2t-\tfrac12\sin2t\right)\)`]],
+ o20:[[T`ถ้าแรงกระแทกเกิดที่ \(t=\frac\pi2\) แทน หลังจากนั้นเกิดอะไรขึ้น`,T`\(\sin2(t-\frac\pi2)=-\sin2t\) จึงหักล้างกัน หลัง \(t=\frac\pi2\) ได้ \(y=0\)`]],
+ o21:[[T`ถ้าเครื่องหมายหน้าอินทิกรัลเป็นบวก คำตอบคืออะไร`,T`\(Y=\frac{1}{s^2-1}\Rightarrow y=\sinh t\)`]],
+ o22:[[T`ก่อน \(t=\pi\) ค่า \(y\) เป็นเท่าไร ทำไม`,'0 เพราะยังไม่มีแรงมากระทำ และเริ่มจากนิ่ง']],
+ r1:[[T`ถ้ารากเป็น 2 กับ 3 สมการคืออะไร`,T`\(y''-5y'+6y=0\)`]],
+ r2:[[T`ถ้าคำตอบเป็น \(C_1e^{3x}+C_2e^{-3x}\) สมการคืออะไร`,T`\(y''-9y=0\)`]],
+ r3:[[T`ถ้าไม่มี \(e^{x}\) ข้างหน้า สมการคืออะไร`,T`\(y''+4y=0\)`]],
+ r4:[[T`ถ้าเปลี่ยนเป็น \(\cosh3x,\ \sinh3x\) สมการคืออะไร`,T`\(y''-9y=0\)`]],
+ r5:[[T`ถ้าคำตอบเป็น \(C_1+C_2x\) สมการคืออะไร`,T`\(y''=0\) (ราก 0 ซ้ำ)`]],
+ r6:[[T`ถ้ารากซ้ำ 3 ตัวที่ \(m=-1\) สมการคืออะไร`,T`\(y'''+3y''+3y'+y=0\)`]],
+ r7:[[T`ถ้าเปลี่ยน \(e^{-x}\) เป็น \(e^{x}\) สมการคืออะไร`,T`\(y'''-y''+y'-y=0\)`]],
+ r8:[[T`ถ้าเป็น \(y=Ce^{x^3}\) จะได้สมการอะไร`,T`\(y'=3x^2y\)`]],
+ r9:[[T`ถ้าเป็นวงรี \(x^2+4y^2=C\) จะได้อะไร`,T`\(y'=-\frac{x}{4y}\)`]],
+ r10:[[T`ถ้าเป็น \(y=\frac Cx\) จะได้อะไร`,T`\(xy'=-y\)`]],
+ r11:[[T`ถ้าเป็น \(C_1e^{x}+C_2e^{4x}\) สมการคืออะไร`,T`\(y''-5y'+4y=0\)`]],
+ r12:[[T`ถ้าเพิ่ม \(C_3x^2e^{-2x}\) อันดับของสมการเป็นเท่าไร`,T`3 จาก \((m+2)^3=0\)`]],
+ r13:[[T`ถ้าเปลี่ยน \(3x\) เป็น \(4x\) สมการคืออะไร`,T`\((m-2)^2+16\Rightarrow y''-4y'+20y=0\)`]],
+ r14:[[T`ทำไม \(C_1+C_2x\) มาจาก \(m=0\) ซ้ำ ไม่ใช่ \(m=1\)`,T`\(e^{0x}=1\) และรากซ้ำต้องคูณ \(x\)`]],
+ r15:[[T`ถ้า \(y_p\) เป็น \(\tfrac13\cos x\) ฝั่งขวาคืออะไร`,T`\(\cos x\)`]],
+ r16:[[T`ถ้าเป็น \(y=Ce^{-x^2}+1\) จะได้อะไร`,T`\(y'=-2x(y-1)\)`]],
+ r17:[[T`ถ้าเป็น \(y=Cx^3+1\) จะได้อะไร`,T`\(xy'=3(y-1)\)`]],
+ r18:[[T`เส้นโค้ง \(x^2-y^2=C\) ตั้งฉากกับ \(xy=C\) ไหม`,T`ใช่ ความชัน \(\frac xy\cdot\left(-\frac yx\right)=-1\)`]],
+ r19:[[T`ถ้าเขียนเป็น \(C_1\cosh x+C_2\sinh x\) สมการเปลี่ยนไหม`,T`ไม่เปลี่ยน ยังเป็น \(y''-y=0\) เพราะ \(\cosh,\sinh\) เป็นผลรวมของ \(e^{\pm x}\)`]],
+ r20:[[T`ทำไม \(y_p\) เป็น \(3xe^{2x}\) ไม่ใช่ \(3e^{2x}\)`,T`\(e^{2x}\) ซ้ำกับ \(y_c\) จึงต้องคูณ \(x\)`]],
+ r21:[[T`ถ้า \(y_p\) เป็น \(-\tfrac12x\cos x\) ฝั่งขวาคืออะไร`,T`\(\sin x\)`]],
+ r22:[[T`ถ้า \(y_p\) เป็น \(\frac{x^3}{6}e^{-x}\) ฝั่งขวาคืออะไร`,T`\(xe^{-x}\)`]],
+ r23:[[T`ถ้า \(Y=\frac{s+3}{s^2+3s+2}\) เงื่อนไขเริ่มต้นคืออะไร`,T`\(y(0)=1,\ y'(0)=0\)`]],
+ r24:[[T`ถ้า \(y=e^{-t}\sin2t\) เงื่อนไขเริ่มต้นคืออะไร`,T`\(y(0)=0,\ y'(0)=2\)`]],
+ r25:[[T`ถ้า \(f(t)=\delta(t-2)\) แทน \(y\) คืออะไร`,T`\(y=u(t-2)\,e^{-(t-2)}\)`]],
+ r26:[[T`ถ้าแรงกระแทกแรงเป็น 2 เท่า (\(2\delta\)) \(y\) เป็นอะไร`,T`\(y=-2u(t-\pi)\sin t\) (ระบบเชิงเส้น คูณ 2 ทั้งก้อน)`]],
+ r27:[[T`\(t*\sin t\) กับ \(\sin t*t\) เท่ากันไหม`,'เท่ากัน คอนโวลูชันสลับที่ได้']],
+ r28:[[T`ทำไมฝั่งขวานี้ต้องใช้ variation of parameters`,T`\(\sec x\) ไม่อยู่ในรูปที่ UC เดาได้`]],
+ 'ตู้บ่มเชื้อ':[['ถ้าเปลี่ยนกำลัง 2 ของอนุพันธ์อันดับ 3 เป็นกำลัง 4 รหัสคืออะไร','34']],
+ 'ชั้นวางขวดอาหารเลี้ยงเชื้อ':[[T`ขวด \(y\,y'=x\) แก้ด้วยวิธีไหน`,T`แยกตัวแปร ได้ \(y^2=x^2+C\)`]],
+ 'จานเพาะเชื้อ':[['เวลาเท่าไรเชื้อจะเพิ่มเป็น 2 เท่า',T`\(t=2\ln2\approx1.39\) ชั่วโมง`]],
+ 'จอกราฟสั่นไหว':[[T`\(C\) เท่ากับเท่าไร`,T`\(\frac45\)`]],
+ 'ตู้เก็บสารเคมี':[[T`ถ้า \(y(0)=2\) แล้ว \(C\) เท่ากับเท่าไร`,T`\(\frac14=\frac12+C\Rightarrow C=-\frac14\)`]],
+ 'เครื่องปั่นเหวี่ยง':[[T`ถ้าเพิ่มพจน์ \(y'''\) (กำลัง 1) เข้าไป รหัสเป็นอะไร`,'31']],
+ 'ตู้เก็บสไลด์':[[T`สมการ \(y'=x+y\) แก้ด้วยวิธีไหน`,T`เชิงเส้น: \(y'-y=x\)`]],
+ 'ไมโครสโคปห้องมืด':[[T`\(y\) เป็น \(3e\) เมื่อ \(x\) เท่าไร`,T`\(x=\pm1\)`]],
+ 'ตู้นิรภัยตัวอย่างเลือด':[[T`ค่า \(C\) ในคำตอบ \(x^2y+3x+y=C\) เท่ากับเท่าไร`,'2 + 3 + 2 = 7']],
+ 'เครื่องล้างหลอดทดลอง':[[T`ถ้า \(y'(0)=1\) แทน \(C_1,C_2\) เป็นเท่าไร`,T`\(C_1=1,\ C_2=0\)`]],
+ 'ชั้นเก็บสารละลาย':[[T`ถ้าฝั่งขวาเป็น \(10e^{x}\) ต้องเดาอะไร`,T`\(Ae^{x}\) ไม่ซ้ำ: \(1+4+3=8\Rightarrow A=\frac54\)`]],
+ 'จอควบคุมลาปลาซ':[[T`\(\mathcal L\{t^2e^{2t}\}\) คืออะไร`,T`\(\frac{2}{(s-2)^3}\)`]],
+ 'ตู้ควบคุมอุณหภูมิ':[[T`เมื่อ \(t\to\infty\) ค่า \(y\) เข้าใกล้เท่าไร`,'2']],
+ 'เครื่องสั่นสะเทือน':[['คาบการแกว่งเท่ากับเท่าไร',T`\(\pi\)`]],
+ 'สวิตช์ปั๊มน้ำ':[[T`เมื่อ \(t\to\infty\) ค่า \(y\) เข้าใกล้เท่าไร`,'1']],
+ 'จอสนามทิศทาง':[['จุดไหนบ้างที่ขีดความชันเป็นแนวนอน',T`บนพาราโบลา \(y=x^2\)`]],
+ 'ตู้ตรวจความเป็นอิสระ':[[T`\(W(0)=0\) แปลว่า \(x,\ x^2\) ไม่อิสระไหม`,T`ไม่ \(W=x^2\) ไม่เป็นศูนย์ทั้งช่วง จึงอิสระเชิงเส้น`]],
+ 'ประตูทางออก':[['ถ้ารากเป็น 2 กับ 5 ค่า a, b เป็นเท่าไร','a = −7, b = 10']],
+ 'ประตูทางออก (สมการจากคำตอบ)':[[T`ถ้าคำตอบเป็น \((C_1+C_2x)e^{-x}\) ค่า a, b เป็นเท่าไร`,'a = 2, b = 1']],
+ 'ประตูทางออก (รากเชิงซ้อน)':[[T`ถ้าเปลี่ยน \(e^{-x}\) เป็น \(e^{x}\) ค่า a, b เป็นเท่าไร`,'a = −2, b = 5']],
+ 'ถังไนโตรเจนเหลว':[['ทำไมต้องคูณ x',T`\(e^x\) ซ้ำกับ \(y_c=C_1e^x+C_2e^{-x}\)`]],
+ 'เครื่องวัด pH':[[T`ถ้าเป็น \((D^2-4)y=e^{2x}\) ใช้สูตรลัดได้ไหม`,T`ไม่ได้ \(\phi(2)=0\) ต้องคูณ \(x\)`]],
+ 'ตู้ปลอดเชื้อ':[['ทำไม y_p มี x คูณ',T`\(\cos3x\) ซ้ำกับ \(y_c\) (ราก \(\pm3i\))`]],
+ 'เครื่อง PCR':[[T`ถ้าสลับ \(y_1,y_2\) แล้ว \(W\) เปลี่ยนอย่างไร`,T`เครื่องหมายกลับเป็น \(+2\) แต่ \(y_p\) ที่ได้เหมือนเดิม`]],
+ 'จอสเปกโทรมิเตอร์':[[T`\(F(s)\) คืออะไร`,T`\(\frac{s+1}{(s+1)^2+4}\)`]],
+ 'ประตูหน่วงเวลา':[[T`ถ้าเป็น \(t^2u(t-2)\) ต้องเขียนใหม่อย่างไร`,T`\(t^2=(t-2)^2+4(t-2)+4\)`]],
+ 'เครื่องกระตุ้นไฟฟ้า':[[T`ก่อน \(t=1\) ค่า \(y\) เป็นเท่าไร`,'0']],
+ 'ตู้แช่แข็ง −80°C':[[T`\(Y(s)\) คืออะไร`,T`\(\frac{s^2+1}{s^3}=\frac1s+\frac1{s^3}\)`]],
+ 'ประตูทางออก (UC ผสม)':[['ทำไมต้องคูณ x',T`ราก \(1\pm i\) ซ้ำกับ \(e^x\sin x\)`]]
+};
 
 /* ================= confetti hooks + mascot in feedback ================= */
 new MutationObserver(ms=>{for(const m of ms)for(const n of m.addedNodes){if(n.nodeType!==1)continue;
@@ -1087,11 +1467,45 @@ let CUR=null,TIMERS=[];
 function stopTimers(){TIMERS.forEach(t=>clearInterval(t));TIMERS=[];}
 const gPlay=()=>$('#gPlay');
 
+/* ================= ทบทวนจุดที่พลาด ================= */
+// P.miss เก็บ "เกม:id" ของข้อที่เคยพลาด (escape ใช้ชื่อห้อง t แทน id) ตอบถูกตั้งแต่ครั้งแรกเมื่อไรก็ออกจากรายการ
+const RV_G=['detective','order','bug','reverse','escape'];
+const RV_BANK={detective:()=>DET,order:()=>ORD,bug:()=>BUGS,reverse:()=>REV,escape:()=>ROOMS_MID.concat(ROOMS_FIN)};
+const RV_MAX=10;
+const rvId=x=>x.id||x.t;
+let RVW=null;
+function markMiss(g,x){P.miss=P.miss||{};P.miss[g+':'+rvId(x)]=1;save();}
+function clearMiss(g,x){const k=g+':'+rvId(x);if(P.miss&&P.miss[k]){delete P.miss[k];save();}}
+function missItems(g){const m=P.miss||{};return RV_BANK[g]?RV_BANK[g]().filter(x=>m[g+':'+rvId(x)]):[];}
+const missN=g=>g?missItems(g).length:RV_G.reduce((n,k)=>n+missItems(k).length,0);
+const gameList=(g,bank,n)=>RVW===g?shuffle(missItems(g)).slice(0,RV_MAX):shuffle(bank).slice(0,n);
+const rvPill=()=>RVW?'<span class="pill rv">โหมดทบทวน</span>':'';
+function startReview(g){openGame(g);RVW=g;startGame(g);}
+const RV_IC=`<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:var(--bad)"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4h4"/><path d="M12 8v4l3 2"/></svg>`;
+function rvBanner(){const n=missN();if(!n&&!Object.keys(P.played).length)return '';
+  return `<button class="rv-banner${n?'':' clear'}" data-go="review">${RV_IC}<div><b>ทบทวนจุดที่พลาด</b><span>${n?`ค้างอยู่ ${n} ข้อ แตะเพื่อทำซ้ำเฉพาะข้อที่เคยพลาด`:'ไม่มีข้อค้างแล้ว ข้อที่ตอบพลาดในเกมจะมารอตรงนี้'}</span></div><span class="rv-n">${n}</span></button>`;}
+function bindGo(root){root.querySelectorAll('[data-go="review"]').forEach(b=>b.onclick=()=>go('review'));}
+function renderReview(){
+  const n=missN();
+  $('#rvSay').innerHTML=`${mascot(n?'think':'wow',64)}<div class="bubble">${n?`มีข้อที่เคยพลาดค้างอยู่ <b>${n} ข้อ</b> เลือกเกมแล้วทำซ้ำเฉพาะข้อพวกนั้น (รอบละไม่เกิน ${RV_MAX} ข้อ) ข้อไหนตอบถูกตั้งแต่ครั้งแรกจะออกจากรายการ`:'ไม่มีข้อค้างเลย เก่งมาก! ถ้าเล่นเกมแล้วตอบพลาด ข้อนั้นจะมารอให้ทบทวนที่หน้านี้'}</div>`;
+  const g=$('#rvCards');g.innerHTML='';
+  RV_G.forEach(v=>{const G=GAMES[v],k=missN(v);const b=el('button',{class:'mode',style:`--c:var(--${G.color});--cd:var(--${G.color}-d)`},
+    `<div class="ic">${ICON[v]}<span class="k">ค้าง ${k} ข้อ</span></div><div class="tx"><h3>${G.name}</h3><p>${k?`ทำซ้ำ ${Math.min(k,RV_MAX)} ข้อที่เคยพลาด ระดับ${DNAME[diff(v)]}`:'ไม่มีข้อค้างในเกมนี้'}</p></div>`);
+    if(k)b.onclick=()=>startReview(v);else b.disabled=true;g.appendChild(b);});
+}
+$('#rvBack').onclick=()=>go('home');
+
+/* ================= โหมดคู่ติว ================= */
+function tutorBox(ans,key){if(!P.tutor)return '';const qs=(typeof TQ!=='undefined'&&TQ[key])||[];
+  return `<details class="tutor-box"><summary>พี่ติว: เฉลย + คำถามชวนคิด</summary><div class="tb"><div><span class="lbl">เฉลย</span>${ans}</div>${qs.length?`<div><span class="lbl">คำถามชวนคิด (ถามน้องสด)</span><ol>${qs.map(([q,a])=>`<li>${q}<details><summary>แนวคำตอบ</summary>${a}</details></li>`).join('')}</ol></div>`:''}</div></details>`;}
+function applyTutor(){document.documentElement.classList.toggle('tutor',!!P.tutor);$('#tutorFlag').hidden=!P.tutor;$('#tutorSw').checked=!!P.tutor;}
+$('#tutorSw').onchange=()=>{P.tutor=$('#tutorSw').checked?1:0;save();applyTutor();};
+
 /* ================= demos (how to play) ================= */
 function miniField(opt={}){
   const S=220,L=4,px=x=>(x+L)/(2*L)*S,py=y=>(L-y)/(2*L)*S;let s=`<svg class="mini-field" viewBox="0 0 ${S} ${S}">`;
   s+=`<line x1="0" y1="${S/2}" x2="${S}" y2="${S/2}" stroke="var(--line)" stroke-width="1.5"/><line x1="${S/2}" y1="0" x2="${S/2}" y2="${S}" stroke="var(--line)" stroke-width="1.5"/>`;
-  const N=11;for(let i=0;i<N;i++)for(let j=0;j<N;j++){const X=px(-L+(i+.5)*2*L/N),Y=py(-L+(j+.5)*2*L/N);const x=-L+(i+.5)*2*L/N,y=-L+(j+.5)*2*L/N;const a=Math.atan(-x/y),r=7;
+  const N=11;for(let i=0;i<N;i++)for(let j=0;j<N;j++){const X=px(-L+(i+.5)*2*L/N),Y=py(-L+(j+.5)*2*L/N);const x=-L+(i+.5)*2*L/N,y=-L+(j+.5)*2*L/N;const a=Math.atan(-x/y),r=7;if(!isFinite(a))continue;
     s+=`<line x1="${X-r*Math.cos(a)}" y1="${Y+r*Math.sin(a)}" x2="${X+r*Math.cos(a)}" y2="${Y-r*Math.sin(a)}" stroke="var(--ink)" stroke-opacity=".45" stroke-width="1.6" stroke-linecap="round"/>`;}
   if(opt.guess){let d='';for(let t=0;t<=Math.PI*1.2;t+=.12){const rr=2+.25*Math.sin(t*3);d+=(t?'L':'M')+px(rr*Math.cos(t+.7)).toFixed(1)+' '+py(rr*Math.sin(t+.7)).toFixed(1);}s+=`<path d="${d}" stroke="var(--orange)" stroke-width="4" fill="none" stroke-linecap="round"/>`;}
   if(opt.truth)s+=`<circle cx="${S/2}" cy="${S/2}" r="${2*S/(2*L)}" stroke="var(--grape)" stroke-width="3" fill="none"/>`;
@@ -1136,17 +1550,17 @@ function renderIntro(gid){
    <div class="demo-nav"><div class="dots" id="dmD"></div><div class="row"><button class="btn" id="dmP">ก่อนหน้า</button><button class="btn grape" id="dmX">ถัดไป</button></div></div></div>
    <h3>เลือกระดับ</h3>
    <div class="diffs">${['easy','hard'].map(d=>`<button class="diff" data-d="${d}" aria-pressed="${diff(gid)===d}"><div class="lvl"><i></i><i></i><i></i></div><h4>${DNAME[d]}</h4><p>${g[d]}</p></button>`).join('')}</div>
-   <button class="btn primary big wide" id="gStart">เริ่มเล่น</button>`;
+   <button class="btn primary big wide" id="gStart">เริ่มเล่น</button>${RV_BANK[gid]&&missN(gid)?`<button class="btn wide" id="gReview" style="text-align:center">ทบทวนเฉพาะข้อที่เคยพลาด (ค้าง ${missN(gid)} ข้อ)</button>`:''}`;
   const draw=()=>{$('#dmS').innerHTML=steps[k].html;$('#dmC').innerHTML=steps[k].cap;$('#dmK').textContent=k+1;$('#dmN').textContent=`${k+1}/${steps.length}`;
     $('#dmD').innerHTML=steps.map((_,i)=>`<i class="${i===k?'on':''}"></i>`).join('');$('#dmP').disabled=k===0;$('#dmX').textContent=k===steps.length-1?'ดูอีกรอบ':'ถัดไป';typeset($('#gIntro .demo'));};
   $('#dmP').onclick=()=>{if(k>0){k--;draw();}};$('#dmX').onclick=()=>{k=(k+1)%steps.length;draw();};
   document.querySelectorAll('#gIntro .diff').forEach(b=>b.onclick=()=>{setDiff(gid,b.dataset.d,false);document.querySelectorAll('#gIntro .diff').forEach(x=>x.setAttribute('aria-pressed',x===b));});
-  $('#gStart').onclick=()=>startGame(gid);
+  $('#gStart').onclick=()=>startGame(gid);const gr=$('#gReview');if(gr)gr.onclick=()=>startReview(gid);
   draw();typeset($('#gIntro'));
 }
 function setDiff(gid,d,restart=true){P.diff[gid]=d;save();document.querySelectorAll('#gDiff button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.d===d));if(restart&&!$('#gPlay').hidden&&$('#gIntro').hidden)startGame(gid);}
 function openGame(gid){
-  CUR=gid;stopTimers();show('game');const g=GAMES[gid];$('#gTitle').textContent=g.name;
+  CUR=gid;RVW=null;stopTimers();show('game');const g=GAMES[gid];$('#gTitle').textContent=g.name;
   document.querySelectorAll('#gDiff button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.d===diff(gid)));
   $('#gIntro').hidden=false;$('#gPlay').hidden=true;$('#gPlay').innerHTML='';$('#gHow').hidden=true;renderIntro(gid);
 }
@@ -1157,9 +1571,14 @@ document.querySelectorAll('#gDiff button').forEach(b=>b.onclick=()=>setDiff(CUR,
 
 /* ================= summary ================= */
 function summary(gid,score,total,note=''){
-  stopTimers();const pct=score/total;const st=pct>=.9?3:pct>=.6?2:pct>0?1:0;const key=gid+'-'+diff(gid);
-  if(P.best[key]==null||score>P.best[key])P.best[key]=score;P.played[gid]=1;save();
+  stopTimers();const pct=score/total;const st=pct>=.9?3:pct>=.6?2:pct>0?1:0;const key=gid+'-'+diff(gid);const rv=RVW===gid,left=missN(gid);
+  if(!rv&&(P.best[key]==null||score>P.best[key]))P.best[key]=score;P.played[gid]=1;save();
   const other=isHard(gid)?'easy':'hard';
+  if(rv){gPlay().innerHTML=`<div class="card done-card">${mascot(left?'happy':'wow',110)}<h2>${left?'ทบทวนจบรอบแล้ว':'เคลียร์ข้อค้างหมดแล้ว!'}</h2><div class="stars">${[1,2,3].map(i=>starSvg(i<=st)).join('')}</div>
+     <div class="big">${score}/${total}</div><p class="muted">${left?`ยังค้างในเกมนี้อีก ${left} ข้อ ข้อที่ตอบถูกตั้งแต่ครั้งแรกออกจากรายการแล้ว`:'ไม่เหลือข้อค้างในเกมนี้'}</p>
+     <div class="row center">${left?'<button class="btn primary big" id="sAgain">ทบทวนต่อ</button>':''}<button class="btn coral big" id="sRv">กลับหน้าทบทวน</button></div>
+     <button class="btn ghost" id="sBack">กลับไปเลือกเกม</button></div>`;
+    celebrate(30+st*45);if(left)$('#sAgain').onclick=()=>startGame(gid);$('#sRv').onclick=()=>go('review');$('#sBack').onclick=()=>go('games');return;}
   gPlay().innerHTML=`<div class="card done-card">${mascot(st===3?'wow':st?'happy':'think',110)}<h2>${['ลองอีกรอบนะ','ใช้ได้เลย!','เก่งมาก!','สุดยอด!'][st]}</h2><div class="stars">${[1,2,3].map(i=>starSvg(i<=st)).join('')}</div>
    <div class="big">${score}/${total}</div><p class="muted">${note}สถิติดีที่สุดโหมด${DNAME[diff(gid)]}: ${P.best[key]}/${total}</p>
    <div class="row center"><button class="btn primary big" id="sAgain">เล่นอีกรอบ</button><button class="btn coral big" id="sSw">ลองโหมด${DNAME[other]}</button></div>
@@ -1167,7 +1586,7 @@ function summary(gid,score,total,note=''){
   celebrate(30+st*45);
   $('#sAgain').onclick=()=>startGame(gid);$('#sSw').onclick=()=>{setDiff(gid,other,false);startGame(gid);};$('#sBack').onclick=()=>go('games');
 }
-const topRow=(i,n,score,extra='')=>`<div class="row spread"><span class="pill acc">ข้อ ${i+1} / ${n}</span><span class="pill sun">คะแนน ${score}</span>${extra}</div>`;
+const topRow=(i,n,score,extra='')=>`<div class="row spread"><span class="pill acc">ข้อ ${i+1} / ${n}</span><span class="pill sun">คะแนน ${score}</span>${rvPill()}${extra}</div>`;
 
 /* ================= 1. detective ================= */
 let D={};
@@ -1178,29 +1597,30 @@ function renderFlow(){
     d.innerHTML=`<div class="n">${i+1}</div><div class="q">${open?`<b>${CATS[k].name}</b> <span class="pill">${CATS[k].sub}</span><br>${CATS[k].test}`:'ยังล็อกอยู่ ตอบข้อที่ใช้วิธีนี้ให้ถูกเพื่อเปิด'}</div>`;f.appendChild(d);});
   $('#flowStat').textContent=`${n}/${FLOW.length} ขั้น`;typeset(f);
 }
-var PLAY_detective;PLAY_detective=()=>{D={list:shuffle(DET).slice(0,8),i:0,score:0};detQ();};
+var PLAY_detective;PLAY_detective=()=>{D={list:gameList('detective',DET,8),i:0,score:0};detQ();};
 function detQ(){
   stopTimers();if(D.i>=D.list.length)return summary('detective',D.score,D.list.length);
-  const p=D.list[D.i],hard=isHard('detective');
+  const p=D.list[D.i],hard=isHard('detective'),timed=hard&&!P.tutor;
   let keys=hard?FLOW.slice():FLOW.filter(k=>p.ok.includes(k)||shuffle(FLOW.filter(x=>!p.ok.includes(x))).slice(0,0).includes(k));
   if(!hard){const others=shuffle(FLOW.filter(x=>!p.ok.includes(x))).slice(0,Math.max(1,4-p.ok.length));keys=FLOW.filter(k=>p.ok.includes(k)||others.includes(k));}
   D.tried=0;D.done=false;
-  gPlay().innerHTML=`<div class="card">${topRow(D.i,D.list.length,D.score)}${hard?'<div class="timer"><i id="tbar" style="width:100%"></i></div>':''}
+  gPlay().innerHTML=`<div class="card">${topRow(D.i,D.list.length,D.score)}${timed?'<div class="timer"><i id="tbar" style="width:100%"></i></div>':''}
    <div class="eq">\\[${p.q}\\]</div><div class="choices" id="detCh"></div><div id="detFb"></div>
+   ${tutorBox(`<div>วิธีที่ใช้ได้: <b>${p.ok.map(k=>CATS[k].name).join(', ')}</b></div><div>${p.why}</div>`,p.id)}
    <div class="row">${hard?'':'<button class="btn" id="detHint">ขอคำใบ้</button>'}<button class="btn primary" id="detNext" hidden>${D.i===D.list.length-1?'ดูสรุป':'ข้อต่อไป'}</button></div></div>
    <div class="card"><div class="row spread"><h3>ผังเลือกวิธีของฉัน</h3><span class="stat" id="flowStat"></span></div><p class="small muted">ไล่ถามจากบนลงล่าง ข้อไหนตอบ "ใช่" ก่อนก็ใช้วิธีนั้น</p><div class="flow" id="flow"></div></div>`;
   keys.forEach(k=>{const b=el('button',{class:'btn'},`${CATS[k].name}<small>${CATS[k].sub}</small>`);b.dataset.k=k;b.onclick=()=>detPick(k,b);$('#detCh').appendChild(b);});
   $('#detNext').onclick=()=>{D.i++;detQ();window.scrollTo(0,0);};
   if(!hard)$('#detHint').onclick=()=>{const k=p.ok[0];$('#detFb').innerHTML=`<div class="fb info"><b>คำใบ้</b><div>ลองเช็กข้อนี้ดู: ${CATS[k].test.replace(/→.*$/,'')}</div></div>`;typeset($('#detFb'));};
-  if(hard){let t=30;TIMERS.push(setInterval(()=>{t--;const b=$('#tbar');if(b)b.style.width=(t/30*100)+'%';if(t<=0){stopTimers();detTimeout();}},1000));}
+  if(timed){let t=30;TIMERS.push(setInterval(()=>{t--;const b=$('#tbar');if(b)b.style.width=(t/30*100)+'%';if(t<=0){stopTimers();detTimeout();}},1000));}
   renderFlow();typeset(gPlay());
 }
 function detReveal(){[...$('#detCh').children].forEach(b=>{if(D.list[D.i].ok.includes(b.dataset.k))b.classList.add('ok');});$('#detNext').hidden=false;const h=$('#detHint');if(h)h.hidden=true;}
-function detTimeout(){if(D.done)return;D.done=true;const p=D.list[D.i];detReveal();$('#detFb').innerHTML=`<div class="fb bad"><b>หมดเวลา!</b><div>${p.why}</div></div>`;typeset($('#detFb'));}
+function detTimeout(){if(D.done)return;D.done=true;const p=D.list[D.i];markMiss('detective',p);detReveal();$('#detFb').innerHTML=`<div class="fb bad"><b>หมดเวลา!</b><div>${p.why}</div></div>`;typeset($('#detFb'));}
 function detPick(k,b){
   if(D.done)return;const p=D.list[D.i],fb=$('#detFb');
   if(p.ok.includes(k)){D.done=true;stopTimers();if(D.tried===0)D.score++;
-    if(!(p.id in P.det))P.det[p.id]=D.tried===0?1:0;const newly=p.ok.filter(x=>!P.cat[x]);p.ok.forEach(x=>P.cat[x]=1);save();
+    if(!(p.id in P.det))P.det[p.id]=D.tried===0?1:0;if(D.tried===0)clearMiss('detective',p);else markMiss('detective',p);const newly=p.ok.filter(x=>!P.cat[x]);p.ok.forEach(x=>P.cat[x]=1);save();
     const others=p.ok.filter(x=>x!==k).map(x=>CATS[x].name);detReveal();
     fb.innerHTML=`<div class="fb good"><b>${D.tried===0?'ถูกตั้งแต่ครั้งแรก! +1':'ถูกแล้ว'}</b><div>${p.why}</div>${others.length?`<div>ข้อนี้ตอบ <b>${others.join(', ')}</b> ก็ถูกเหมือนกัน</div>`:''}${newly.length?`<div class="small">เปิดผังขั้นใหม่: ${newly.map(x=>CATS[x].name).join(', ')}</div>`:''}</div>`;
     renderFlow();
@@ -1272,7 +1692,7 @@ window.addEventListener('resize',()=>{if(cv&&document.body.contains(cv)){sizeCan
 
 /* ================= 3. bug ================= */
 let B={};
-var PLAY_bug;PLAY_bug=()=>{B={list:shuffle(BUGS).slice(0,5),i:0,score:0};bugQ();};
+var PLAY_bug;PLAY_bug=()=>{B={list:gameList('bug',BUGS,5),i:0,score:0};bugQ();};
 function bugQ(){
   if(B.i>=B.list.length)return summary('bug',B.score,B.list.length);
   const b=B.list[B.i],hard=isHard('bug'),n=b.lines.length;B.miss=0;B.done=false;
@@ -1280,7 +1700,8 @@ function bugQ(){
   gPlay().innerHTML=`<div class="card">${topRow(B.i,B.list.length,B.score,`<span class="pill">${b.tag}</span>`)}
    <div><div class="small muted">โจทย์</div><div class="eq">\\(${b.q}\\)</div></div>
    <p class="small muted">${hard?'แตะบรรทัดแรกที่ผิด แตะได้ครั้งเดียวนะ':'จุดผิดอยู่ใน 3 บรรทัดที่ไฮไลต์สีเหลือง แตะบรรทัดแรกที่ผิด'}</p>
-   <div class="lines" id="bugLines"></div><div id="bugFb"></div><div class="row"><button class="btn primary" id="bugNext" hidden>${B.i===B.list.length-1?'ดูสรุป':'ข้อต่อไป'}</button></div></div>`;
+   <div class="lines" id="bugLines"></div><div id="bugFb"></div>
+   ${tutorBox(`<div>บรรทัดที่ผิด: <b>${b.bug+1}</b></div><div class="eq">\\(\\displaystyle ${b.fix}\\)</div><div>${b.why}</div>`,b.id)}<div class="row"><button class="btn primary" id="bugNext" hidden>${B.i===B.list.length-1?'ดูสรุป':'ข้อต่อไป'}</button></div></div>`;
   b.lines.forEach((t,i)=>{const dim=cand&&!cand.includes(i);const r=el('button',{class:'line'+(cand?(dim?' dim':' cand'):'')},`<span class="ln">${i+1}</span><span class="lt">\\(\\displaystyle ${t}\\)</span>`);if(dim)r.disabled=true;r.onclick=()=>bugPick(i,r);$('#bugLines').appendChild(r);});
   $('#bugNext').onclick=()=>{B.i++;bugQ();window.scrollTo(0,0);};typeset(gPlay());
 }
@@ -1289,15 +1710,15 @@ function bugShow(){const b=B.list[B.i];B.done=true;const rows=[...$('#bugLines')
   const fx=el('div',{class:'fixline'},`<div class="small" style="color:var(--good)">ที่ถูกต้อง</div>\\(\\displaystyle ${b.fix}\\)`);rows[b.bug].after(fx);typeset(fx);$('#bugNext').hidden=false;}
 function bugPick(i,r){
   if(B.done)return;const b=B.list[B.i],fb=$('#bugFb'),hard=isHard('bug');
-  if(i===b.bug){if(B.miss===0)B.score++;P.bug[b.id]=1;save();bugShow();fb.innerHTML=`<div class="fb good"><b>${B.miss===0?'เจอแล้ว! +1':'เจอแล้ว'} บรรทัด ${i+1}</b><div>${b.why}</div></div>`;}
-  else if(hard){r.classList.add('shake');bugShow();fb.innerHTML=`<div class="fb bad"><b>พลาดไป ที่ผิดคือบรรทัด ${b.bug+1}</b><div>${b.why}</div></div>`;}
+  if(i===b.bug){if(B.miss===0){B.score++;clearMiss('bug',b);}else markMiss('bug',b);P.bug[b.id]=1;save();bugShow();fb.innerHTML=`<div class="fb good"><b>${B.miss===0?'เจอแล้ว! +1':'เจอแล้ว'} บรรทัด ${i+1}</b><div>${b.why}</div></div>`;}
+  else if(hard){markMiss('bug',b);r.classList.add('shake');bugShow();fb.innerHTML=`<div class="fb bad"><b>พลาดไป ที่ผิดคือบรรทัด ${b.bug+1}</b><div>${b.why}</div></div>`;}
   else{B.miss++;r.classList.remove('shake');void r.offsetWidth;r.classList.add('shake');fb.innerHTML=`<div class="fb bad"><b>บรรทัด ${i+1} ยังถูกอยู่</b><div>${i>b.bug?'ผิดตั้งแต่ก่อนหน้านี้แล้ว บรรทัดนี้แค่คำนวณต่อจากของที่ผิดมา ลองไล่ขึ้นไปข้างบน':'ลองไล่ต่อลงไปข้างล่าง'}</div></div>`;}
   typeset(fb);
 }
 
 /* ================= 4. order ================= */
 let O={};
-var PLAY_order;PLAY_order=()=>{O={list:shuffle(ORD).slice(0,4),i:0,score:0};ordQ();};
+var PLAY_order;PLAY_order=()=>{O={list:gameList('order',ORD,4),i:0,score:0};ordQ();};
 function ordQ(){
   if(O.i>=O.list.length)return summary('order',O.score,O.list.length);
   const o=O.list[O.i],hard=isHard('order');O.checks=0;O.solved=false;
@@ -1307,9 +1728,10 @@ function ordQ(){
    <div><div class="small muted">โจทย์</div><div class="eq">\\(${o.q}\\)</div></div>
    <div class="small muted">คำตอบของฉัน (${o.steps.length} บรรทัด)${hard?' · มีบรรทัดหลอก 1 บรรทัด':''}</div><div class="slot-area" id="ordAns"></div>
    <div class="small muted">บรรทัดที่เหลือ</div><div class="pool" id="ordPool"></div><div id="ordFb"></div>
+   ${tutorBox(`<ol class="plan">${o.steps.map(t=>`<li>\\(\\displaystyle ${t}\\)</li>`).join('')}</ol>${hard?`<div>บรรทัดหลอก: \\(\\displaystyle ${o.fake}\\)</div>`:''}`,o.id)}
    <div class="row"><button class="btn primary" id="ordCheck">ตรวจ</button><button class="btn ghost" id="ordGive">ดูเฉลย</button><button class="btn primary" id="ordNext" hidden>${O.i===O.list.length-1?'ดูสรุป':'ข้อต่อไป'}</button></div></div>`;
   $('#ordCheck').onclick=ordCheck;$('#ordNext').onclick=()=>{O.i++;ordQ();window.scrollTo(0,0);};
-  $('#ordGive').onclick=()=>{O.ans=o.steps.map((t,i)=>({t,i,mark:'right',lock:true}));O.pool=hard?[{t:o.fake,i:-1}]:[];O.solved=true;ordDraw();ordDone(false);};
+  $('#ordGive').onclick=()=>{markMiss('order',o);O.ans=o.steps.map((t,i)=>({t,i,mark:'right',lock:true}));O.pool=hard?[{t:o.fake,i:-1}]:[];O.solved=true;ordDraw();ordDone(false);};
   ordDraw();typeset(gPlay());
 }
 function ordDraw(){
@@ -1324,7 +1746,7 @@ function ordDone(scored){$('#ordCheck').hidden=true;$('#ordGive').hidden=true;$(
 function ordCheck(){
   const o=O.list[O.i],fb=$('#ordFb');let right=0;O.checks++;
   O.ans.forEach((s,k)=>{s.mark=s.i===k?'right':'wrong';if(s.i===k)right++;});const hasFake=O.ans.some(s=>s.i===-1);ordDraw();
-  if(right===o.steps.length&&O.ans.length===o.steps.length){O.solved=true;if(O.checks===1)O.score++;P.ord[o.id]=1;save();ordDone();
+  if(right===o.steps.length&&O.ans.length===o.steps.length){O.solved=true;if(O.checks===1){O.score++;clearMiss('order',o);}else markMiss('order',o);P.ord[o.id]=1;save();ordDone();
     fb.innerHTML=`<div class="fb good"><b>เรียงถูกครบ!${O.checks===1?' +1':''}</b><div>${isHard('order')?`บรรทัดหลอกคือ \\(${o.fake}\\) ลองอธิบายว่าทำไมมันผิด`:'ลองอธิบายให้เพื่อนฟังว่าแต่ละบรรทัดมาจากไหน'}</div></div>`;}
   else fb.innerHTML=`<div class="fb bad"><b>ถูกตำแหน่ง ${right}/${o.steps.length}</b><div>${hasFake?'มีบรรทัดหลอกอยู่ในคำตอบด้วย ':''}${O.ans.length<o.steps.length?`ยังใส่ไม่ครบ ต้องมี ${o.steps.length} บรรทัด `:''}บรรทัดสีแดงอยู่ผิดตำแหน่ง แตะเพื่อเอาออกแล้วลองใหม่</div></div>`;
   typeset(fb);
@@ -1332,20 +1754,21 @@ function ordCheck(){
 
 /* ================= 5. reverse ================= */
 let R={};
-var PLAY_reverse;PLAY_reverse=()=>{R={list:shuffle(REV).slice(0,6),i:0,s:0,score:0,clean:true};revQ();};
+var PLAY_reverse;PLAY_reverse=()=>{R={list:gameList('reverse',REV,6),i:0,s:0,score:0,clean:true};revQ();};
 function revQ(){
   if(R.i>=R.list.length)return summary('reverse',R.score,R.list.length);
   const r=R.list[R.i],hard=isHard('reverse');const steps=hard?[r.steps[r.steps.length-1]]:r.steps;const s=steps[R.s];
   let opts=s.o.map((t,i)=>i);if(!hard)opts=[s.a].concat(shuffle(opts.filter(i=>i!==s.a)).slice(0,2));opts=shuffle(opts);
   gPlay().innerHTML=`<div class="card">${topRow(R.i,R.list.length,R.score,`<span class="pill">${r.tag||'อันดับ n'}</span>`)}
-   <div><div class="small muted">คำตอบทั่วไปที่ได้มา</div><div class="eq">\\[${r.sol}\\]</div></div>
+   <div><div class="small muted">${r.lab||'คำตอบทั่วไปที่ได้มา'}</div><div class="eq">\\[${r.sol}\\]</div></div>
    <div class="row spread"><b>${s.q}</b>${steps.length>1?`<span class="stat">ขั้น ${R.s+1}/${steps.length}</span>`:''}</div>
-   <div class="choices" id="revCh"></div><div id="revFb"></div><div class="row"><button class="btn primary" id="revNext" hidden>ต่อไป</button></div></div>`;
+   <div class="choices" id="revCh"></div><div id="revFb"></div>
+   ${tutorBox(r.steps.map(x=>`<div style="margin-top:6px"><b>${x.q}</b> \\(\\displaystyle ${x.o[x.a]}\\)<div class="small">${x.why}</div></div>`).join(''),r.id)}<div class="row"><button class="btn primary" id="revNext" hidden>ต่อไป</button></div></div>`;
   let done=false;
-  opts.forEach(i=>{const b=el('button',{class:'btn'},`\\(\\displaystyle ${s.o[i]}\\)`);b.onclick=()=>{if(done)return;const fb=$('#revFb');
-    if(i===s.a){done=true;b.classList.add('ok');const last=R.s===steps.length-1;if(last&&R.clean){R.score++;P.rev[r.id]=1;save();}
+  opts.forEach(i=>{const b=el('button',{class:'btn','data-i':i},`\\(\\displaystyle ${s.o[i]}\\)`);b.onclick=()=>{if(done)return;const fb=$('#revFb');
+    if(i===s.a){done=true;b.classList.add('ok');const last=R.s===steps.length-1;if(last&&R.clean){R.score++;P.rev[r.id]=1;clearMiss('reverse',r);save();}
       fb.innerHTML=`<div class="fb good"><b>${last&&R.clean?'ถูกต้อง! +1':'ถูกแล้ว'}</b><div>${s.why}</div></div>`;$('#revNext').hidden=false;$('#revNext').textContent=last?(R.i===R.list.length-1?'ดูสรุป':'ข้อต่อไป'):'ขั้นต่อไป';}
-    else{R.clean=false;b.classList.add('no');b.disabled=true;fb.innerHTML=`<div class="fb bad"><b>ยังไม่ใช่</b><div>ลองกระจายสมการช่วยของตัวเลือกนี้ แล้วดูว่ารากตรงกับคำตอบไหม</div></div>`;}
+    else{R.clean=false;markMiss('reverse',r);b.classList.add('no');b.disabled=true;fb.innerHTML=`<div class="fb bad"><b>ยังไม่ใช่</b><div>ลองกระจายสมการช่วยของตัวเลือกนี้ แล้วดูว่ารากตรงกับคำตอบไหม</div></div>`;}
     typeset(fb);};$('#revCh').appendChild(b);});
   $('#revNext').onclick=()=>{if(R.s<steps.length-1)R.s++;else{R.s=0;R.i++;R.clean=true;}revQ();};
   typeset(gPlay());
@@ -1356,9 +1779,14 @@ let esc={};
 function parseNum(s){s=String(s).trim().replace(/\s/g,'').replace('−','-');if(/^-?\d+(\.\d+)?\/-?\d+(\.\d+)?$/.test(s)){const [a,b]=s.split('/');return +a/ +b;}return s===''?NaN:+s;}
 function fmtT(sec){sec=Math.max(0,Math.round(sec));return `${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`;}
 const elapsed=()=>(Date.now()-esc.start)/1000+esc.pen;
-var PLAY_escape;PLAY_escape=()=>{esc={rooms:pickRooms(),room:0,start:Date.now(),pen:0,hinted:{}};escRoom();};
+var PLAY_escape;PLAY_escape=()=>{esc={rooms:pickRooms(),room:0,start:Date.now(),pen:0,hinted:{},wrong:{}};escRoom();};
 function escRoom(){
   stopTimers();const hard=isHard('escape');
+  if(esc.room>=esc.rooms.length&&RVW==='escape'){const left=missN('escape');P.played.escape=1;save();
+    gPlay().innerHTML=`<div class="card done-card">${mascot(left?'happy':'wow',110)}<h2>${left?'ทบทวนจบรอบแล้ว':'เคลียร์ห้องที่เคยพลาดหมดแล้ว!'}</h2><div class="big">${fmtT(Math.round(esc.final))}</div>
+     <p class="muted">${left?`ยังค้างอีก ${left} ห้อง ห้องที่ปลดล็อกได้ในครั้งแรกออกจากรายการแล้ว`:'ไม่เหลือห้องค้างแล้ว'} (รอบทบทวนไม่นับสถิติเวลา)</p>
+     <div class="row center">${left?'<button class="btn primary big" id="eAgain">ทบทวนต่อ</button>':''}<button class="btn coral big" id="eRv">กลับหน้าทบทวน</button></div></div>`;
+    celebrate(120);if(left)$('#eAgain').onclick=()=>startGame('escape');$('#eRv').onclick=()=>go('review');return;}
   if(esc.room>=esc.rooms.length){const t=Math.round(esc.final),key='escape-'+diff('escape');const best=P.best[key]==null||t<P.best[key];if(best)P.best[key]=t;P.played.escape=1;save();
     gPlay().innerHTML=`<div class="card done-card">${mascot('wow',110)}<h2>หนีออกจากแล็บได้แล้ว!</h2><div class="locks" style="align-self:stretch">${esc.rooms.map(()=>'<span class="on"></span>').join('')}</div><div class="big">${fmtT(t)}</div>
      <p class="muted">${best?'สถิติใหม่ของโหมด'+DNAME[diff('escape')]+'!':'สถิติดีที่สุด '+fmtT(P.best[key])} · ใช้คำใบ้ ${Object.keys(esc.hinted).length} ครั้ง</p>
@@ -1366,14 +1794,14 @@ function escRoom(){
     celebrate(170);$('#eAgain').onclick=()=>startGame('escape');$('#eBack').onclick=()=>go('games');return;}
   const r=esc.rooms[esc.room];
   gPlay().innerHTML=`<div class="door"><div class="door-head"><h3>${r.title}</h3><span class="stat" id="escT">${fmtT(elapsed())}</span></div><div class="door-body">
-   <div class="locks">${esc.rooms.map((_,i)=>`<span class="${i<esc.room?'on':''}"></span>`).join('')}</div>
+   ${RVW?`<div class="row">${rvPill()}</div>`:''}<div class="locks">${esc.rooms.map((_,i)=>`<span class="${i<esc.room?'on':''}"></span>`).join('')}</div>
    <p class="story">${r.story}</p>${r.q?`<div class="eq">\\[${r.q}\\]</div>`:''}${r.list?`<ol class="plan">${r.list.map(t=>`<li>\\(${t}\\)</li>`).join('')}</ol>`:''}
    <div class="code">${r.inputs.map((inp,i)=>`<label class="small" for="ein${i}">${inp.label}</label><input type="text" inputmode="decimal" id="ein${i}" autocomplete="off">`).join('')}<button class="btn primary" id="escTry">ปลดล็อก</button></div>
-   <div id="escFb"></div><div class="row"><button class="btn" id="escHint">${esc.hinted[esc.room]?'ดูคำใบ้':hard?'ขอคำใบ้ (+2 นาที)':'ขอคำใบ้ (ฟรี)'}</button><button class="btn ghost" id="escQuit">เริ่มใหม่</button></div></div></div>`;
+   <div id="escFb"></div>${tutorBox(`<div>${r.inputs.map(x=>`${x.label} = <b>${x.a}</b>`).join(' · ')}</div><div>${r.hint}</div>`,r.t)}<div class="row"><button class="btn" id="escHint">${esc.hinted[esc.room]?'ดูคำใบ้':hard?'ขอคำใบ้ (+2 นาที)':'ขอคำใบ้ (ฟรี)'}</button><button class="btn ghost" id="escQuit">เริ่มใหม่</button></div></div></div>`;
   TIMERS.push(setInterval(()=>{const t=$('#escT');if(t)t.textContent=fmtT(elapsed());},1000));
   const tryIt=()=>{const ok=r.inputs.every((inp,i)=>{const v=parseNum($('#ein'+i).value);return Math.abs(v-inp.a)<=Math.max(1e-6,Math.abs(inp.a)*0.005);});
-    if(ok){esc.room++;if(esc.room>=esc.rooms.length)esc.final=elapsed();else celebrate(60);escRoom();}
-    else{if(hard)esc.pen+=20;$('#escFb').innerHTML=`<div class="fb bad"><b>ไฟแดงกะพริบ รหัสไม่ถูก</b><div>ตรวจเครื่องหมายและการแทนค่าอีกที${hard?' (+20 วินาที)':''}</div></div>`;const d=gPlay().querySelector('.door');d.classList.remove('shake');void d.offsetWidth;d.classList.add('shake');}};
+    if(ok){if(!esc.wrong[esc.room])clearMiss('escape',r);esc.room++;if(esc.room>=esc.rooms.length)esc.final=elapsed();else celebrate(60);escRoom();}
+    else{if(!esc.wrong[esc.room]){esc.wrong[esc.room]=1;markMiss('escape',r);}if(hard)esc.pen+=20;$('#escFb').innerHTML=`<div class="fb bad"><b>ไฟแดงกะพริบ รหัสไม่ถูก</b><div>ตรวจเครื่องหมายและการแทนค่าอีกที${hard?' (+20 วินาที)':''}</div></div>`;const d=gPlay().querySelector('.door');d.classList.remove('shake');void d.offsetWidth;d.classList.add('shake');}};
   $('#escTry').onclick=tryIt;r.inputs.forEach((_,i)=>$('#ein'+i).addEventListener('keydown',e=>{if(e.key==='Enter')tryIt();}));
   $('#escHint').onclick=()=>{if(!esc.hinted[esc.room]){esc.hinted[esc.room]=1;if(hard)esc.pen+=120;}$('#escHint').textContent='ดูคำใบ้';$('#escFb').innerHTML=`<div class="fb info"><b>คำใบ้</b><div>${r.hint}</div></div>`;typeset($('#escFb'));};
   $('#escQuit').onclick=()=>startGame('escape');typeset(gPlay());
@@ -1386,9 +1814,10 @@ function bestText(g){const e=P.best[g+'-easy'],h=P.best[g+'-hard'];if(g==='escap
   return e==null&&h==null?'ยังไม่เคยเล่น':`ดีที่สุด ${h!=null?'ยาก '+h:'ง่าย '+e}/${tot}`;}
 function renderGames(){
   $('#gamesSay').innerHTML=`${mascot('wow',64)}<div class="bubble">เลือกเกมได้เลย! ทุกเกมมีตัวอย่างการเล่นให้ดูก่อน และเลือกระดับ <b>ง่าย</b> หรือ <b>ยาก</b> ได้ ถ้ายังไม่แน่ใจ เริ่มจากเกมแรกซ้ายบนแล้วไล่ไปตามลำดับ</div>`;
+  $('#rvGames').innerHTML=rvBanner();bindGo($('#rvGames'));
   const g=$('#modeCards');g.innerHTML='';
   GORDER.forEach((v,i)=>{const G=GAMES[v];const b=el('button',{class:'mode',style:`--c:var(--${G.color});--cd:var(--${G.color}-d)`},
-    `<div class="ic">${ICON[v]}<span class="k">${i+1}. ${G.when}</span></div><div class="tx"><h3>${G.name}</h3><p>${G.desc}</p><div class="lv">${bestText(v)}</div></div>`);b.onclick=()=>go(v);g.appendChild(b);});
+    `<div class="ic">${ICON[v]}<span class="k">${i+1}. ${G.when}</span></div><div class="tx"><h3>${G.name}</h3><p>${G.desc}</p><div class="lv">${bestText(v)}${RV_BANK[v]&&missN(v)?` · <span class="miss">พลาดค้าง ${missN(v)}</span>`:''}</div></div>`);b.onclick=()=>go(v);g.appendChild(b);});
 }
 
 /* ================= home roadmap ================= */
@@ -1407,6 +1836,7 @@ function renderHome(){
   const stars=LESSONS.reduce((s,l)=>s+(P.learn[l.id]||0),0),doneN=ROAD.filter(r=>r.done()).length;const now=ROAD.findIndex(r=>!r.done());
   $('#hero').innerHTML=`${mascot('happy',104,'#ffffff')}<div><h2>${doneN?'กลับมาแล้ว!':'มาเรียน DE กัน!'}</h2><p>${doneN===ROAD.length?'ผ่านครบทุกขั้นแล้ว เก่งสุดๆ':`ผ่านไปแล้ว ${doneN}/${ROAD.length} ขั้น · ดาวบทเรียน ${stars}/${LESSONS.length*3}`}</p></div>`;
   $('#roadSay').innerHTML=`${mascot('think',56)}<div class="bubble"><b>เริ่มตรงไหนดี?</b> ทำตามเส้นทางนี้จากบนลงล่าง ขั้นที่ต้องทำต่อจะมีกรอบสีฟ้า จะข้ามไปเล่นอะไรก่อนก็ได้นะ</div>`;
+  $('#rvHome').innerHTML=rvBanner();bindGo($('#rvHome'));
   const R=$('#road');R.innerHTML='';
   ROAD.forEach((r,i)=>{const d=r.done(),isNow=i===now;const s=el('div',{class:'step'+(d?' done':'')+(isNow?' now':'')});
     s.innerHTML=`<div class="dot">${d?'✓':i+1}</div><div class="body"><span class="tag">${d?'ผ่านแล้ว':isNow?'ทำขั้นนี้ต่อ':'ขั้นที่ '+(i+1)}</span><h4>${r.t}</h4><p>${r.d}</p><div class="btns">${r.btns.map(([l,v],k)=>`<button class="btn ${isNow&&k===0?'grape':''}" data-go="${v}">${l}</button>`).join('')}</div></div>`;
@@ -1417,15 +1847,17 @@ function renderHome(){
 /* ================= routing ================= */
 function show(v){
   document.querySelectorAll('section.view').forEach(s=>s.hidden=s.id!=='v-'+v);
-  const tab=v==='game'?'games':v;document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.v===tab?'true':'false'));
+  const tab=v==='game'?'games':v==='review'?'home':v;document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.v===tab?'true':'false'));
 }
 function go(v){
   stopTimers();
   if(GAMES[v]){openGame(v);try{history.replaceState(null,'','#'+v);}catch(e){}window.scrollTo(0,0);return;}
-  if(!['home','learn','games'].includes(v))v='home';
+  RVW=null;
+  if(!['home','learn','games','review'].includes(v))v='home';
   show(v);try{history.replaceState(null,'','#'+v);}catch(e){}
   if(v==='home')renderHome();
   if(v==='games')renderGames();
+  if(v==='review')renderReview();
   if(v==='learn'){if(!LS){$('#lesson').hidden=true;$('#learnMap').hidden=false;}renderPath();}
   window.scrollTo(0,0);
 }
@@ -1436,7 +1868,8 @@ document.querySelectorAll('#tabs button').forEach(b=>{b.insertAdjacentHTML('afte
 $('#logo').innerHTML=mascot('happy',50);
 let resetArm=false;
 $('#resetAll').onclick=()=>{if(!resetArm){resetArm=true;$('#resetAll').textContent='แตะอีกครั้งเพื่อยืนยันการล้าง';return;}
-  P=P0();save();resetArm=false;$('#resetAll').textContent='ล้างความคืบหน้าทั้งหมด';$('#resetMsg').textContent='ล้างแล้ว';renderHome();};
+  const tu=P.tutor;P=P0();P.tutor=tu;save();resetArm=false;$('#resetAll').textContent='ล้างความคืบหน้าทั้งหมด';$('#resetMsg').textContent='ล้างแล้ว';renderHome();};
+applyTutor();
 go((location.hash||'#home').slice(1));
 window.addEventListener('hashchange',()=>go((location.hash||'#home').slice(1)));
 

@@ -1,0 +1,1200 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>สนามฝึก DE</title>
+<meta name="description" content="เรียนและฝึก Differential Equations แบบเกม กับน้องอินทิ: บทเรียนสั้น 13 บท และเกมฝึก 6 แบบ">
+<meta property="og:title" content="สนามฝึก DE">
+<meta property="og:description" content="เรียนและฝึก Differential Equations แบบเกม กับน้องอินทิ">
+<meta name="theme-color" content="#2563eb">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M70 16 C64 6 46 8 45 26 L50 72 C51 90 36 94 28 84' stroke='%232563eb' stroke-width='22' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;-webkit-text-size-adjust:100%}img{max-width:100%}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Itim&family=IBM+Plex+Sans+Thai+Looped:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: bright toy-box study app — 3 tabs (home / learn / games), one centered column (max 720px), mascot "อินทิ" (an integral sign) guides every screen */
+:root{
+  --bg:#fcf5e6; --card:#fffdf7; --ink:#1c2a45; --muted:#5f6b80; --line:#ecdfc3; --shade:#dccba6;
+  --mint:#2f80ed; --mint-d:#1c5fc0; --coral:#36b3c7; --coral-d:#23899a; --sun:#ffc94a; --sun-d:#d9a21b;
+  --sky:#4aa3f0; --sky-d:#2a7fc9; --grape:#2563eb; --grape-d:#1a46b0; --pink:#7b9cf5; --pink-d:#5373d1; --orange:#eeac3e; --orange-d:#c48a1f;
+  --accent:#2f80ed; --teal:#1c5fc0; --accent-soft:#e2edfc; --teal-soft:#e2edfb; --sun-soft:#fbefcd; --sky-soft:#e3f0fd;
+  --good:#16a96d; --good-soft:#dcf5e6; --bad:#d64545; --bad-soft:#fde3df;
+  --dot1:rgba(47,128,237,.08); --dot2:rgba(238,172,62,.12);
+  --f-display:"Itim","IBM Plex Sans Thai Looped",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans Thai Looped","IBM Plex Sans Thai",system-ui,sans-serif;
+  --f-mono:"IBM Plex Sans Thai Looped",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111a2c; --card:#1b2640; --ink:#f7f0e0; --muted:#a9b4c9; --line:#2d3b5c; --shade:#090e19;
+  --mint:#3b82f6; --mint-d:#1e4fae; --coral:#2a9fb3; --coral-d:#1b6d7b; --sun:#ffd36b; --sun-d:#c49a2a;
+  --sky:#3f95e6; --sky-d:#2465a8; --grape:#3b6fe0; --grape-d:#22489e; --pink:#6f87e0; --pink-d:#4a5fb0; --orange:#f5c26b; --orange-d:#bf8a2c;
+  --accent:#5aa2ff; --teal:#8fc0ff; --accent-soft:#1f3358; --teal-soft:#1f3358; --sun-soft:#3b321c; --sky-soft:#1f3358;
+  --good:#5be3a2; --good-soft:#173a2c; --bad:#ff8a80; --bad-soft:#45232a; --dot1:rgba(90,162,255,.07); --dot2:rgba(245,194,107,.05); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111a2c; --card:#1b2640; --ink:#f7f0e0; --muted:#a9b4c9; --line:#2d3b5c; --shade:#090e19;
+  --mint:#3b82f6; --mint-d:#1e4fae; --coral:#2a9fb3; --coral-d:#1b6d7b; --sun:#ffd36b; --sun-d:#c49a2a;
+  --sky:#3f95e6; --sky-d:#2465a8; --grape:#3b6fe0; --grape-d:#22489e; --pink:#6f87e0; --pink-d:#4a5fb0; --orange:#f5c26b; --orange-d:#bf8a2c;
+  --accent:#5aa2ff; --teal:#8fc0ff; --accent-soft:#1f3358; --teal-soft:#1f3358; --sun-soft:#3b321c; --sky-soft:#1f3358;
+  --good:#5be3a2; --good-soft:#173a2c; --bad:#ff8a80; --bad-soft:#45232a; --dot1:rgba(90,162,255,.07); --dot2:rgba(245,194,107,.05); color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.65;
+  background-image:radial-gradient(var(--dot1) 2.5px,transparent 3px),radial-gradient(var(--dot2) 2.5px,transparent 3px);background-size:34px 34px;background-position:0 0,17px 17px}
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:4px 80px}
+header.top{display:flex;align-items:center;gap:8px;padding-block:12px 2px}
+header.top > div{flex:1;min-width:0}
+.theme-btn{display:inline-flex;align-items:center;gap:6px;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;font:600 .85rem var(--f-body);cursor:pointer;box-shadow:0 3px 0 var(--line);flex:none}
+.theme-btn svg{width:18px;height:18px;color:var(--grape)}
+@media (max-width:340px){.theme-btn span{display:none}.theme-btn{padding:7px}}
+.eyebrow{font-size:12.5px;color:var(--muted);font-weight:500}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:400;text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:1.75rem} h1 .dy{color:var(--grape)}
+h2{font-size:1.65rem} h3{font-size:1.25rem}
+p{margin:0} b,strong{font-weight:600}
+.muted{color:var(--muted)} .small{font-size:.875rem}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:8px;margin-inline:-16px;padding:10px 16px 12px}
+nav.tabs button{flex:1;white-space:nowrap;min-width:0;border:2px solid var(--line);background:var(--card);color:var(--muted);font:400 1.08rem var(--f-display);padding:6px 10px;border-radius:16px;cursor:pointer;box-shadow:0 4px 0 var(--line);display:flex;align-items:center;justify-content:center;gap:6px}
+nav.tabs button svg{width:20px;height:20px}
+nav.tabs button[aria-selected="true"]{background:var(--grape);border-color:var(--grape-d);color:#fff;box-shadow:0 4px 0 var(--grape-d)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+section.view{display:flex;flex-direction:column;gap:18px;padding-top:12px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0;box-shadow:0 5px 0 var(--line)}
+.eq{font-size:1.12rem;overflow-x:auto;overflow-y:hidden;padding-block:6px;min-width:0}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.spread{justify-content:space-between} .center{justify-content:center}
+.btn{border:2px solid var(--line);background:var(--card);color:var(--ink);font:500 .97rem var(--f-body);padding:9px 15px;border-radius:16px;cursor:pointer;text-align:left;box-shadow:0 4px 0 var(--line);transition:transform .08s,box-shadow .08s}
+.btn:hover{border-color:var(--sky)}
+.btn:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.btn.primary{background:var(--mint);border-color:var(--mint-d);color:#fff;font-weight:600;box-shadow:0 4px 0 var(--mint-d)}
+.btn.primary:active:not(:disabled){box-shadow:0 1px 0 var(--mint-d)}
+.btn.coral{background:var(--coral);border-color:var(--coral-d);color:#fff;font-weight:600;box-shadow:0 4px 0 var(--coral-d)}
+.btn.grape{background:var(--grape);border-color:var(--grape-d);color:#fff;font-weight:600;box-shadow:0 4px 0 var(--grape-d)}
+.btn.ghost{background:transparent;box-shadow:none;border-color:transparent;color:var(--muted)}
+.btn.ghost:hover{border-color:var(--line)}
+.btn.big{font-size:1.1rem;padding:12px 22px;border-radius:18px;text-align:center}
+.btn.wide{width:100%}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.ok{background:var(--good-soft);border-color:var(--good);color:var(--ink);box-shadow:0 4px 0 var(--good);animation:pop .35s}
+.btn.no{background:var(--bad-soft);border-color:var(--bad);color:var(--ink);box-shadow:0 2px 0 var(--bad);text-decoration:line-through;text-decoration-color:var(--bad);animation:shake .25s 2}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.06)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:none}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.shake{animation:shake .25s 2}
+.choices{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.choices .btn{display:flex;flex-direction:column;gap:0;line-height:1.35}
+.choices .btn small{color:var(--muted);font-size:.78rem}
+.fb{border-radius:18px;padding:12px 14px;font-size:.96rem;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start;animation:rise .3s}
+.fb > *:not(svg){grid-column:2}
+.fb > svg{grid-row:1 / span 4}
+.fb.good{background:var(--good-soft);border:2px solid var(--good)}
+.fb.bad{background:var(--bad-soft);border:2px solid var(--bad)}
+.fb.info{background:var(--sky-soft);border:2px solid var(--sky)}
+.fb > b{font-family:var(--f-display);font-weight:400;font-size:1.12rem}
+@keyframes rise{from{transform:translateY(6px);opacity:.3}to{transform:none;opacity:1}}
+.pill{display:inline-flex;align-items:center;gap:6px;font:600 .78rem var(--f-body);padding:3px 11px;border-radius:999px;background:var(--teal-soft);color:var(--teal)}
+.pill.acc{background:var(--accent-soft);color:var(--coral-d)}
+.pill.sun{background:var(--sun-soft);color:var(--sun-d)}
+:root:not([data-theme="light"]) .pill.acc{color:var(--coral)}
+.stat{font-variant-numeric:tabular-nums;font-size:.85rem;color:var(--muted)}
+.mascot{display:block;flex:none}
+.mascot .bob{animation:bob 2.6s ease-in-out infinite;transform-origin:50% 90%}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-3px) rotate(-2deg)}}
+.say{display:flex;gap:10px;align-items:flex-end}
+.bubble{position:relative;background:var(--card);border:2px solid var(--line);border-radius:20px 20px 20px 6px;padding:12px 15px;box-shadow:0 4px 0 var(--line);min-width:0;flex:1}
+/* home */
+.hero{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center;background:var(--grape);color:#fff;border-radius:26px;padding:16px 18px;box-shadow:0 6px 0 var(--grape-d);overflow:hidden}
+.hero h2{font-size:1.7rem}
+.hero p{font-size:.95rem}
+.road{display:flex;flex-direction:column;gap:0}
+.step{display:grid;grid-template-columns:44px 1fr;gap:12px;position:relative;padding-bottom:14px}
+.step:not(:last-child)::before{content:"";position:absolute;left:21px;top:44px;bottom:0;width:3px;border-radius:2px;background:var(--line)}
+.step.done:not(:last-child)::before{background:var(--good)}
+.step .dot{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font:400 1.3rem var(--f-display);background:var(--card);border:3px solid var(--line);color:var(--muted)}
+.step.done .dot{background:var(--good);border-color:var(--good);color:#fff}
+.step.now .dot{background:var(--grape);border-color:var(--grape-d);color:#fff;animation:pulse 1.6s ease-in-out infinite}
+.step .body{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:10px 14px;display:flex;flex-direction:column;gap:6px;box-shadow:0 4px 0 var(--line);min-width:0}
+.step.now .body{border-color:var(--grape);box-shadow:0 4px 0 var(--grape-d)}
+.step .body h4{font-size:1.12rem}
+.step .body p{font-size:.88rem;color:var(--muted);line-height:1.5}
+.step .tag{font-size:.75rem;font-weight:700;color:var(--grape)}
+.step.done .tag{color:var(--good)}
+.step .btns{display:flex;gap:8px;flex-wrap:wrap}
+.step .btns .btn{padding:6px 12px;font-size:.88rem}
+details.plan-box{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:14px 18px;box-shadow:0 5px 0 var(--line)}
+details.plan-box summary{cursor:pointer;font-family:var(--f-display);font-size:1.15rem}
+ol.plan{margin:10px 0 0;padding-left:1.4em;display:flex;flex-direction:column;gap:6px}
+ol.plan li::marker{font-family:var(--f-display);color:var(--coral)}
+/* games hub */
+.modes{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.mode{--c:var(--mint);--cd:var(--mint-d);display:flex;flex-direction:column;text-align:left;cursor:pointer;background:var(--card);border:2px solid var(--line);border-radius:22px;padding:0;color:var(--ink);font:inherit;box-shadow:0 5px 0 var(--line);overflow:hidden;transition:transform .1s}
+.mode:hover{transform:translateY(-2px)}
+.mode:active{transform:translateY(3px);box-shadow:0 2px 0 var(--line)}
+.mode .ic{background:var(--c);height:84px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:3px solid var(--cd)}
+.mode .ic svg{width:46px;height:46px}
+.mode .ic .k{background:rgba(255,255,255,.92);color:var(--cd);font-size:.75rem;font-weight:700;border-radius:999px;padding:2px 9px}
+.mode .tx{padding:10px 16px 14px;display:flex;flex-direction:column;gap:2px}
+.mode h3{font-size:1.25rem}
+.mode p{font-size:.86rem;color:var(--muted);line-height:1.5}
+.mode .lv{font-size:.78rem;color:var(--muted);margin-top:4px}
+/* game page */
+.gbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.gbar h2{flex:1;font-size:1.35rem;min-width:0}
+.gbar .back{border:none;background:var(--card);border:2px solid var(--line);border-radius:14px;width:42px;height:42px;font-size:1.3rem;cursor:pointer;color:var(--ink);box-shadow:0 3px 0 var(--line);flex:none}
+.seg{display:inline-flex;border:2px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card)}
+.seg button{border:none;background:none;color:var(--muted);font:600 .88rem var(--f-body);padding:6px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--sky);color:#fff}
+.seg.diffseg button[data-d="hard"][aria-pressed="true"]{background:var(--coral)}
+.intro{display:flex;flex-direction:column;gap:16px}
+.demo{background:var(--card);border:2px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 5px 0 var(--line)}
+.demo-head{background:var(--sky);color:#fff;padding:8px 14px;font-family:var(--f-display);font-size:1.08rem;display:flex;justify-content:space-between;align-items:center}
+.demo-head span{font-family:var(--f-body);font-size:.8rem;font-weight:600;background:rgba(255,255,255,.25);border-radius:999px;padding:1px 9px}
+.demo-stage{padding:14px;display:flex;flex-direction:column;gap:10px;min-height:190px;background:var(--bg);pointer-events:none;position:relative}
+.demo-stage .choices{grid-template-columns:1fr 1fr}
+.demo-cap{padding:12px 14px;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;border-top:2px dashed var(--line);font-size:.97rem}
+.demo-cap .num{width:30px;height:30px;border-radius:50%;background:var(--sun);color:#3a2c00;display:grid;place-items:center;font:400 1.05rem var(--f-display)}
+.demo-nav{display:flex;justify-content:space-between;align-items:center;padding:0 14px 14px;gap:10px}
+.dots{display:flex;gap:6px}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--sky);width:22px;border-radius:999px}
+.demo-tap{position:relative;outline:3px solid var(--sun)!important;outline-offset:3px;animation:tapr 1.2s ease-in-out infinite}
+.demo-tap::after{content:"";position:absolute;right:-8px;bottom:-10px;width:26px;height:26px;border-radius:50%;background:var(--sun);border:3px solid #fff;box-shadow:0 0 0 0 rgba(255,201,26,.7);animation:ring 1.2s ease-out infinite}
+@keyframes tapr{0%,100%{transform:scale(1)}50%{transform:scale(.97)}}
+@keyframes ring{0%{box-shadow:0 0 0 0 rgba(255,201,26,.7)}100%{box-shadow:0 0 0 14px rgba(255,201,26,0)}}
+.diffs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.diff{border:2.5px solid var(--line);background:var(--card);border-radius:20px;padding:12px 14px;text-align:left;cursor:pointer;color:var(--ink);font:inherit;display:flex;flex-direction:column;gap:4px;box-shadow:0 4px 0 var(--line)}
+.diff h4{font-size:1.3rem}
+.diff p{font-size:.84rem;color:var(--muted);line-height:1.45}
+.diff[aria-pressed="true"][data-d="easy"]{border-color:var(--mint);background:var(--teal-soft);box-shadow:0 4px 0 var(--mint-d)}
+.diff[aria-pressed="true"][data-d="hard"]{border-color:var(--coral);background:var(--accent-soft);box-shadow:0 4px 0 var(--coral-d)}
+.diff .lvl{display:flex;gap:3px}
+.diff .lvl i{width:16px;height:6px;border-radius:3px;background:var(--line)}
+.diff[data-d="easy"] .lvl i:first-child{background:var(--mint)}
+.diff[data-d="hard"] .lvl i{background:var(--coral)}
+.timer{height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.timer i{display:block;height:100%;background:var(--coral);border-radius:999px;transition:width 1s linear}
+/* learn path */
+.path{display:flex;flex-direction:column;align-items:center;gap:6px;padding-block:6px 10px}
+.unit-head{align-self:stretch;border-radius:18px;padding:10px 14px;color:#fff;font-family:var(--f-display);font-size:1.15rem;margin-top:10px;display:flex;justify-content:space-between;align-items:center}
+.unit-head small{font-family:var(--f-body);font-size:.8rem;opacity:.9}
+.node-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;width:150px}
+.lnode{--c:var(--mint);--cd:var(--mint-d);width:76px;height:70px;border-radius:50%;border:none;background:var(--c);box-shadow:0 7px 0 var(--cd);cursor:pointer;display:grid;place-items:center;color:#fff;font-family:var(--f-display);font-size:1.6rem;transition:transform .1s;position:relative}
+.lnode:active{transform:translateY(5px);box-shadow:0 2px 0 var(--cd)}
+.lnode.done::after{content:"";position:absolute;inset:-7px;border-radius:50%;border:3px solid var(--sun)}
+.lnode.next{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.node-wrap .nm{font-size:.88rem;font-weight:600;text-align:center;line-height:1.3;margin-top:8px}
+.stars{display:flex;gap:2px;justify-content:center}
+.stars svg{width:16px;height:16px}
+.lesson-top{display:flex;align-items:center;gap:10px}
+.lesson-top .x{border:none;background:none;color:var(--muted);font-size:1.6rem;line-height:1;cursor:pointer;padding:4px 8px}
+.bar{flex:1;height:14px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--mint);border-radius:999px;transition:width .35s;box-shadow:inset 0 -4px 0 rgba(0,0,0,.08)}
+.hearts{font-weight:700;color:var(--grape);font-size:.95rem}
+.stage{display:flex;flex-direction:column;gap:14px;min-height:52vh}
+.reveal-list{display:flex;flex-direction:column;gap:8px}
+.reveal-line{background:var(--card);border:2px dashed var(--line);border-radius:16px;padding:8px 12px;overflow-x:auto;animation:rise .3s}
+.reveal-line .why{font-size:.85rem;color:var(--muted);display:block}
+.boxset{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.box{border-radius:18px;padding:12px 14px;border:2px solid var(--line);background:var(--card);min-width:0;overflow-x:auto}
+.box h4{margin:0 0 4px;font-size:1.08rem}
+.box.c1{border-color:var(--sky)}.box.c2{border-color:var(--coral)}.box.c3{border-color:var(--grape)}.box.c4{border-color:var(--sun)}
+.foot{position:sticky;bottom:0;padding-block:12px calc(12px + env(safe-area-inset-bottom,0px));background:linear-gradient(transparent,var(--bg) 30%);display:flex;justify-content:flex-end}
+.foot .btn{min-width:150px}
+.done-card{align-items:center;text-align:center}
+.done-card .stars svg{width:42px;height:42px}
+/* flowchart */
+.flow{display:flex;flex-direction:column;gap:8px}
+.node{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:start;padding:10px;border-radius:16px;background:var(--bg)}
+.node .n{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font:400 1rem var(--f-display);background:var(--line);color:var(--muted)}
+.node.open .n{background:var(--sun);color:#3a2c00}
+.node .q{font-size:.92rem;line-height:1.5;min-width:0}
+.node .q b{font-family:var(--f-display);font-weight:400;font-size:1.05rem}
+.node.locked .q{color:var(--muted)}
+/* field */
+.canvas-box{position:relative;width:100%;max-width:560px;margin:0 auto;aspect-ratio:1/1}
+canvas#fld{width:100%;height:100%;display:block;border-radius:22px;border:2px solid var(--line);background:var(--card);touch-action:none;cursor:crosshair;box-shadow:0 5px 0 var(--line)}
+.inp{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.inp label{font-weight:600;font-size:.95rem}
+input[type=text],select{font:500 1rem var(--f-body);color:var(--ink);background:var(--card);border:2px solid var(--line);border-radius:12px;padding:8px 11px;min-width:0}
+input#fexpr{flex:1 1 160px}
+.chk{display:inline-flex;gap:6px;align-items:center;font-size:.92rem}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.8rem;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:4px;border-radius:2px;vertical-align:middle;margin-right:4px}
+.mini-field{width:100%;max-width:240px;margin:0 auto;display:block;border-radius:16px;background:var(--card);border:2px solid var(--line)}
+/* bug hunt */
+.lines{display:flex;flex-direction:column;gap:8px}
+.line{display:grid;grid-template-columns:30px 1fr;gap:8px;align-items:center;border:2px solid var(--line);border-radius:16px;padding:8px 10px;background:var(--card);cursor:pointer;text-align:left;color:var(--ink);font:inherit;width:100%;box-shadow:0 3px 0 var(--line)}
+.line .ln{font:400 1rem var(--f-display);color:var(--muted);width:26px;height:26px;border-radius:50%;background:var(--bg);display:grid;place-items:center}
+.line .lt{overflow-x:auto;min-width:0}
+.line:hover{border-color:var(--coral)}
+.line.cand{border-color:var(--sun);background:var(--sun-soft)}
+.line.dim{opacity:.4;cursor:default}
+.line.okline{border-color:var(--good);background:var(--good-soft);cursor:default}
+.line.bugline{border-color:var(--bad);background:var(--bad-soft);cursor:default;animation:pop .35s}
+.line.after{opacity:.5}
+.fixline{margin-left:38px;border:2px dashed var(--good);border-radius:16px;padding:8px 10px;overflow-x:auto;animation:rise .3s}
+/* parsons */
+.slot-area{min-height:64px;border:2.5px dashed var(--line);border-radius:18px;padding:8px;display:flex;flex-direction:column;gap:6px;background:var(--bg)}
+.slot-area.empty::before{content:"แตะบรรทัดด้านล่างเพื่อเรียงเข้ามาตรงนี้";color:var(--muted);font-size:.9rem;padding:8px}
+.chip{display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:center;border:2px solid var(--line);border-radius:14px;background:var(--card);padding:8px 10px;cursor:pointer;color:var(--ink);font:inherit;text-align:left;width:100%;box-shadow:0 3px 0 var(--line)}
+.chip .ln{font:400 1rem var(--f-display);color:var(--muted)}
+.chip .lt{overflow-x:auto;min-width:0}
+.chip.locked{border-style:dashed;cursor:default}
+.chip.right{border-color:var(--good);background:var(--good-soft)}
+.chip.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.pool{display:flex;flex-direction:column;gap:7px}
+/* escape */
+.door{border:2px solid var(--line);border-radius:24px;background:var(--card);overflow:hidden;box-shadow:0 5px 0 var(--line)}
+.door-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--pink);color:#fff;gap:10px;border-bottom:3px solid var(--pink-d)}
+.door-head h3{font-size:1.15rem}
+.door-head .stat{color:#fff;font-weight:700;background:rgba(255,255,255,.25);padding:2px 10px;border-radius:999px}
+.door-body{padding:16px;display:flex;flex-direction:column;gap:14px}
+.story{font-size:.96rem;background:var(--bg);border-radius:16px;padding:10px 14px}
+.locks{display:flex;gap:6px}
+.locks span{flex:1;height:10px;border-radius:999px;background:var(--line)}
+.locks span.on{background:var(--sun)}
+.code{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.code input{width:9ch;text-align:center;font-size:1.15rem}
+.big{font-family:var(--f-display);font-size:3rem;color:var(--grape);font-variant-numeric:tabular-nums;line-height:1.1}
+ul.tight{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
+mjx-container{color:inherit}
+.eq mjx-container[display="true"]{margin:.3em 0!important}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:50;width:100%;height:100%}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:480px){nav.tabs button{font-size:1rem;padding:6px 6px}nav.tabs button svg{width:18px;height:18px}h1{font-size:1.5rem}h2{font-size:1.45rem}.card{padding:14px}.choices{grid-template-columns:1fr 1fr}.hero{grid-template-columns:auto 1fr}.hero h2{font-size:1.4rem}}
+@media (max-width:360px){.choices{grid-template-columns:1fr}.diffs{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<canvas id="confetti" aria-hidden="true"></canvas>
+<div class="wrap">
+  <header class="top">
+    <span id="logo"></span>
+    <div><div class="eyebrow">ติว Differential Equations กับน้องอินทิ</div><h1>สนามฝึก <span class="dy">DE</span></h1></div>
+    <button class="theme-btn" id="themeBtn"></button>
+  </header>
+  <nav class="tabs" role="tablist" id="tabs">
+    <button role="tab" data-v="home">หน้าแรก</button>
+    <button role="tab" data-v="learn">เรียน</button>
+    <button role="tab" data-v="games">เกม</button>
+  </nav>
+
+  <section class="view" id="v-home">
+    <div class="hero" id="hero"></div>
+    <div class="say" id="roadSay"></div>
+    <div class="road" id="road"></div>
+    <details class="plan-box">
+      <summary>สำหรับพี่ติว: ลำดับตอนติวสด (ประมาณ 2 ชั่วโมง)</summary>
+      <ol class="plan">
+        <li><b>เรียน</b> บทที่ 1–3 ด้วยกันบนจอใหญ่ 15 นาที ให้ทั้งห้องตอบคำถามระหว่างบทพร้อมกัน</li>
+        <li><b>สนามทิศทาง</b> โหมดง่าย 10 นาที ให้ทั้งห้องทายรูปเส้นโค้งก่อน แล้วค่อยกดดูของจริง</li>
+        <li><b>นักสืบสมการ</b> 25 นาที ให้น้องโหวตด้วยมือก่อนกด ข้อที่ห้องเถียงกันคือข้อที่ควรหยุดอธิบาย</li>
+        <li><b>เรียงเฉลย</b> 20 นาที จับคู่ทำ คนหนึ่งเรียง อีกคนอธิบายว่าแต่ละบรรทัดมาจากไหน</li>
+        <li><b>จับผิดเฉลย</b> โหมดยาก 20 นาที แข่งเป็นทีม ชี้บรรทัดผิดพร้อมบอกวิธีแก้ถึงได้คะแนน</li>
+        <li><b>แล็บปิดตาย</b> 20 นาที เกมปิดวัน แบ่งทีมแข่งกันจับเวลา</li>
+      </ol>
+    </details>
+    <div class="row"><button class="btn ghost small" id="resetAll">ล้างความคืบหน้าทั้งหมด</button><span class="small muted" id="resetMsg"></span></div>
+  </section>
+
+  <section class="view" id="v-learn" hidden>
+    <div id="learnMap">
+      <div class="say" id="learnHello"></div>
+      <div class="path" id="path"></div>
+    </div>
+    <div id="lesson" hidden></div>
+  </section>
+
+  <section class="view" id="v-games" hidden>
+    <div class="say" id="gamesSay"></div>
+    <div class="modes" id="modeCards"></div>
+  </section>
+
+  <section class="view" id="v-game" hidden>
+    <div class="gbar">
+      <button class="back" id="gBack" aria-label="กลับไปหน้าเกม">‹</button>
+      <h2 id="gTitle"></h2>
+      <div class="seg diffseg" id="gDiff" role="group" aria-label="ระดับ"><button data-d="easy">ง่าย</button><button data-d="hard">ยาก</button></div>
+      <button class="btn" id="gHow" style="padding:5px 10px;font-size:.88rem">วิธีเล่น</button>
+    </div>
+    <div class="intro" id="gIntro"></div>
+    <div id="gPlay" style="display:flex;flex-direction:column;gap:16px"></div>
+  </section>
+</div>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'},options:{enableMenu:false}};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" async id="mjx"></script>
+<script>
+const T=String.raw;
+const $=s=>document.querySelector(s);
+const el=(tag,attrs={},html='')=>{const e=document.createElement(tag);for(const k in attrs){if(k==='class')e.className=attrs[k];else e.setAttribute(k,attrs[k]);}if(html)e.innerHTML=html;return e;};
+function typeset(node){if(node&&window.MathJax&&MathJax.typesetPromise){MathJax.typesetClear&&MathJax.typesetClear([node]);MathJax.typesetPromise([node]).catch(()=>{});}}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+const KEY='de-lab-v2';
+const P0=()=>({det:{},cat:{},bug:{},ord:{},rev:{},learn:{},diff:{},best:{},played:{}});
+let P=P0();
+try{let s=localStorage.getItem(KEY);if(!s){const o=localStorage.getItem('de-lab-v1');if(o){const v=JSON.parse(o);P.learn=v.learn||{};P.cat=v.cat||{};}}else P=Object.assign(P0(),JSON.parse(s));}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(P));}catch(e){}}
+const starSvg=on=>`<svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z" fill="${on?'var(--sun)':'var(--line)'}" stroke="${on?'var(--sun-d)':'var(--line)'}" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
+function mascot(mood='happy',size=64,body='var(--grape)'){
+  const ink='#1f2440';let eyes,mouth,arms;
+  const L=`M33 60 Q24 60 21 52`,R=`M61 58 Q70 58 73 50`;
+  if(mood==='sad'){eyes=`<path d="M38 47 Q41 44.5 44 47M51 46 Q54 43.5 57 46" stroke="${ink}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`;mouth=`<path d="M43 58 Q47.5 54 52 58" stroke="${ink}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`;arms=`M33 60 Q26 64 24 70`+`M61 58 Q68 62 70 68`;}
+  else if(mood==='wow'){eyes=`<circle cx="41" cy="46" r="3.8" fill="${ink}"/><circle cx="54" cy="45" r="3.8" fill="${ink}"/><circle cx="42.3" cy="44.6" r="1.4" fill="#fff"/><circle cx="55.3" cy="43.6" r="1.4" fill="#fff"/>`;mouth=`<ellipse cx="47.8" cy="56" rx="3.2" ry="4" fill="${ink}"/>`;arms=`M33 58 Q24 52 22 42`+`M61 56 Q70 50 72 40`;}
+  else if(mood==='think'){eyes=`<circle cx="41" cy="46" r="3" fill="${ink}"/><circle cx="54" cy="45" r="3" fill="${ink}"/><circle cx="42" cy="44.8" r="1.1" fill="#fff"/><circle cx="55" cy="43.8" r="1.1" fill="#fff"/>`;mouth=`<path d="M44 56 Q48 55 52 55.5" stroke="${ink}" stroke-width="2.6" fill="none" stroke-linecap="round"/>`;arms=L+`M61 58 Q66 52 58 48`;}
+  else{eyes=`<path d="M37.5 47 Q41 42.5 44.5 47M50.5 46 Q54 41.5 57.5 46" stroke="${ink}" stroke-width="2.8" fill="none" stroke-linecap="round"/>`;mouth=`<path d="M43 53.5 Q48 61 53 53Z" fill="${ink}"/>`;arms=`M33 58 Q24 56 21 48`+R;}
+  return `<svg class="mascot" viewBox="0 0 100 100" width="${size}" height="${size}" aria-hidden="true"><g class="bob"><g transform="translate(5 6) scale(.88)">
+   <ellipse cx="50" cy="95" rx="22" ry="3.5" fill="#000" opacity=".08"/>
+   <path d="${arms}" stroke="${body}" stroke-width="6" fill="none" stroke-linecap="round"/>
+   <path d="M70 14 C64 4 46 6 45 24 L50 72 C51 90 36 94 28 84" stroke="${body}" stroke-width="27" fill="none" stroke-linecap="round"/>
+   <path d="M38 22 Q39 15 44 12" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".45"/>
+   <ellipse cx="36" cy="53" rx="3.6" ry="2.2" fill="#ff6fa8" opacity=".75"/><ellipse cx="59.5" cy="52" rx="3.6" ry="2.2" fill="#ff6fa8" opacity=".75"/>
+   ${eyes}${mouth}
+   <g transform="translate(76 82) rotate(-8)"><rect x="-12" y="-9" width="24" height="18" rx="9" fill="var(--sun)" stroke="var(--sun-d)" stroke-width="2"/><text x="0" y="4.5" text-anchor="middle" font-family="Itim,sans-serif" font-size="13" fill="${ink}">dx</text></g>
+  </g></g></svg>`;
+}
+
+const CATS={
+ nth:{name:'เชิงเส้นอันดับ n',sub:'สัมประสิทธิ์คงที่',test:T`อันดับตั้งแต่ 2 ขึ้นไป และสัมประสิทธิ์ของ \(y, y', y'', \dots\) เป็นค่าคงที่ไหม → เขียนเป็น \(\phi(D)y = Q(x)\) แล้วแก้สมการช่วย`},
+ sep:{name:'แยกตัวแปรได้',sub:'Separable',test:T`จัดให้ฝั่ง \(dx\) มีแต่ \(x\) และฝั่ง \(dy\) มีแต่ \(y\) ได้ไหม → อินทิเกรตแยกกันได้เลย`},
+ hom:{name:'เอกพันธ์',sub:'Homogeneous',test:T`ทุกพจน์ใน \(M\) และ \(N\) มีดีกรีรวมเท่ากัน หรือเขียน \(\frac{dy}{dx}=f\!\left(\frac{y}{x}\right)\) ได้ไหม → แทน \(y=ux,\ dy=u\,dx+x\,du\)`},
+ exa:{name:'แม่นตรง',sub:'Exact',test:T`\(\dfrac{\partial M}{\partial y}=\dfrac{\partial N}{\partial x}\) ไหม → หา \(F\) จาก \(\int M\,dx\) แล้วเติม \(g(y)\)`},
+ lin:{name:'เชิงเส้นอันดับ 1',sub:'Linear',test:T`จัดเป็น \(y'+P(x)y=Q(x)\) ได้ไหม (\(y\) กับ \(y'\) กำลัง 1 ไม่คูณกัน) → \(\mu=e^{\int P\,dx}\)`},
+ ber:{name:'เบอร์นูลลี',sub:'Bernoulli',test:T`จัดเป็น \(y'+P(x)y=Q(x)y^n\) ได้ไหม → ให้ \(u=y^{1-n}\) จะกลายเป็นสมการเชิงเส้น`},
+ nex:{name:'ไม่แม่นตรง → หาตัวประกอบอินทิเกรต',sub:'Integrating factor',test:T`ถ้าไม่ exact ลองดู \(\frac{M_y-N_x}{N}\) เป็นฟังก์ชันของ \(x\) ล้วน หรือ \(\frac{N_x-M_y}{M}\) เป็นของ \(y\) ล้วนไหม`}
+};
+const FLOW=['nth','sep','hom','exa','lin','ber','nex'];
+
+/* ---------- 1. detective bank ---------- */
+const DET=[
+ {id:'d1',q:T`y(1+x^2)\,dx + x(1+y^2)\,dy = 0`,ok:['sep'],why:T`หารด้วย \(xy\) จะได้ \(\frac{1+x^2}{x}dx+\frac{1+y^2}{y}dy=0\) แยกตัวแปรได้`,w:{exa:T`\(M_y = 1+x^2\) แต่ \(N_x = 1+y^2\) ไม่เท่ากัน`,hom:T`พจน์ \(y\) ดีกรี 1 แต่ \(x^2y\) ดีกรี 3 ดีกรีไม่เท่ากัน`}},
+ {id:'d2',q:T`(x+y)\,dx + (y-x)\,dy = 0`,ok:['hom'],why:T`ทุกพจน์ดีกรี 1 เท่ากันหมด แทน \(y=ux\)`,w:{exa:T`\(M_y = 1\) แต่ \(N_x=-1\)`,sep:T`\(x+y\) แยกเป็นผลคูณของฟังก์ชัน \(x\) กับ \(y\) ไม่ได้`}},
+ {id:'d3',q:T`(e^x + y)\,dx + (x + \cos y)\,dy = 0`,ok:['exa'],why:T`\(M_y = 1 = N_x\) จึงเป็น exact`,w:{lin:T`มี \(\cos y\) จึงไม่เชิงเส้นใน \(y\)`,sep:T`ฝั่ง \(dx\) มี \(y\) บวกอยู่ แยกไม่ได้`,hom:T`\(e^x\) กับ \(\cos y\) ไม่มีดีกรีแบบพหุนาม`}},
+ {id:'d4',q:T`(2x^2 + y)\,dx + (x^2y - x)\,dy = 0`,ok:['nex'],why:T`\(M_y=1,\ N_x = 2xy-1\) ไม่ exact แต่ \(\frac{M_y-N_x}{N}=\frac{2-2xy}{x(xy-1)}=-\frac{2}{x}\) เป็นของ \(x\) ล้วน จึงได้ \(\mu=x^{-2}\)`,w:{exa:T`ลองเช็กอีกที \(M_y=1\) แต่ \(N_x=2xy-1\)`,hom:T`\(2x^2\) ดีกรี 2 แต่ \(y\) ดีกรี 1`}},
+ {id:'d5',q:T`\frac{dy}{dx} + \frac{2}{x}\,y = \sin x`,ok:['lin'],why:T`อยู่ในรูป \(y'+P(x)y=Q(x)\) โดย \(P=\frac{2}{x},\ Q=\sin x\)`,w:{sep:T`ย้ายข้างแล้วได้ \(\sin x - \frac{2y}{x}\) ซึ่งแยกเป็นผลคูณไม่ได้`,ber:T`จะเป็นเบอร์นูลลีต้องมี \(y^n\) ฝั่งขวา ข้อนี้ \(n=0\) ก็คือเชิงเส้นธรรมดา`}},
+ {id:'d6',q:T`\frac{dy}{dx} + \frac{y}{2x} = \frac{x}{y}`,ok:['ber'],why:T`ฝั่งขวาคือ \(x\,y^{-1}\) จึงเป็นเบอร์นูลลี \(n=-1\) ให้ \(u=y^{2}\)`,w:{lin:T`เกือบแล้ว แต่ \(\frac{x}{y}\) มี \(y\) อยู่ จึงยังไม่เชิงเส้น`,hom:T`\(\frac{y}{2x}\) เป็น \(f(y/x)\) ก็จริง แต่ \(\frac{x}{y}\) ทำให้ดีกรีรวมไม่ตรงกัน`}},
+ {id:'d7',q:T`\frac{dy}{dx} + 3y = e^{3x}\,y^2`,ok:['ber'],why:T`รูป \(y'+Py=Qy^n\) โดย \(n=2\) ให้ \(u=y^{-1}\)`,w:{lin:T`มี \(y^2\) ฝั่งขวา ไม่เชิงเส้น`,sep:T`\(e^{3x}y^2-3y\) แยกเป็นผลคูณไม่ได้`}},
+ {id:'d8',q:T`y'' - 5y' + 6y = 0`,ok:['nth'],why:T`อันดับ 2 สัมประสิทธิ์คงที่ สมการช่วย \(m^2-5m+6=0\Rightarrow m=2,3\)`,w:{}},
+ {id:'d9',q:T`(D^2+4)\,y = e^{x}\sin 3x`,ok:['nth'],why:T`อันดับ 2 สัมประสิทธิ์คงที่ ไม่เอกพันธ์ หา \(y_c\) จากสมการช่วย แล้วหา \(y_p\) ด้วยตัวดำเนินการผกผันหรือ UC`,w:{hom:T`ระวังสับสน "homogeneous" ในบทอันดับ n หมายถึงฝั่งขวาเป็น 0 ซึ่งข้อนี้ไม่ใช่ และไม่ใช่วิธีแทน \(y=ux\)`}},
+ {id:'d10',q:T`\frac{dy}{dx} = \frac{xy^2 - 5x}{x^2y + 2y}`,ok:['sep'],why:T`แยกตัวประกอบได้ \(\frac{x(y^2-5)}{y(x^2+2)}\) จึงแยกตัวแปรได้`,w:{hom:T`\(xy^2\) ดีกรี 3 แต่ \(5x\) ดีกรี 1`}},
+ {id:'d11',q:T`\frac{dy}{dx} = \frac{y^2 + xy}{x^2}`,ok:['hom','ber'],why:T`ใช้ได้ 2 วิธี: เขียนเป็น \(\left(\frac{y}{x}\right)^2+\frac{y}{x}\) แบบเอกพันธ์ หรือจัดเป็น \(y'-\frac{1}{x}y=\frac{1}{x^2}y^2\) แบบเบอร์นูลลี \(n=2\)`,w:{lin:T`มี \(y^2\) จึงไม่เชิงเส้น`}},
+ {id:'d12',q:T`x\,y' - y = x^3`,ok:['lin'],why:T`หารด้วย \(x\) ได้ \(y'-\frac{1}{x}y=x^2\)`,w:{hom:T`\(x^3\) ทำให้ดีกรีไม่เท่ากับพจน์อื่น`,sep:T`ได้ \(y'=\frac{y+x^3}{x}\) แยกไม่ได้`}},
+ {id:'d13',q:T`\frac{dy}{dx} = e^{x+y}`,ok:['sep'],why:T`\(e^{x+y}=e^xe^y\) จึงได้ \(e^{-y}dy = e^x dx\)`,w:{lin:T`\(e^{y}\) ไม่เชิงเส้นใน \(y\)`}},
+ {id:'d14',q:T`(x - y)\,dx - (x + y)\,dy = 0`,ok:['hom','exa'],why:T`ทุกพจน์ดีกรี 1 จึงเป็นเอกพันธ์ และ \(M_y=-1=N_x\) จึงเป็น exact ด้วย ใช้ exact เร็วกว่า: \(\frac{x^2}{2}-xy-\frac{y^2}{2}=C\)`,w:{sep:T`\(x-y\) แยกไม่ได้`}},
+ {id:'d15',q:T`y\,dx + (2x - y e^{y})\,dy = 0`,ok:['nex','lin'],why:T`\(M_y=1,\ N_x=2\) ไม่ exact แต่ \(\frac{N_x-M_y}{M}=\frac{1}{y}\) จึงได้ \(\mu=y\) หรือมองกลับด้านเป็นเชิงเส้นใน \(x\): \(\frac{dx}{dy}+\frac{2}{y}x=e^y\)`,w:{exa:T`\(M_y=1\) แต่ \(N_x=2\)`}},
+ {id:'d16',q:T`y''' - 3y'' + 3y' - y = 0`,ok:['nth'],why:T`สมการช่วย \((m-1)^3=0\) รากซ้ำ 3 ตัว`,w:{}},
+ {id:'d17',q:T`\frac{dy}{dx} = \cos x - y`,ok:['lin'],why:T`จัดเป็น \(y'+y=\cos x\) โดย \(P=1\)`,w:{sep:T`\(\cos x - y\) เป็นผลบวก แยกเป็นผลคูณไม่ได้`,exa:T`เขียนเป็น \((y-\cos x)dx+dy=0\) ได้ \(M_y=1,\ N_x=0\) ไม่ exact`}}
+];
+
+const PRE=[
+ {e:'-x/y',n:'-x/y  (ตัวอย่างในชีท)',note:T`คำตอบทั่วไป \(x^2+y^2=C\) เป็นวงกลม สังเกตว่าบนแกน \(x\) (\(y=0\)) ความชันเป็นอนันต์ ขีดจึงตั้งตรง ส่วน isocline \(-x/y=k\) คือเส้นตรงผ่านจุดกำเนิด`},
+ {e:'cos(x)',n:'cos(x)  (ตัวอย่างในชีท)',note:T`คำตอบทั่วไป \(y=\sin x + C\) ทุกเส้นคือกราฟเดียวกันเลื่อนขึ้นลง เพราะความชันไม่ขึ้นกับ \(y\) isocline จึงเป็นเส้นตั้ง`},
+ {e:'x+y',n:'x + y',note:T`คำตอบทั่วไป \(y=Ce^x-x-1\) เส้น \(y=-x-1\) (\(C=0\)) เป็นคำตอบที่เป็นเส้นตรง ลองจิ้มบนเส้นนี้ดู`},
+ {e:'x-y',n:'x - y',note:T`คำตอบทั่วไป \(y=x-1+Ce^{-x}\) ทุกเส้นวิ่งเข้าหาเส้นตรง \(y=x-1\) เมื่อ \(x\) มากขึ้น`},
+ {e:'y',n:'y  (การเติบโตแบบเอ็กซ์โพเนนเชียล)',note:T`คำตอบทั่วไป \(y=Ce^{x}\) เหมือนเชื้อที่โตไม่จำกัด isocline \(y=k\) เป็นเส้นนอน`},
+ {e:'y*(2-y)',n:'y(2 - y)  (การเติบโตแบบ logistic)',note:T`โมเดลเชื้อโตแล้วอิ่มตัวที่ \(y=2\) (carrying capacity) เส้น \(y=0\) กับ \(y=2\) เป็นคำตอบสมดุล ลองจิ้มระหว่าง 0 ถึง 2 ดู`},
+ {e:'x^2+y^2-1',n:'x² + y² − 1',note:T`ข้อนี้แก้หาคำตอบรูปปิดไม่ได้ แต่สนามทิศทางยังบอกรูปร่างได้ isocline \(k=0\) คือวงกลมรัศมี 1 ซึ่งเส้นโค้งตัดผ่านแบบแนวนอนพอดี`},
+ {e:'y/x',n:'y/x',note:T`คำตอบทั่วไป \(y=Cx\) เป็นเส้นตรงผ่านจุดกำเนิดทั้งหมด`}
+];
+
+function compile(src){
+  const s=src.trim().toLowerCase();
+  if(!s)throw new Error('ใส่สมการก่อน');
+  if(!/^[0-9xy+\-*/^().\s a-z]*$/.test(s))throw new Error('ใช้ได้เฉพาะ x, y, ตัวเลข, + − * / ^ ( ) และฟังก์ชัน sin cos tan exp ln sqrt abs');
+  const words=s.match(/[a-z]+/g)||[];const okw=['x','y','sin','cos','tan','exp','ln','log','sqrt','abs','e','pi'];
+  for(const w of words)if(!okw.includes(w))throw new Error(`ไม่รู้จัก "${w}" (ถ้าหมายถึงคูณ ใส่ * เช่น x*y)`);
+  const js=s.replace(/\^/g,'**');
+  const f=new Function('x','y',`const sin=Math.sin,cos=Math.cos,tan=Math.tan,exp=Math.exp,ln=Math.log,log=Math.log,sqrt=Math.sqrt,abs=Math.abs,e=Math.E,pi=Math.PI;return (${js});`);
+  const t=f(0.3,0.7);if(typeof t!=='number')throw new Error('สมการไม่สมบูรณ์');
+  return f;
+}
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();}
+let W=0,DPR=1;
+function sizeCanvas(){const r=cv.getBoundingClientRect();DPR=window.devicePixelRatio||1;W=r.width;cv.width=Math.round(r.width*DPR);cv.height=Math.round(r.width*DPR);ctx.setTransform(DPR,0,0,DPR,0,0);}
+const toPx=(x,y)=>[(x+FX.L)/(2*FX.L)*W,(FX.L-y)/(2*FX.L)*W];
+const toXY=(px,py)=>[px/W*2*FX.L-FX.L,FX.L-py/W*2*FX.L];
+function trace(x0,y0){
+  const f=ffun,h=0.02,halves={};
+  for(const dir of [1,-1]){
+    let x=x0,y=y0,px=dir,py=dir*(f(x0,y0)||0);const pts=[];
+    let n0=Math.hypot(px,py);if(!isFinite(n0)){px=0;py=dir;}else{px/=n0;py/=n0;}
+    for(let i=0;i<2500;i++){
+      const step=(x,y)=>{let s=f(x,y),vx=1,vy=s;if(!isFinite(s)){vx=0;vy=1;}const n=Math.hypot(vx,vy);vx/=n;vy/=n;if(vx*px+vy*py<0){vx=-vx;vy=-vy;}return [vx,vy];};
+      const k1=step(x,y),k2=step(x+h/2*k1[0],y+h/2*k1[1]),k3=step(x+h/2*k2[0],y+h/2*k2[1]),k4=step(x+h*k3[0],y+h*k3[1]);
+      const dx=(k1[0]+2*k2[0]+2*k3[0]+k4[0])/6,dy=(k1[1]+2*k2[1]+2*k3[1]+k4[1])/6;
+      const n=Math.hypot(dx,dy);if(!isFinite(n)||n===0)break;
+      px=dx/n;py=dy/n;x+=h*px;y+=h*py;
+      if(Math.abs(x)>FX.L*1.05||Math.abs(y)>FX.L*1.05)break;
+      pts.push([x,y]);
+      if(i>60&&Math.hypot(x-x0,y-y0)<h*0.9)break;
+    }
+    halves[dir]=pts;
+  }
+  return halves[-1].slice().reverse().concat([[x0,y0]],halves[1]);
+}
+function drawField(){
+  if(!W)sizeCanvas();ctx.clearRect(0,0,W,W);
+  const ink=css('--ink'),muted=css('--muted'),line=css('--line'),acc=css('--grape'),teal=css('--orange');
+  // grid + axes
+  ctx.lineWidth=1;ctx.strokeStyle=line;
+  for(let i=-FX.L;i<=FX.L;i++){const [a]=toPx(i,0),[,b]=toPx(0,i);ctx.beginPath();ctx.moveTo(a,0);ctx.lineTo(a,W);ctx.stroke();ctx.beginPath();ctx.moveTo(0,b);ctx.lineTo(W,b);ctx.stroke();}
+  ctx.strokeStyle=muted;ctx.lineWidth=1.3;const [ox,oy]=toPx(0,0);
+  ctx.beginPath();ctx.moveTo(0,oy);ctx.lineTo(W,oy);ctx.moveTo(ox,0);ctx.lineTo(ox,W);ctx.stroke();
+  ctx.fillStyle=muted;ctx.font=`11px ${css('--f-mono')}`;
+  for(let i=-FX.L+1;i<FX.L;i++){if(!i)continue;const [a,b]=toPx(i,0);ctx.fillText(i,a-3,oy+13);const [c,d]=toPx(0,i);ctx.fillText(i,ox+4,d+4);}
+  ctx.fillText('x',W-12,oy-6);ctx.fillText('y',ox+6,12);
+  if(!ffun)return;
+  // isoclines
+  if(F.iso)drawIso();
+  // line elements
+  const N=F.sparse?11:(W<420?17:21),seg=W/N*0.36;ctx.strokeStyle=ink;ctx.globalAlpha=.55;ctx.lineWidth=1.4;
+  for(let i=0;i<N;i++)for(let j=0;j<N;j++){
+    const px=(i+.5)*W/N,py=(j+.5)*W/N;const [x,y]=toXY(px,py);let s=ffun(x,y);
+    let dx,dy;if(!isFinite(s)){dx=0;dy=1;}else{const a=Math.atan(s);dx=Math.cos(a);dy=Math.sin(a);}
+    ctx.beginPath();ctx.moveTo(px-dx*seg,py+dy*seg);ctx.lineTo(px+dx*seg,py-dy*seg);ctx.stroke();
+  }
+  ctx.globalAlpha=1;
+  // guesses
+  ctx.lineWidth=3;ctx.strokeStyle=teal;ctx.lineCap='round';ctx.lineJoin='round';
+  for(const g of guesses.concat(drawing?[drawing]:[])){ctx.beginPath();g.forEach(([x,y],k)=>{const [a,b]=toPx(x,y);k?ctx.lineTo(a,b):ctx.moveTo(a,b);});ctx.stroke();}
+  // true curves
+  ctx.strokeStyle=acc;ctx.lineWidth=2.6;
+  for(const c of curves){ctx.beginPath();let pen=false;for(const p of c.pts){const [a,b]=toPx(p[0],p[1]);if(!pen){ctx.moveTo(a,b);pen=true;}else ctx.lineTo(a,b);}ctx.stroke();
+    const [a,b]=toPx(c.x0,c.y0);ctx.fillStyle=acc;ctx.beginPath();ctx.arc(a,b,4.5,0,7);ctx.fill();}
+}
+function drawIso(){
+  const G=90,ks=[-2,-1,0,1,2],step=2*FX.L/G;const iso='#8a63d2';
+  ctx.strokeStyle=iso;ctx.lineWidth=1.6;ctx.globalAlpha=.75;ctx.setLineDash([5,4]);
+  const v=[];for(let i=0;i<=G;i++){v[i]=[];for(let j=0;j<=G;j++){const x=-FX.L+i*step,y=-FX.L+j*step;v[i][j]=ffun(x,y);}}
+  const labels=[];
+  for(const k of ks){ctx.beginPath();let first=null;
+    for(let i=0;i<G;i++)for(let j=0;j<G;j++){
+      const c=[[i,j],[i+1,j],[i+1,j+1],[i,j+1]].map(([a,b])=>v[a][b]-k);
+      if(c.some(z=>!isFinite(z)||Math.abs(z)>50))continue;
+      const pts=[];for(let e=0;e<4;e++){const a=c[e],b=c[(e+1)%4];if((a<0)!==(b<0)){const t=a/(a-b);const P0=[[i,j],[i+1,j],[i+1,j+1],[i,j+1]][e],P1=[[i,j],[i+1,j],[i+1,j+1],[i,j+1]][(e+1)%4];pts.push([-FX.L+(P0[0]+t*(P1[0]-P0[0]))*step,-FX.L+(P0[1]+t*(P1[1]-P0[1]))*step]);}}
+      if(pts.length>=2){const [a,b]=toPx(...pts[0]),[c2,d]=toPx(...pts[1]);ctx.moveTo(a,b);ctx.lineTo(c2,d);const px=pts[1][0],py=pts[1][1],r=Math.max(Math.abs(px),Math.abs(py));if(px>0&&r<FX.L*.82&&(!first||r>first[2]))first=[c2,d,r];}
+    }
+    ctx.stroke();if(first)labels.push([k,first]);}
+  ctx.setLineDash([]);ctx.globalAlpha=1;ctx.fillStyle=iso;ctx.font=`600 11px ${css('--f-mono')}`;
+  for(const [k,[a,b]] of labels)ctx.fillText('k='+k,Math.min(a+3,W-34),Math.max(b-3,12));
+}
+
+const BUGS=[
+ {id:'b1',tag:'แยกตัวแปร · จากโน้ตจริง',q:T`\cos x\cos y\,dx + \sin x\sin y\,dy = 0`,lines:[
+   T`\frac{\cos x\cos y}{\cos y\sin x}dx + \frac{\sin x\sin y}{\cos y\sin x}dy = 0`,
+   T`\frac{\cos x}{\sin x}dx + \frac{\sin y}{\cos y}dy = 0`,
+   T`\int \cot x\,dx + \int \tan x\,dy = 0`,
+   T`\ln|\sin x| + \ln|\sec x| + C = 0`],bug:2,fix:T`\int \cot x\,dx + \int \tan y\,dy = 0 \;\Rightarrow\; \ln|\sin x| + \ln|\sec y| = C`,
+   why:T`หลังแยกตัวแปรแล้ว ตัวที่อยู่หน้า \(dy\) ต้องเป็นฟังก์ชันของ \(y\) เสมอ \(\frac{\sin y}{\cos y}=\tan y\) ไม่ใช่ \(\tan x\) จุดนี้เจอในโน้ตจริง ลอกเร็วๆ แล้วพลาดง่ายมาก`},
+ {id:'b2',tag:'แม่นตรง',q:T`(e^x + y)\,dx + (x + \cos y)\,dy = 0`,lines:[
+   T`M_y = 1 = N_x \;\Rightarrow\; \text{exact}`,
+   T`F = \int (e^x+y)\,dx = e^x + xy + g(y)`,
+   T`\frac{\partial F}{\partial y} = x + g(y)`,
+   T`x + g(y) = x + \cos y \;\Rightarrow\; g(y) = \cos y`,
+   T`e^x + xy + \cos y = C`],bug:2,fix:T`\frac{\partial F}{\partial y} = x + g'(y) \Rightarrow g'(y)=\cos y \Rightarrow g(y)=\sin y,\quad e^x+xy+\sin y = C`,
+   why:T`ดิฟ \(F\) เทียบ \(y\) แล้ว \(g(y)\) ต้องกลายเป็น \(g'(y)\) ถ้าลืม จะได้ \(g\) ผิดทั้งข้อ ตรวจคำตอบได้ง่ายๆ โดยดิฟ \(F\) กลับ: \(\partial_y(\cos y) = -\sin y \ne \cos y\)`},
+ {id:'b3',tag:'เชิงเส้นอันดับ 1',q:T`\frac{dy}{dx} + \frac{2}{x}y = x^2`,lines:[
+   T`P = \tfrac{2}{x},\quad Q = x^2`,
+   T`\mu = e^{\int \frac{2}{x}dx} = e^{2\ln x} = x^2`,
+   T`(x^2 y)' = x^4`,
+   T`x^2 y = \frac{x^5}{5} + C`,
+   T`y = \frac{x^3}{5} + C`],bug:4,fix:T`y = \frac{x^3}{5} + \frac{C}{x^2}`,
+   why:T`ตอนหาร \(x^2\) ต้องหารทั้ง \(C\) ด้วย ค่าคงที่ที่โดนหารจะไม่เป็นค่าคงที่ลอยๆ อีกต่อไป ลองแทน \(y=\frac{x^3}{5}+C\) กลับในสมการจะเห็นว่าไม่จริง`},
+ {id:'b4',tag:'เอกพันธ์',q:T`\frac{dy}{dx} = \frac{x^2+y^2}{xy}`,lines:[
+   T`\text{ให้ } y = ux \;\Rightarrow\; \frac{dy}{dx} = x\frac{du}{dx}`,
+   T`x\frac{du}{dx} = \frac{x^2 + u^2x^2}{x\cdot ux} = \frac{1+u^2}{u}`,
+   T`\frac{u}{1+u^2}\,du = \frac{dx}{x}`,
+   T`\tfrac12\ln(1+u^2) = \ln|x| + C`,
+   T`\tfrac12\ln\!\left(1+\tfrac{y^2}{x^2}\right) = \ln|x| + C`],bug:0,fix:T`\frac{dy}{dx} = u + x\frac{du}{dx} \;\Rightarrow\; x\frac{du}{dx}=\frac{1}{u} \;\Rightarrow\; \frac{y^2}{2x^2} = \ln|x| + C`,
+   why:T`\(y=ux\) เป็นผลคูณ ดิฟต้องใช้กฎผลคูณ \(\frac{dy}{dx}=u+x\frac{du}{dx}\) (ตรงกับในโน้ต \(dy = u\,dx + x\,du\)) ลืม \(u\) ไปตัวเดียว ผลลัพธ์เปลี่ยนทั้งหมด`},
+ {id:'b5',tag:'ตัวประกอบอินทิเกรต',q:T`(2x^2 + y)\,dx + (x^2y - x)\,dy = 0`,lines:[
+   T`M_y = 1,\ N_x = 2xy - 1 \;\Rightarrow\; \text{ไม่ exact}`,
+   T`\frac{M_y - N_x}{N} = \frac{2-2xy}{x(xy-1)} = -\frac{2}{x}`,
+   T`\mu = e^{\int -\frac{2}{x}dx} = x^{2}`,
+   T`(2x^4 + x^2y)\,dx + (x^4y - x^3)\,dy = 0`,
+   T`M_y = x^2,\ N_x = 4x^3y - 3x^2 \;\Rightarrow\; \text{ยังไม่ exact สรุปว่าใช้วิธีนี้ไม่ได้}`],bug:2,fix:T`\mu = e^{-2\ln x} = x^{-2}\;\Rightarrow\;(2+\tfrac{y}{x^2})dx+(y-\tfrac1x)dy=0\;\Rightarrow\;2x-\tfrac{y}{x}+\tfrac{y^2}{2}=C`,
+   why:T`\(e^{-2\ln x} = x^{-2}\) ไม่ใช่ \(x^2\) เครื่องหมายลบหายไป ถ้าคูณ IF แล้วยังไม่ exact ให้สงสัยว่าคำนวณ IF ผิดก่อนจะสรุปว่าโจทย์ทำไม่ได้`},
+ {id:'b6',tag:'สมการช่วย · รากซ้ำ',q:T`y'' - 4y' + 4y = 0`,lines:[
+   T`m^2 - 4m + 4 = 0`,
+   T`(m-2)^2 = 0 \;\Rightarrow\; m = 2, 2`,
+   T`y = C_1e^{2x} + C_2e^{2x}`,
+   T`y = (C_1+C_2)e^{2x} = Ce^{2x}`],bug:2,fix:T`y = C_1e^{2x} + C_2\,x\,e^{2x}`,
+   why:T`รากซ้ำต้องคูณ \(x\) เพิ่มเข้าไป สมการอันดับ 2 ต้องได้คำตอบอิสระ 2 ตัวและค่าคงที่ 2 ตัว บรรทัดสุดท้ายเหลือ \(C\) ตัวเดียวคือสัญญาณว่าผิด`},
+ {id:'b7',tag:'สมการช่วย · รากเชิงซ้อน',q:T`y'' + 2y' + 5y = 0`,lines:[
+   T`m^2 + 2m + 5 = 0`,
+   T`m = \frac{-2 \pm \sqrt{4-20}}{2} = -1 \pm 2i`,
+   T`\alpha = -1,\ \beta = 2`,
+   T`y = e^{2x}\left(C_1\cos x + C_2\sin x\right)`],bug:3,fix:T`y = e^{-x}\left(C_1\cos 2x + C_2\sin 2x\right)`,
+   why:T`ราก \(\alpha\pm\beta i\) ให้คำตอบ \(e^{\alpha x}(C_1\cos\beta x + C_2\sin\beta x)\) ส่วนจริงอยู่บน \(e\) ส่วนจินตภาพอยู่ใน \(\cos,\sin\) บรรทัดนี้สลับกัน`},
+ {id:'b8',tag:'UC · เดา y_p',q:T`y'' - y' - 2y = e^{2x}`,lines:[
+   T`m^2 - m - 2 = 0 \;\Rightarrow\; m = 2, -1`,
+   T`y_c = C_1e^{2x} + C_2e^{-x}`,
+   T`\text{เดา } y_p = Ae^{2x}`,
+   T`4Ae^{2x} - 2Ae^{2x} - 2Ae^{2x} = e^{2x}`,
+   T`0 = e^{2x}\;\Rightarrow\;\text{หา } A \text{ ไม่ได้ สรุปว่าใช้ UC ไม่ได้}`],bug:2,fix:T`e^{2x}\text{ ซ้ำกับ } y_c \Rightarrow y_p = Axe^{2x},\ 3A = 1,\ A=\tfrac13`,
+   why:T`\(e^{2x}\) ซ้ำกับพจน์ใน \(y_c\) แทนเข้าไปจึงได้ 0 เสมอ ต้องคูณ \(x\) ให้ไม่ซ้ำก่อน ได้ \(y = C_1e^{2x}+C_2e^{-x}+\tfrac13xe^{2x}\)`}
+];
+
+const ORD=[
+ {id:'o1',tag:'แยกตัวแปร',q:T`y(1+x^2)\,dx + x(1+y^2)\,dy = 0`,steps:[
+   T`\text{หารด้วย } xy:\ \frac{1+x^2}{x}dx + \frac{1+y^2}{y}dy = 0`,
+   T`\int\left(\frac1x + x\right)dx + \int\left(\frac1y + y\right)dy = 0`,
+   T`\ln|x| + \frac{x^2}{2} + \ln|y| + \frac{y^2}{2} = C`],fake:T`\int\frac{1+x^2}{x}dx = \ln|1+x^2| + C`},
+ {id:'o2',tag:'เอกพันธ์ · จากโน้ต',q:T`(x+y)\,dx + (y-x)\,dy = 0`,steps:[
+   T`y = ux,\quad dy = u\,dx + x\,du`,
+   T`(x+ux)\,dx + (ux-x)(u\,dx + x\,du) = 0`,
+   T`x(1+u^2)\,dx + x^2(u-1)\,du = 0`,
+   T`\frac{u-1}{1+u^2}\,du = -\frac{dx}{x}`,
+   T`\tfrac12\ln(1+u^2) - \arctan u = -\ln|x| + C`,
+   T`\tfrac12\ln\!\left(1+\tfrac{y^2}{x^2}\right) - \arctan\tfrac{y}{x} + \ln|x| = C`],fake:T`dy = u\,dx`},
+ {id:'o3',tag:'แม่นตรง',q:T`(e^x + y)\,dx + (x + \cos y)\,dy = 0`,steps:[
+   T`M_y = 1 = N_x \;\Rightarrow\; \text{exact}`,
+   T`F = \int M\,dx = e^x + xy + g(y)`,
+   T`F_y = x + g'(y) = x + \cos y`,
+   T`g'(y) = \cos y \;\Rightarrow\; g(y) = \sin y`,
+   T`e^x + xy + \sin y = C`],fake:T`g(y) = -\sin y`},
+ {id:'o4',tag:'เชิงเส้นอันดับ 1',q:T`\frac{dy}{dx} + \frac{2}{x}y = x^2`,steps:[
+   T`P = \tfrac{2}{x},\ Q = x^2`,
+   T`\mu = e^{\int P\,dx} = x^2`,
+   T`(x^2y)' = x^4`,
+   T`x^2y = \frac{x^5}{5} + C`,
+   T`y = \frac{x^3}{5} + \frac{C}{x^2}`],fake:T`\mu = e^{-\int P\,dx} = x^{-2}`},
+ {id:'o5',tag:'เบอร์นูลลี',q:T`\frac{dy}{dx} + y = x\,y^3`,steps:[
+   T`n = 3,\ \text{หารด้วย } y^3:\ y^{-3}y' + y^{-2} = x`,
+   T`u = y^{-2},\quad u' = -2y^{-3}y'`,
+   T`-\tfrac12u' + u = x \;\Rightarrow\; u' - 2u = -2x`,
+   T`\mu = e^{-2x}`,
+   T`ue^{-2x} = xe^{-2x} + \tfrac12e^{-2x} + C`,
+   T`y^{-2} = x + \tfrac12 + Ce^{2x}`],fake:T`u = y^{3}`},
+ {id:'o6',tag:'UC',q:T`y'' - y' - 2y = e^{2x}`,steps:[
+   T`m^2 - m - 2 = 0 \;\Rightarrow\; m = 2, -1`,
+   T`y_c = C_1e^{2x} + C_2e^{-x}`,
+   T`e^{2x}\ \text{ซ้ำกับ } y_c \Rightarrow y_p = Axe^{2x}`,
+   T`\text{แทนค่า: } 3Ae^{2x} = e^{2x} \Rightarrow A = \tfrac13`,
+   T`y = C_1e^{2x} + C_2e^{-x} + \tfrac13xe^{2x}`],fake:T`y_p = Ae^{2x}`},
+ {id:'o7',tag:'Variation of parameters',q:T`y'' + y = \csc x`,steps:[
+   T`y_c = C_1\cos x + C_2\sin x,\ \ y_1=\cos x,\ y_2=\sin x`,
+   T`W = y_1y_2' - y_2y_1' = \cos^2x + \sin^2x = 1`,
+   T`u_1' = -\frac{y_2\,g}{W} = -1 \Rightarrow u_1 = -x`,
+   T`u_2' = \frac{y_1\,g}{W} = \cot x \Rightarrow u_2 = \ln|\sin x|`,
+   T`y_p = -x\cos x + \sin x\ln|\sin x|`],fake:T`W = \cos^2x - \sin^2x`}
+];
+
+const REV=[
+ {id:'r1',sol:T`y = C_1e^{2x} + C_2e^{-3x}`,steps:[
+   {q:'รากของสมการช่วยคือ',o:[T`m = 2, -3`,T`m = -2, 3`,T`m = 2 \pm 3i`,T`m = 2, 2`],a:0,why:T`เลขชี้กำลังของ \(e\) แต่ละตัวคือรากหนึ่งตัว`},
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y'' + y' - 6y = 0`,T`y'' - y' - 6y = 0`,T`y'' + 5y' + 6y = 0`,T`y'' - 6y = 0`],a:0,why:T`\((m-2)(m+3) = m^2 + m - 6\)`}]},
+ {id:'r2',sol:T`y = C_1e^{3x} + C_2\,x\,e^{3x}`,steps:[
+   {q:'รากของสมการช่วยคือ',o:[T`m = 3, 3`,T`m = 3, 1`,T`m = 0, 3`,T`m = \pm 3`],a:0,why:T`มี \(x\) คูณ แปลว่ารากซ้ำ`},
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y'' - 6y' + 9y = 0`,T`y'' + 6y' + 9y = 0`,T`y'' - 9y = 0`,T`y'' - 3y' = 0`],a:0,why:T`\((m-3)^2 = m^2 - 6m + 9\)`}]},
+ {id:'r3',sol:T`y = e^{x}\left(C_1\cos 2x + C_2\sin 2x\right)`,steps:[
+   {q:'รากของสมการช่วยคือ',o:[T`m = 1 \pm 2i`,T`m = 2 \pm i`,T`m = 1, 2`,T`m = -1 \pm 2i`],a:0,why:T`\(\alpha = 1\) (บน \(e\)), \(\beta = 2\) (ใน \(\cos,\sin\))`},
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y'' - 2y' + 5y = 0`,T`y'' + 2y' + 5y = 0`,T`y'' - 2y' + 3y = 0`,T`y'' + 4y = 0`],a:0,why:T`\((m-1)^2 + 4 = m^2 - 2m + 5\)`}]},
+ {id:'r4',sol:T`y = C_1\cos 3x + C_2\sin 3x`,steps:[
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y'' + 9y = 0`,T`y'' - 9y = 0`,T`y'' + 3y = 0`,T`y'' + 6y' + 9y = 0`],a:0,why:T`ราก \(m = \pm 3i\) จึงได้ \(m^2 + 9 = 0\) ระวัง \(y''-9y=0\) ให้ \(e^{\pm3x}\) ไม่ใช่ \(\cos,\sin\)`}]},
+ {id:'r5',sol:T`y = C_1 + C_2e^{4x}`,steps:[
+   {q:'รากของสมการช่วยคือ',o:[T`m = 0, 4`,T`m = 1, 4`,T`m = 4, 4`,T`m = \pm 4`],a:0,why:T`ค่าคงที่ \(C_1\) ก็คือ \(C_1e^{0x}\) จึงมีราก \(m=0\)`},
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y'' - 4y' = 0`,T`y'' - 4y = 0`,T`y'' + 4y' = 0`,T`y' - 4y = 1`],a:0,why:T`\(m(m-4) = m^2 - 4m\)`}]},
+ {id:'r6',sol:T`y = (C_1 + C_2x + C_3x^2)\,e^{x}`,steps:[
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y''' - 3y'' + 3y' - y = 0`,T`y''' - y = 0`,T`y''' + 3y'' + 3y' + y = 0`,T`y'' - 2y' + y = 0`],a:0,why:T`ราก \(m=1\) ซ้ำ 3 ตัว \((m-1)^3 = m^3 - 3m^2 + 3m - 1\) ตัวเลือกสุดท้ายเป็นอันดับ 2 ให้ค่าคงที่ได้แค่ 2 ตัว`}]},
+ {id:'r7',sol:T`y = C_1e^{-x} + C_2\cos x + C_3\sin x`,steps:[
+   {q:'รากของสมการช่วยคือ',o:[T`m = -1, \pm i`,T`m = 1, \pm i`,T`m = -1, \pm 1`,T`m = -1 \pm i`],a:0,why:T`\(e^{-x}\) ให้ \(m=-1\) และ \(\cos x, \sin x\) ให้ \(m = 0 \pm 1i\)`},
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y''' + y'' + y' + y = 0`,T`y''' - y'' + y' - y = 0`,T`y''' + y = 0`,T`y''' + y' = 0`],a:0,why:T`\((m+1)(m^2+1) = m^3 + m^2 + m + 1\)`}]},
+ {id:'r8',sol:T`y = Ce^{x^2}`,tag:'อันดับ 1 · กำจัดค่าคงที่',steps:[
+   {q:'ดิฟแล้วกำจัด C จะได้สมการ',o:[T`\frac{dy}{dx} = 2xy`,T`\frac{dy}{dx} = 2x`,T`\frac{dy}{dx} = x^2y`,T`\frac{dy}{dx} = 2y`],a:0,why:T`\(y' = 2xCe^{x^2} = 2xy\) ค่า \(C\) หายไปเพราะแทน \(Ce^{x^2}\) ด้วย \(y\)`}]},
+ {id:'r9',sol:T`x^2 + y^2 = C`,tag:'อันดับ 1 · เส้นโค้งคำตอบ',steps:[
+   {q:'ดิฟโดยปริยายแล้วได้สมการ',o:[T`\frac{dy}{dx} = -\frac{x}{y}`,T`\frac{dy}{dx} = \frac{x}{y}`,T`\frac{dy}{dx} = -\frac{y}{x}`,T`\frac{dy}{dx} = 2x + 2y`],a:0,why:T`\(2x + 2y\,y' = 0 \Rightarrow y' = -x/y\) ตรงกับตัวอย่างในชีท Integral Curve ลองเปิดในหน้าสนามทิศทางดู`}]},
+ {id:'r10',sol:T`y = Cx^2`,tag:'อันดับ 1 · กำจัดค่าคงที่',steps:[
+   {q:'ดิฟแล้วกำจัด C จะได้สมการ',o:[T`x\,y' = 2y`,T`y' = 2x`,T`y' = 2Cx`,T`x\,y' = y`],a:0,why:T`\(y' = 2Cx\) และ \(C = y/x^2\) แทนได้ \(y' = 2y/x\) ตัวเลือก \(y'=2Cx\) ยังมี \(C\) ค้างอยู่ จึงยังไม่ใช่สมการเชิงอนุพันธ์ของวงศ์นี้`}]}
+];
+
+const ROOMS=[
+ {title:'ประตู 1 · ตู้บ่มเชื้อ',story:'22:47 น. ไฟในแล็บจุลชีวะชั้น 4 ดับแล้วติดใหม่ ประตูทุกบานล็อกอัตโนมัติ บนหน้าจอตู้บ่มเชื้อมีสมการกับข้อความว่า "รหัส = อันดับ ตามด้วย ระดับขั้น"',
+  q:T`x\left(\frac{d^3y}{dx^3}\right)^{2} + \left(\frac{dy}{dx}\right)^{4} = y`,inputs:[{label:'รหัส 2 หลัก',a:32}],
+  hint:T`อันดับ = อนุพันธ์ที่สูงที่สุด (\(d^3y/dx^3\)) ระดับขั้น = เลขกำลังของอนุพันธ์ตัวนั้น ไม่ใช่กำลัง 4 ของ \(dy/dx\)`},
+ {title:'ประตู 2 · ชั้นวางขวดอาหารเลี้ยงเชื้อ',story:'ขวด 6 ใบติดฉลากสมการไว้ ใต้ชั้นเขียนว่า "รหัส = จำนวนขวดที่เป็นสมการเชิงเส้น"',
+  list:[T`y'' + x\,y' = \sin x`,T`y\,y' = x`,T`x^2y''' + e^{x}y = 0`,T`y'' + \sin y = 0`,T`(y')^2 + y = 1`,T`y' + (\cos x)\,y = x^3`],inputs:[{label:'จำนวน',a:3}],
+  hint:T`เชิงเส้นได้เมื่อ \(y\) และอนุพันธ์มีกำลัง 1, ไม่คูณกันเอง และไม่อยู่ในฟังก์ชันอย่าง \(\sin y\) ส่วนสัมประสิทธิ์จะเป็นฟังก์ชันของ \(x\) อะไรก็ได้`},
+ {title:'ประตู 3 · จานเพาะเชื้อ',story:'จานเพาะเชื้อเริ่มต้นมีแบคทีเรีย 200 เซลล์ อัตราการโตเป็นไปตามสมการด้านล่าง (t เป็นชั่วโมง) รหัสคือจำนวนเซลล์ที่เวลา t = 2 ln 3',
+  q:T`\frac{dP}{dt} = 0.5\,P,\qquad P(0) = 200`,inputs:[{label:'P',a:600}],
+  hint:T`แยกตัวแปร: \(\frac{dP}{P} = 0.5\,dt \Rightarrow P = 200e^{0.5t}\) แล้วแทน \(t = 2\ln 3\)`},
+ {title:'ประตู 4 · จอกราฟสั่นไหว',story:'จอแสดงเส้นโค้งที่ผ่านจุด (1, 1) บนป้ายเขียนว่า "รหัส = 10 × y(2)"',
+  q:T`\frac{dy}{dx} + \frac{2}{x}\,y = x^2,\qquad y(1) = 1`,inputs:[{label:'10·y(2)',a:18}],
+  hint:T`\(\mu = x^2\) ได้ \(y = \frac{x^3}{5} + \frac{C}{x^2}\) ใช้ \(y(1)=1\) หา \(C\)`},
+ {title:'ประตู 5 · ตู้เก็บสารเคมี',story:'กุญแจตู้ใช้ค่าคงที่ C จากคำตอบเฉพาะของสมการนี้ รหัส = 100C',
+  q:T`\frac{dy}{dx} + y = x\,y^3,\qquad y(0) = 1`,inputs:[{label:'100C',a:50}],
+  hint:T`เบอร์นูลลี \(n=3\), \(u = y^{-2}\) จะได้ \(y^{-2} = x + \tfrac12 + Ce^{2x}\) แล้วแทน \(x = 0,\ y = 1\)`},
+ {title:'ประตู 6 · ประตูทางออก',story:'แผงสุดท้ายถามหาค่า a กับ b ของสมการที่มีคำตอบทั่วไปตามนี้',
+  q:T`y'' + a\,y' + b\,y = 0 \quad\text{มีคำตอบ}\quad y = C_1e^{2x} + C_2e^{-5x}`,inputs:[{label:'a',a:3},{label:'b',a:-10}],
+  hint:T`ราก \(2\) กับ \(-5\) → \((m-2)(m+5) = m^2 + 3m - 10\)`}
+];
+
+const ICON={
+ learn:`<svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10c6-3 12-3 18 2 6-5 12-5 18-2v28c-6-3-12-3-18 2-6-5-12-5-18-2z"/><path d="M24 12v28"/></svg>`,
+ detective:`<svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"><circle cx="20" cy="20" r="12"/><path d="M29 29l12 12"/><path d="M15 20h10M20 15v10" stroke-width="3"/></svg>`,
+ field:`<svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"><path d="M8 14l6-4M22 14l6-3M36 13l6-1M8 28l6-2M22 26l6 0M36 26l6 1M8 40l6 0M22 39l6 2M36 38l6 3"/></svg>`,
+ bug:`<svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="24" cy="28" rx="10" ry="13"/><path d="M24 15v26M17 10l4 5M31 10l-4 5M14 24H6M14 32l-7 4M34 24h8M34 32l7 4"/></svg>`,
+ order:`<svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"><path d="M8 12h14M8 24h24M8 36h32"/><path d="M38 8v10M34 14l4 4 4-4"/></svg>`,
+ reverse:`<svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 24a14 14 0 1 0 4-10"/><path d="M8 8v8h8"/><path d="M24 17v8l5 3"/></svg>`,
+ escape:`<svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 42V8h20v34"/><path d="M6 42h36"/><circle cx="27" cy="26" r="1.8" fill="#fff"/><path d="M36 18l6 6-6 6"/></svg>`
+};
+const cfx=document.getElementById('confetti'),cc=cfx.getContext('2d');let parts=[],cfRun=false;
+function celebrate(n=70){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  cfx.width=innerWidth;cfx.height=innerHeight;const cols=['#ffc63f','#ff7a66','#2fbf98','#55a8f2','#9b7cf2','#ff8fb8'];
+  for(let i=0;i<n;i++)parts.push({x:innerWidth/2+(Math.random()-.5)*120,y:innerHeight*.55,vx:(Math.random()-.5)*11,vy:-Math.random()*13-5,r:Math.random()*6+4,c:cols[i%6],a:Math.random()*6,va:(Math.random()-.5)*.3,life:0});
+  if(!cfRun){cfRun=true;requestAnimationFrame(cfStep);}
+}
+function cfStep(){cc.clearRect(0,0,cfx.width,cfx.height);
+  parts.forEach(p=>{p.vy+=.38;p.x+=p.vx;p.y+=p.vy;p.vx*=.99;p.a+=p.va;p.life++;cc.save();cc.translate(p.x,p.y);cc.rotate(p.a);cc.fillStyle=p.c;cc.fillRect(-p.r/2,-p.r/3,p.r,p.r*.66);cc.restore();});
+  parts=parts.filter(p=>p.y<cfx.height+20&&p.life<200);
+  if(parts.length)requestAnimationFrame(cfStep);else{cfRun=false;cc.clearRect(0,0,cfx.width,cfx.height);}}
+
+const LESSONS=[
+ {id:'l1',unit:0,title:'DE คืออะไร',go:'field',steps:[
+  {k:'talk',m:'happy',t:'สวัสดี! เราชื่อ <b>อินทิ</b> (หน้าตาเหมือนเครื่องหมายอินทิกรัลเลยใช่ไหม) วันนี้จะพาไปรู้จักสมการเชิงอนุพันธ์ (DE) แบบสั้นๆ ทีละนิด มีคำถามให้ลองตอบตลอดทาง ผิดได้ไม่เป็นไร'},
+  {k:'show',h:'สมการที่คุ้นเคย vs สมการเชิงอนุพันธ์',t:T`<div class="boxset"><div class="box c1"><h4>สมการพีชคณิต</h4>\(x^2-7x+10=0\)<br>คำตอบเป็น <b>ตัวเลข</b><br>\(x=2\) หรือ \(x=5\)</div><div class="box c2"><h4>สมการเชิงอนุพันธ์</h4>\(\dfrac{dy}{dx}=2x\)<br>คำตอบเป็น <b>ฟังก์ชัน</b><br>\(y=x^2+C\)</div></div>`},
+  {k:'quiz',q:T`คำตอบของ \(\dfrac{dy}{dx}=\cos x\) คืออะไร`,o:[T`\(y=\sin x+C\)`,T`\(x=0\)`,T`\(y=-\sin x+C\)`,'ไม่มีคำตอบ'],a:0,why:T`ถามว่าฟังก์ชันอะไรที่ดิฟแล้วได้ \(\cos x\) ก็คือ \(\sin x\) บวกค่าคงที่อะไรก็ได้`},
+  {k:'talk',m:'think',t:T`DE คือสมการที่มี<b>ฟังก์ชันที่เรายังไม่รู้</b> (เช่น \(y\)) อยู่ใต้เครื่องหมายอนุพันธ์ แบ่งเป็น 2 กลุ่ม<br>• <b>ODE</b> ฟังก์ชันขึ้นกับตัวแปรเดียว ใช้ \(d\)<br>• <b>PDE</b> ฟังก์ชันขึ้นกับหลายตัวแปร ใช้ \(\partial\)`},
+  {k:'quiz',q:T`\(\dfrac{\partial u}{\partial x}+\dfrac{\partial u}{\partial y}=0\) เป็นแบบไหน`,o:['PDE','ODE'],a:0,why:T`\(u\) ขึ้นกับทั้ง \(x\) และ \(y\) และใช้ \(\partial\) จึงเป็น PDE`},
+  {k:'quiz',q:T`ใน \(\dfrac{d^3y}{dx^3}+4\dfrac{d^2y}{dx^2}-5\dfrac{dy}{dx}+3y=\sin x\) ตัวไหนคือฟังก์ชันที่ไม่รู้ค่า`,o:[T`\(y\)`,T`\(x\)`,T`\(\sin x\)`],a:0,why:T`\(x\) เป็นตัวแปรอิสระ ส่วน \(y(x)\) คือฟังก์ชันที่ต้องหา คอร์สนี้เราจะเรียนแต่ ODE`}
+ ]},
+ {id:'l2',unit:0,title:'อันดับ ระดับขั้น เชิงเส้น',go:'escape',steps:[
+  {k:'talk',m:'happy',t:'มีศัพท์ 3 คำที่ข้อสอบชอบถามมาก คือ <b>อันดับ</b> <b>ระดับขั้น</b> และ <b>เชิงเส้น</b> ไปดูกันทีละคำ'},
+  {k:'show',h:'อันดับ กับ ระดับขั้น',t:T`<div class="boxset"><div class="box c1"><h4>อันดับ (order)</h4>ดูว่า<b>อนุพันธ์ตัวที่สูงที่สุด</b>เป็นอนุพันธ์อันดับเท่าไร</div><div class="box c4"><h4>ระดับขั้น (degree)</h4>ดู<b>เลขกำลัง</b>ของอนุพันธ์ตัวที่สูงที่สุดนั้น</div></div><div class="eq">\[\left(\frac{d^2y}{dx^2}\right)^{3}+5\left(\frac{dy}{dx}\right)^{6}=0\]</div>อันดับ 2 ระดับขั้น <b>3</b> ไม่ใช่ 6 เพราะเลข 6 เป็นกำลังของ \(\frac{dy}{dx}\) ซึ่งไม่ใช่ตัวที่สูงที่สุด`},
+  {k:'quiz',q:T`\(5x^2\left(\dfrac{d^2y}{dx^2}\right)^{3}+3x^2\dfrac{dy}{dx}-\sin(xy)=0\) มีอันดับและระดับขั้นเท่าไร`,o:['อันดับ 2 ระดับขั้น 3','อันดับ 3 ระดับขั้น 2','อันดับ 2 ระดับขั้น 1','อันดับ 1 ระดับขั้น 3'],a:0,why:T`อนุพันธ์สูงสุดคือ \(\frac{d^2y}{dx^2}\) (อันดับ 2) ยกกำลัง 3`},
+  {k:'show',h:'เช็กลิสต์ "เชิงเส้น"',t:T`<div class="boxset"><div class="box c3"><h4>ต้องเป็นแบบนี้</h4>• \(y\) และอนุพันธ์ทุกตัวกำลัง 1<br>• ไม่คูณกันเอง เช่น \(y\,y'\)<br>• ไม่อยู่ในฟังก์ชัน เช่น \(\sin y,\ e^{y},\ \ln y\)</div><div class="box c2"><h4>ส่วนนี้ได้หมด</h4>สัมประสิทธิ์เป็นฟังก์ชันของ \(x\) อะไรก็ได้ เช่น \(x^2y''\), \((\sin x)\,y\), \(e^x\)</div></div>`},
+  {k:'quiz',q:'สมการไหนเป็นสมการเชิงเส้น',o:[T`\(x^2y''+(\sin x)\,y=e^x\)`,T`\(y\,y'=x\)`,T`\(y''+\sin y=0\)`,T`\((y')^2=x\)`],a:0,why:T`\(x^2\) กับ \(\sin x\) เป็นสัมประสิทธิ์ที่ขึ้นกับ \(x\) ซึ่งอนุญาต ส่วนตัวเลือกอื่นมี \(y\) คูณ \(y'\), มี \(\sin y\) หรือมีกำลัง 2`},
+  {k:'quiz',q:T`\(\dfrac{d^2y}{dx^2}-x\dfrac{dy}{dx}-xy^2=0\) เป็นเชิงเส้นไหม`,o:['ไม่เป็น','เป็น'],a:0,why:T`มี \(y^2\) ผิดเงื่อนไขกำลัง 1 (ข้อนี้มาจาก Test 1 ในชีท)`}
+ ]},
+ {id:'l3',unit:0,title:'คำตอบ & เส้นโค้งคำตอบ',go:'field',steps:[
+  {k:'talk',m:'happy',t:'แก้ DE แล้วได้คำตอบมาเป็น "ตระกูล" ของฟังก์ชัน เพราะมีค่าคงที่ \\(C\\) ติดมา บทนี้ดูว่ามันหน้าตาเป็นยังไงบนกราฟ'},
+  {k:'show',h:'คำตอบทั่วไป vs คำตอบเฉพาะ',t:T`<div class="eq">\[\frac{dy}{dx}=\cos x\ \Rightarrow\ y=\sin x+C\]</div><div class="boxset"><div class="box c1"><h4>คำตอบทั่วไป</h4>ยังมี \(C\) อยู่ จำนวนค่าคงที่ = อันดับของสมการ</div><div class="box c2"><h4>คำตอบเฉพาะ</h4>เลือก \(C\) ค่าหนึ่ง เช่น \(y=\sin x+2\)</div></div>แต่ละค่า \(C\) ให้เส้นโค้ง 1 เส้น เรียกว่า <b>integral curve</b> รวมกันเป็น one-parameter family`},
+  {k:'quiz',q:'สมการอันดับ 3 มีค่าคงที่ในคำตอบทั่วไปกี่ตัว',o:['3','1','2','ไม่แน่นอน'],a:0,why:'จำนวนค่าคงที่เท่ากับอันดับ อันดับ 3 จึงมี 3 ตัว'},
+  {k:'show',h:'IVP กับ BVP',t:T`<div class="boxset"><div class="box c3"><h4>Initial value (IVP)</h4>กำหนดเงื่อนไข<b>ที่จุดเดียว</b><br>\(y(1)=2,\ y'(1)=-3\)</div><div class="box c4"><h4>Boundary value (BVP)</h4>กำหนดเงื่อนไข<b>คนละจุด</b><br>\(y(0)=1,\ y(1)=3\)</div></div>`},
+  {k:'quiz',q:T`เงื่อนไข \(y(0)=1,\ y(\pi)=0\) เป็นแบบไหน`,o:['Boundary value','Initial value'],a:0,why:T`กำหนดที่ \(x=0\) กับ \(x=\pi\) คนละจุด จึงเป็น boundary`},
+  {k:'show',h:'สนามทิศทาง',t:T`จาก \(\dfrac{dy}{dx}=f(x,y)\) เรารู้ความชันทุกจุดโดยไม่ต้องแก้สมการ<br>• <b>line element</b> ขีดสั้นๆ ที่มีความชันเท่ากับ \(f(x,y)\)<br>• <b>direction field</b> ขีดทั้งหมดรวมกัน<br>• <b>isocline</b> แนวจุดที่ความชันเท่ากัน \(f(x,y)=k\)<br>ไล่เส้นตามขีดไปเรื่อยๆ ก็ได้รูปร่างของ integral curve`},
+  {k:'quiz',q:T`isocline ของ \(\dfrac{dy}{dx}=x+y\) ที่ \(k=0\) คือเส้นไหน`,o:[T`\(y=-x\)`,T`\(y=x\)`,T`\(x=0\)`,T`\(y=0\)`],a:0,why:T`ตั้ง \(x+y=0\) ได้ \(y=-x\) ทุกจุดบนเส้นนี้มีขีดความชันเป็นแนวนอน`}
+ ]},
+ {id:'l4',unit:1,title:'แยกตัวแปร',go:'detective',steps:[
+  {k:'talk',m:'happy',t:'วิธีแรกที่ง่ายที่สุด! หลักการจากโน้ต: <b>หน้า dx ต้องมีแต่ x</b> และ <b>หน้า dy ต้องมีแต่ y</b> พอแยกได้แล้วก็อินทิเกรตสองฝั่ง'},
+  {k:'quiz',q:'สมการไหนแยกตัวแปรได้',o:[T`\(\dfrac{dy}{dx}=e^{x+y}\)`,T`\(\dfrac{dy}{dx}=x+y\)`,T`\(\dfrac{dy}{dx}=\sin(xy)\)`,T`\(\dfrac{dy}{dx}=x^2+y^2\)`],a:0,why:T`\(e^{x+y}=e^xe^y\) เป็นผลคูณ จึงได้ \(e^{-y}dy=e^xdx\) ตัวเลือกอื่นเป็นผลบวกหรือติดกันในฟังก์ชัน`},
+  {k:'reveal',h:T`ลองทำ \(\dfrac{dy}{dx}=xy\)`,lines:[[T`\dfrac{dy}{y}=x\,dx`,'ย้าย y ไปอยู่กับ dy'],[T`\int\dfrac{dy}{y}=\int x\,dx`,'อินทิเกรตสองฝั่ง'],[T`\ln|y|=\dfrac{x^2}{2}+C`,'อย่าลืม +C'],[T`y=Ce^{x^2/2}`,'ยก e ทั้งสองฝั่ง แล้วรวมค่าคงที่เป็น C ตัวใหม่']]},
+  {k:'quiz',q:T`ถ้า \(y(0)=3\) แล้ว \(C\) เท่ากับเท่าไร`,o:['3','0','1','e³'],a:0,why:T`แทน \(x=0\): \(3=Ce^0=C\) ได้คำตอบเฉพาะ \(y=3e^{x^2/2}\)`},
+  {k:'talk',m:'think',t:'ข้อควรระวัง: ตอนหารเพื่อแยกตัวแปร ระวังลอกตัวแปรผิดฝั่ง ในโน้ตจริงเคยมีจุดที่เขียน tan x ตรงที่ควรเป็น tan y ไปตามล่าได้ในด่าน <b>จับผิดเฉลย</b>'}
+ ]},
+ {id:'l5',unit:1,title:'เอกพันธ์',go:'order',steps:[
+  {k:'talk',m:'happy',t:T`สมการเอกพันธ์คือสมการที่ทุกพจน์มี<b>ดีกรีรวมเท่ากัน</b> หรือเขียน \(\frac{dy}{dx}=f\!\left(\frac{y}{x}\right)\) ได้ ทริกคือ <b>แทน \(y=ux\)</b> แล้วมันจะกลายเป็นแบบแยกตัวแปร`},
+  {k:'quiz',q:'สมการไหนเป็นเอกพันธ์',o:[T`\((x^2+y^2)\,dx+xy\,dy=0\)`,T`\((x+1)\,dx+y\,dy=0\)`,T`\(x^2\,dx+y\,dy=0\)`,T`\((x+y^2)\,dx+dy=0\)`],a:0,why:T`\(x^2,\ y^2,\ xy\) ดีกรี 2 ทุกพจน์ ตัวเลือกอื่นมีพจน์ดีกรีต่างกัน`},
+  {k:'quiz',q:T`ให้ \(y=ux\) แล้ว \(\dfrac{dy}{dx}\) เท่ากับอะไร`,o:[T`\(u+x\dfrac{du}{dx}\)`,T`\(x\dfrac{du}{dx}\)`,T`\(u\)`,T`\(u\dfrac{du}{dx}\)`],a:0,why:T`\(y=ux\) เป็นผลคูณ ต้องใช้กฎผลคูณ จุดนี้คนลืม \(u\) บ่อยที่สุด`},
+  {k:'reveal',h:T`ลองทำ \(\dfrac{dy}{dx}=\dfrac{x+y}{x}\)`,lines:[[T`u+x\dfrac{du}{dx}=1+u`,T`แทน \(y=ux\) ฝั่งขวาเป็น \(\frac{x+ux}{x}=1+u\)`],[T`x\dfrac{du}{dx}=1`,'u ตัดกันพอดี'],[T`du=\dfrac{dx}{x}`,'แยกตัวแปรได้แล้ว'],[T`u=\ln|x|+C`,''],[T`y=x\ln|x|+Cx`,T`แทน \(u=y/x\) กลับ`]]},
+  {k:'talk',m:'happy',t:'สรุปขั้นตอน: เช็กดีกรี → แทน y = ux และ dy = u dx + x du → แยกตัวแปร → อินทิเกรต → แทน u = y/x กลับ'}
+ ]},
+ {id:'l6',unit:1,title:'แม่นตรง (Exact)',go:'bug',steps:[
+  {k:'talk',m:'happy',t:T`สมการ \(M\,dx+N\,dy=0\) จะ <b>exact</b> ถ้ามีฟังก์ชัน \(F(x,y)\) ที่ \(dF=M\,dx+N\,dy\) พอดี แล้วคำตอบก็คือ \(F(x,y)=C\) เลย`},
+  {k:'show',h:'สูตรลับ 5 ขั้น',t:T`<ol class="plan"><li>เช็ก \(\dfrac{\partial M}{\partial y}=\dfrac{\partial N}{\partial x}\)</li><li>\(F=\int M\,dx+g(y)\)</li><li>ดิฟ \(F\) เทียบ \(y\) แล้วตั้งให้เท่ากับ \(N\)</li><li>หา \(g'(y)\) แล้วอินทิเกรตเป็น \(g(y)\)</li><li>ตอบ \(F(x,y)=C\)</li></ol>`},
+  {k:'quiz',q:T`\((2xy+3)\,dx+(x^2-1)\,dy=0\) ค่า \(\dfrac{\partial M}{\partial y}\) เท่ากับ`,o:[T`\(2x\)`,T`\(2y\)`,T`\(2xy\)`,T`\(3\)`],a:0,why:T`ดิฟ \(2xy+3\) เทียบ \(y\) โดยมอง \(x\) เป็นค่าคงที่ ได้ \(2x\) ซึ่งเท่ากับ \(N_x=2x\) พอดี จึง exact`},
+  {k:'reveal',h:'ทำต่อจนจบ',lines:[[T`F=\int(2xy+3)\,dx=x^2y+3x+g(y)`,'อินทิเกรตเทียบ x แล้วเติม g(y) แทนค่าคงที่'],[T`F_y=x^2+g'(y)=x^2-1`,'ตั้งให้เท่ากับ N'],[T`g'(y)=-1\ \Rightarrow\ g(y)=-y`,''],[T`x^2y+3x-y=C`,'เสร็จ!']]},
+  {k:'quiz',q:'ตรวจคำตอบของข้อ exact ให้ชัวร์ทำยังไง',o:['ดิฟ F เทียบ x และ y แล้วต้องได้ M กับ N คืน','แทน x = 0','อินทิเกรต F อีกรอบ'],a:0,why:T`\(\partial_x(x^2y+3x-y)=2xy+3=M\) และ \(\partial_y=x^2-1=N\) ใช้ได้`}
+ ]},
+ {id:'l7',unit:1,title:'ตัวประกอบอินทิเกรต',go:'bug',steps:[
+  {k:'talk',m:'wow',t:T`ไม่ exact ก็ยังไม่จบ! เราคูณด้วย <b>ตัวประกอบอินทิเกรต</b> \(\mu\) เพื่อเปลี่ยนให้มัน exact`},
+  {k:'show',h:'หา μ ได้ 2 ทาง',t:T`<div class="boxset"><div class="box c1"><h4>ถ้าเป็นของ x ล้วน</h4>\(\dfrac{M_y-N_x}{N}=f(x)\)<br>\(\mu=e^{\int f(x)\,dx}\)</div><div class="box c2"><h4>ถ้าเป็นของ y ล้วน</h4>\(\dfrac{N_x-M_y}{M}=g(y)\)<br>\(\mu=e^{\int g(y)\,dy}\)</div></div>`},
+  {k:'quiz',q:T`\((2x^2+y)\,dx+(x^2y-x)\,dy=0\) ค่า \(\dfrac{M_y-N_x}{N}\) คือ`,o:[T`\(-\dfrac{2}{x}\)`,T`\(\dfrac{2}{x}\)`,T`\(-2xy\)`,T`\(\dfrac{1}{y}\)`],a:0,why:T`\(M_y=1,\ N_x=2xy-1\) ได้ \(\frac{2-2xy}{x(xy-1)}=-\frac{2}{x}\) เป็นของ \(x\) ล้วน`},
+  {k:'quiz',q:T`ดังนั้น \(\mu=e^{\int -\frac{2}{x}dx}\) เท่ากับ`,o:[T`\(x^{-2}\)`,T`\(x^{2}\)`,T`\(e^{-2x}\)`,T`\(-2\ln x\)`],a:0,why:T`\(e^{-2\ln x}=e^{\ln x^{-2}}=x^{-2}\) อย่าทำเครื่องหมายลบหาย`},
+  {k:'reveal',h:'คูณ μ แล้วแก้แบบ exact',lines:[[T`\left(2+\dfrac{y}{x^2}\right)dx+\left(y-\dfrac{1}{x}\right)dy=0`,'คูณ x⁻² ทั้งสมการ'],[T`M_y=\dfrac{1}{x^2}=N_x`,'exact แล้ว'],[T`F=2x-\dfrac{y}{x}+g(y),\quad g'(y)=y`,''],[T`2x-\dfrac{y}{x}+\dfrac{y^2}{2}=C`,'']]}
+ ]},
+ {id:'l8',unit:1,title:'เชิงเส้นอันดับ 1',go:'order',steps:[
+  {k:'talk',m:'happy',t:T`รูปมาตรฐาน \(y'+P(x)\,y=Q(x)\) เวทมนตร์คือคูณด้วย \(\mu=e^{\int P\,dx}\) แล้วฝั่งซ้ายจะยุบเป็น \((\mu y)'\) ทันที`},
+  {k:'show',h:'สูตรเดียวจบ',t:T`<div class="eq">\[\mu=e^{\int P\,dx},\qquad \mu\,y=\int \mu\,Q\,dx+C\]</div>ก่อนใช้สูตร ต้องจัดให้หน้า \(y'\) เป็น 1 ก่อนเสมอ`},
+  {k:'quiz',q:T`\(x\,y'-y=x^3\) จัดรูปแล้ว \(P(x)\) คือ`,o:[T`\(-\dfrac{1}{x}\)`,T`\(-1\)`,T`\(\dfrac{1}{x}\)`,T`\(x^2\)`],a:0,why:T`หารด้วย \(x\) ก่อน ได้ \(y'-\frac{1}{x}y=x^2\)`},
+  {k:'reveal',h:T`ลองทำ \(y'+y=e^{x}\)`,lines:[[T`\mu=e^{\int 1\,dx}=e^{x}`,''],[T`(y\,e^{x})'=e^{2x}`,'คูณ μ ทั้งสมการ ฝั่งซ้ายยุบเป็นอนุพันธ์ของผลคูณ'],[T`y\,e^{x}=\tfrac12e^{2x}+C`,''],[T`y=\tfrac12e^{x}+Ce^{-x}`,'หาร μ อย่าลืมหาร C ด้วย']]},
+  {k:'quiz',q:T`ขั้นสุดท้าย ถ้ามี \(x^2y=\frac{x^5}{5}+C\) คำตอบที่ถูกคือ`,o:[T`\(y=\dfrac{x^3}{5}+\dfrac{C}{x^2}\)`,T`\(y=\dfrac{x^3}{5}+C\)`,T`\(y=\dfrac{x^5}{5}+C\)`],a:0,why:'ต้องหาร C ด้วย x² ด้วย นี่คือหนึ่งในจุดผิดยอดนิยม'}
+ ]},
+ {id:'l9',unit:1,title:'เบอร์นูลลี',go:'order',steps:[
+  {k:'talk',m:'wow',t:T`หน้าตาเหมือนเชิงเส้นแต่มี \(y^n\) แอบอยู่ฝั่งขวา: \(y'+P\,y=Q\,y^n\) แปลงร่างด้วย \(u=y^{1-n}\) แล้วมันจะกลายเป็นสมการเชิงเส้นใน \(u\)`},
+  {k:'quiz',q:T`\(y'+3y=e^{3x}y^2\) ควรให้ \(u\) เท่ากับ`,o:[T`\(y^{-1}\)`,T`\(y^{2}\)`,T`\(y^{3}\)`,T`\(y^{-2}\)`],a:0,why:T`\(n=2\) ดังนั้น \(u=y^{1-2}=y^{-1}\)`},
+  {k:'reveal',h:T`ลองทำ \(y'+y=x\,y^3\)`,lines:[[T`y^{-3}y'+y^{-2}=x`,T`หารด้วย \(y^3\) (\(n=3\))`],[T`u=y^{-2},\quad u'=-2y^{-3}y'`,''],[T`-\tfrac12u'+u=x\ \Rightarrow\ u'-2u=-2x`,'ได้สมการเชิงเส้นแล้ว'],[T`\mu=e^{-2x},\quad u\,e^{-2x}=x\,e^{-2x}+\tfrac12e^{-2x}+C`,''],[T`y^{-2}=x+\tfrac12+Ce^{2x}`,'']]},
+  {k:'quiz',q:T`\(y'+\dfrac{y}{2x}=\dfrac{x}{y}\) ควรให้ \(u\) เท่ากับ`,o:[T`\(y^{2}\)`,T`\(y^{-1}\)`,T`\(y^{-2}\)`,T`\(\dfrac{x}{y}\)`],a:0,why:T`\(\frac{x}{y}=x\,y^{-1}\) จึง \(n=-1\) และ \(u=y^{1-(-1)}=y^2\)`}
+ ]},
+ {id:'l10',unit:2,title:'สมการช่วย 3 กรณี',go:'reverse',steps:[
+  {k:'talk',m:'happy',t:T`เข้าสู่อันดับ n! ใช้ตัวดำเนินการ \(D=\frac{d}{dx}\) เขียน \(y''-5y'+6y=0\) เป็น \((D^2-5D+6)\,y=0\) แล้วแก้<b>สมการช่วย</b> \(m^2-5m+6=0\)`},
+  {k:'show',h:'รากแต่ละแบบให้คำตอบหน้าตาต่างกัน',t:T`<div class="boxset"><div class="box c1"><h4>รากจริงต่างกัน</h4>\(m_1, m_2\)<br>\(C_1e^{m_1x}+C_2e^{m_2x}\)</div><div class="box c2"><h4>รากซ้ำ</h4>\(m, m\)<br>\(C_1e^{mx}+C_2\,x\,e^{mx}\)</div><div class="box c3"><h4>รากเชิงซ้อน</h4>\(\alpha\pm\beta i\)<br>\(e^{\alpha x}(C_1\cos\beta x+C_2\sin\beta x)\)</div></div>`},
+  {k:'quiz',q:T`\(y''-5y'+6y=0\) มีราก \(m=2,3\) คำตอบคือ`,o:[T`\(C_1e^{2x}+C_2e^{3x}\)`,T`\(C_1e^{-2x}+C_2e^{-3x}\)`,T`\(e^{2x}(C_1\cos3x+C_2\sin3x)\)`],a:0,why:'รากจริงต่างกัน ใส่เป็นเลขชี้กำลังของ e ตรงๆ'},
+  {k:'quiz',q:T`\(y''+4y'+4y=0\) คำตอบคือ`,o:[T`\(C_1e^{-2x}+C_2\,x\,e^{-2x}\)`,T`\(C_1e^{-2x}+C_2e^{-2x}\)`,T`\(C_1e^{2x}+C_2\,x\,e^{2x}\)`],a:0,why:T`\((m+2)^2=0\) รากซ้ำ \(-2\) ตัวที่สองต้องคูณ \(x\)`},
+  {k:'quiz',q:T`\(y''+9y=0\) คำตอบคือ`,o:[T`\(C_1\cos3x+C_2\sin3x\)`,T`\(C_1e^{3x}+C_2e^{-3x}\)`,T`\(e^{3x}(C_1\cos x+C_2\sin x)\)`],a:0,why:T`\(m^2+9=0\Rightarrow m=0\pm3i\) ดังนั้น \(\alpha=0,\ \beta=3\)`}
+ ]},
+ {id:'l11',unit:2,title:'ตัวดำเนินการผกผัน',go:'bug',steps:[
+  {k:'talk',m:'happy',t:T`ถ้าฝั่งขวาไม่ใช่ 0: \(\phi(D)\,y=Q(x)\) คำตอบคือ \(y=y_c+y_p\) โดย \(y_c\) มาจากสมการช่วยเหมือนบทก่อน ส่วน \(y_p=\dfrac{1}{\phi(D)}Q\) มีทางลัดให้ใช้`},
+  {k:'show',h:'ทางลัด (short method)',t:T`<div class="boxset"><div class="box c1"><h4>เลขชี้กำลัง</h4>\(\dfrac{1}{\phi(D)}e^{ax}=\dfrac{e^{ax}}{\phi(a)}\)<br><span class="small muted">ใช้ได้เมื่อ \(\phi(a)\ne0\)</span></div><div class="box c2"><h4>sin / cos</h4>\(\dfrac{1}{\phi(D^2)}\sin ax=\dfrac{\sin ax}{\phi(-a^2)}\)<br><span class="small muted">แทน \(D^2\) ด้วย \(-a^2\)</span></div><div class="box c3"><h4>e คูณอย่างอื่น</h4>\(\dfrac{1}{\phi(D)}e^{ax}V=e^{ax}\dfrac{1}{\phi(D+a)}V\)</div></div>`},
+  {k:'reveal',h:T`ลองทำ \((D^2-3D+2)\,y=e^{3x}\)`,lines:[[T`m^2-3m+2=0\Rightarrow m=1,2`,''],[T`y_c=C_1e^{x}+C_2e^{2x}`,''],[T`y_p=\dfrac{e^{3x}}{3^2-3(3)+2}=\dfrac{e^{3x}}{2}`,'แทน D ด้วย 3'],[T`y=C_1e^{x}+C_2e^{2x}+\tfrac12e^{3x}`,'']]},
+  {k:'quiz',q:T`\((D^2+4)\,y=\sin x\) ได้ \(y_p\) เท่ากับ`,o:[T`\(\dfrac{\sin x}{3}\)`,T`\(\dfrac{\sin x}{5}\)`,T`\(\dfrac{\sin x}{4}\)`,T`\(-\dfrac{\sin x}{3}\)`],a:0,why:T`แทน \(D^2=-1^2=-1\): \(\frac{\sin x}{-1+4}=\frac{\sin x}{3}\)`},
+  {k:'talk',m:'think',t:T`ถ้าแทนแล้วตัวส่วนเป็น 0 (\(\phi(a)=0\)) แปลว่า \(Q\) ซ้ำกับ \(y_c\) ต้องใช้กฎ \(e^{ax}V\) หรือคูณ \(x\) เพิ่ม เหมือนในบท UC`}
+ ]},
+ {id:'l12',unit:2,title:'สัมประสิทธิ์ตัวกำหนด (UC)',go:'order',steps:[
+  {k:'talk',m:'happy',t:T`UC คือการ<b>เดาหน้าตา</b>ของ \(y_p\) จากหน้าตาของ \(Q(x)\) แล้วแทนค่าหาสัมประสิทธิ์`},
+  {k:'show',h:'ตารางเดา',t:T`<div class="boxset"><div class="box c1"><h4>\(Q=e^{ax}\)</h4>เดา \(Ae^{ax}\)</div><div class="box c2"><h4>\(Q\) = พหุนามดีกรี n</h4>เดาพหุนามดีกรี n ครบทุกพจน์ เช่น \(Ax+B\)</div><div class="box c3"><h4>\(Q=\sin bx\) หรือ \(\cos bx\)</h4>เดา \(A\cos bx+B\sin bx\)</div><div class="box c4"><h4>ถ้าซ้ำกับ \(y_c\)</h4>คูณ \(x\) จนกว่าจะไม่ซ้ำ</div></div>`},
+  {k:'quiz',q:T`\(Q(x)=4x\) ควรเดา \(y_p\) แบบไหน`,o:[T`\(Ax+B\)`,T`\(Ax\)`,T`\(4Ax\)`,T`\(Ae^{x}\)`],a:0,why:'พหุนามดีกรี 1 ต้องเดาให้ครบทุกพจน์ ถ้าเดาแค่ Ax จะแก้ไม่ออก'},
+  {k:'reveal',h:T`ลองทำ \(y''-y'-2y=4x\)`,lines:[[T`y_p=Ax+B,\ y_p'=A,\ y_p''=0`,''],[T`0-A-2(Ax+B)=4x`,'แทนค่า'],[T`-2A=4,\quad -A-2B=0`,'เทียบสัมประสิทธิ์ x และค่าคงที่'],[T`A=-2,\ B=1\ \Rightarrow\ y_p=-2x+1`,'']]},
+  {k:'quiz',q:T`\(y''-y'-2y=e^{2x}\) ซึ่ง \(y_c=C_1e^{2x}+C_2e^{-x}\) ควรเดา`,o:[T`\(Ax\,e^{2x}\)`,T`\(Ae^{2x}\)`,T`\(Ax^2e^{2x}\)`],a:0,why:T`\(e^{2x}\) ซ้ำกับ \(y_c\) จึงคูณ \(x\) หนึ่งครั้งก็ไม่ซ้ำแล้ว`}
+ ]},
+ {id:'l13',unit:2,title:'แปรผันพารามิเตอร์',go:'order',steps:[
+  {k:'talk',m:'wow',t:T`เจอ \(Q\) แปลกๆ อย่าง \(\sec x,\ \csc x,\ \tan x\) ที่ UC เดาไม่ได้ ใช้ <b>variation of parameters</b> ได้ทุกกรณี`},
+  {k:'show',h:'สูตร (สัมประสิทธิ์หน้า y″ เป็น 1)',t:T`<div class="eq">\[y_p=u_1y_1+u_2y_2,\qquad W=y_1y_2'-y_2y_1'\]\[u_1'=-\frac{y_2\,Q}{W},\qquad u_2'=\frac{y_1\,Q}{W}\]</div>`},
+  {k:'quiz',q:T`\(y_1=\cos x,\ y_2=\sin x\) ค่า \(W\) เท่ากับ`,o:['1',T`\(\cos 2x\)`,'0','−1'],a:0,why:T`\(\cos x\cdot\cos x-\sin x\cdot(-\sin x)=\cos^2x+\sin^2x=1\)`},
+  {k:'reveal',h:T`ลองทำ \(y''+y=\csc x\)`,lines:[[T`u_1'=-\sin x\cdot\csc x=-1\ \Rightarrow\ u_1=-x`,''],[T`u_2'=\cos x\cdot\csc x=\cot x\ \Rightarrow\ u_2=\ln|\sin x|`,''],[T`y_p=-x\cos x+\sin x\ln|\sin x|`,''],[T`y=C_1\cos x+C_2\sin x-x\cos x+\sin x\ln|\sin x|`,'ตรงกับโน้ตหน้าสุดท้าย']]},
+  {k:'talk',m:'happy',t:'จบเนื้อหาทั้งหมดแล้ว! ลองไปเล่นด่าน <b>แล็บปิดตาย</b> เพื่อทบทวนทุกเรื่องรวดเดียว'}
+ ]}
+];
+const UNITS=[{n:'บทนำ',c:'sky'},{n:'สมการอันดับ 1',c:'coral'},{n:'สมการเชิงเส้นอันดับ n',c:'grape'}];
+const NODECOL=['sky','mint','coral','sun','grape','pink'];
+const GONAME={field:'สนามทิศทาง',detective:'นักสืบสมการ',bug:'จับผิดเฉลย',order:'เรียงเฉลย',reverse:'ย้อนรอยคำตอบ',escape:'แล็บปิดตาย'};
+let LS=null;
+function lessonStars(id){return (P.learn&&P.learn[id])||0;}
+function renderPath(){
+  const done=LESSONS.filter(l=>lessonStars(l.id)).length;
+  $('#learnHello').innerHTML=`${mascot(done===LESSONS.length?'wow':'happy',72)}<div class="bubble">${done===0?'เริ่มที่บทแรกได้เลย แต่ละบทใช้เวลาแค่ 3–5 นาที มีคำถามให้ลองตอบตลอดทาง':done===LESSONS.length?'เก่งมาก เรียนครบทุกบทแล้ว! กลับมาทวนบทไหนก็ได้ หรือไปลุยเกมฝึกต่อ':`เรียนไปแล้ว ${done} จาก ${LESSONS.length} บท ไปต่อกันเลย`}</div>`;
+  const p=$('#path');p.innerHTML='';let nextFound=false;
+  UNITS.forEach((u,ui)=>{
+    const ls=LESSONS.filter(l=>l.unit===ui);
+    p.insertAdjacentHTML('beforeend',`<div class="unit-head" style="background:var(--${u.c});box-shadow:0 4px 0 var(--${u.c}-d)">${u.n}<small>${ls.filter(l=>lessonStars(l.id)).length}/${ls.length} บท</small></div>`);
+    ls.forEach((l,k)=>{const idx=LESSONS.indexOf(l),st=lessonStars(l.id);const isNext=!st&&!nextFound;if(isNext)nextFound=true;
+      const off=Math.round(Math.sin(idx*1.25)*70);const col=NODECOL[idx%NODECOL.length];
+      const w=el('div',{class:'node-wrap',style:`transform:translateX(${off}px)`});
+      w.innerHTML=`<button class="lnode${st?' done':''}${isNext?' next':''}" style="--c:var(--${col});--cd:var(--${col}-d)" aria-label="บทที่ ${idx+1} ${l.title}">${idx+1}</button><div class="nm">${l.title}</div><div class="stars">${[1,2,3].map(i=>starSvg(i<=st)).join('')}</div>`;
+      w.querySelector('button').onclick=()=>startLesson(idx);p.appendChild(w);});
+  });
+}
+function startLesson(i){LS={i,s:0,miss:0,answered:false};$('#learnMap').hidden=true;$('#lesson').hidden=false;window.scrollTo(0,0);renderStep();}
+function closeLesson(){LS=null;$('#lesson').hidden=true;$('#learnMap').hidden=false;renderPath();window.scrollTo(0,0);}
+function renderStep(){
+  const L=LESSONS[LS.i],box=$('#lesson');const n=L.steps.length;
+  if(LS.s>=n)return renderLessonEnd();
+  const s=L.steps[LS.s];LS.answered=s.k!=='quiz';LS.rev=0;
+  let body='';
+  if(s.k==='talk')body=`<div class="say">${mascot(s.m||'happy',80)}<div class="bubble">${s.t}</div></div>`;
+  if(s.k==='show')body=`<div class="card"><h3>${s.h}</h3><div>${s.t}</div></div>`;
+  if(s.k==='reveal')body=`<div class="say">${mascot('think',56)}<div class="bubble">${s.h}<br><span class="small muted">ลองคิดขั้นต่อไปในหัวก่อน แล้วค่อยแตะเปิดทีละบรรทัด</span></div></div><div class="reveal-list" id="rv"></div><button class="btn" id="rvBtn" style="align-self:flex-start">เปิดบรรทัดต่อไป</button>`;
+  if(s.k==='quiz')body=`<div class="card"><span class="pill acc" style="align-self:flex-start">ลองตอบ</span><div class="eq" style="font-size:1.05rem">${s.q}</div><div class="choices" id="lq"></div><div id="lfb"></div></div>`;
+  box.innerHTML=`<div class="lesson-top"><button class="x" id="lx" aria-label="ออกจากบทเรียน">×</button><div class="bar"><i style="width:${LS.s/n*100}%"></i></div><span class="hearts">${LS.i+1}/${LESSONS.length}</span></div>
+   <div class="stage"><div class="small muted">บทที่ ${LS.i+1} · ${L.title}</div>${body}</div>
+   <div class="foot"><button class="btn primary big" id="lnext" ${LS.answered&&s.k!=='reveal'?'':'disabled'}>${LS.s===n-1?'จบบทเรียน':'ต่อไป'}</button></div>`;
+  $('#lx').onclick=closeLesson;$('#lnext').onclick=()=>{LS.s++;renderStep();window.scrollTo(0,0);};
+  if(s.k==='reveal'){const rb=$('#rvBtn');rb.onclick=()=>{const [t,w]=s.lines[LS.rev++];const d=el('div',{class:'reveal-line'},`\\(\\displaystyle ${t}\\)${w?`<span class="why">${w}</span>`:''}`);$('#rv').appendChild(d);typeset(d);
+    if(LS.rev>=s.lines.length){rb.hidden=true;$('#lnext').disabled=false;}};}
+  if(s.k==='quiz'){const order=shuffle(s.o.map((_,i)=>i));
+    order.forEach(i=>{const b=el('button',{class:'btn'},s.o[i]);b.onclick=()=>{if(LS.answered)return;const fb=$('#lfb');
+      if(i===s.a){LS.answered=true;b.classList.add('ok');fb.innerHTML=`<div class="fb good"><b>${['เยี่ยม!','ถูกต้อง!','เก่งมาก!','ใช่เลย!'][Math.floor(Math.random()*4)]}</b><div>${s.why}</div></div>`;$('#lnext').disabled=false;celebrate(35);}
+      else{LS.miss++;b.classList.add('no');b.disabled=true;fb.innerHTML=`<div class="fb bad"><b>ยังไม่ใช่ ลองอีกที</b><div>ตัดตัวเลือกนี้ออกได้แล้ว ลองนึกถึงสิ่งที่เพิ่งอ่านมา</div></div>`;}
+      typeset(fb);};$('#lq').appendChild(b);});}
+  typeset(box);
+}
+function renderLessonEnd(){
+  const L=LESSONS[LS.i];const st=LS.miss===0?3:LS.miss<=2?2:1;P.learn=P.learn||{};if(st>(P.learn[L.id]||0))P.learn[L.id]=st;save();
+  const nx=LS.i+1<LESSONS.length?LS.i+1:null;
+  $('#lesson').innerHTML=`<div class="card done-card">${mascot(st===3?'wow':'happy',110)}<h2>จบบท "${L.title}" แล้ว!</h2><div class="stars">${[1,2,3].map(i=>starSvg(i<=st)).join('')}</div>
+   <p class="muted">${st===3?'ไม่ผิดเลยสักข้อ สุดยอด':'ตอบพลาดไป '+LS.miss+' ครั้ง ไม่เป็นไรเลย ทวนอีกรอบเพื่อเก็บดาวให้ครบได้'}</p>
+   <div class="row" style="justify-content:center">${nx!==null?`<button class="btn primary big" id="leNext">บทต่อไป</button>`:''}<button class="btn coral big" id="leGo">ไปฝึก: ${GONAME[L.go]}</button></div>
+   <button class="btn ghost" id="leMap">กลับไปหน้าบทเรียน</button></div>`;
+  celebrate(110);
+  if(nx!==null)$('#leNext').onclick=()=>startLesson(nx);
+  $('#leGo').onclick=()=>{closeLesson();go(L.go);};$('#leMap').onclick=closeLesson;
+}
+
+
+/* ================= confetti hooks + mascot in feedback ================= */
+new MutationObserver(ms=>{for(const m of ms)for(const n of m.addedNodes){if(n.nodeType!==1)continue;
+  const list=n.matches('.fb')?[n]:[...n.querySelectorAll('.fb')];
+  list.forEach(f=>{if(f.dataset.m)return;f.dataset.m=1;const mood=f.classList.contains('good')?'happy':f.classList.contains('bad')?'sad':'think';
+    f.insertAdjacentHTML('afterbegin',mascot(mood,46));if(mood==='happy'&&!f.closest('#lesson,.demo'))celebrate(40);});}}).observe(document.body,{childList:true,subtree:true});
+
+/* ================= game registry ================= */
+const GAMES={
+ detective:{name:'นักสืบสมการ',color:'sky',desc:'ดูสมการแล้วบอกว่าควรใช้วิธีไหนแก้ ยังไม่ต้องแก้จริง',when:'หลังเรียนบท 4–9',
+   easy:'ตัวเลือก 4 ข้อ มีปุ่มคำใบ้ ตอบผิดลองใหม่ได้',hard:'ตัวเลือกครบ 7 วิธี ไม่มีคำใบ้ มีเวลา 30 วินาทีต่อข้อ'},
+ field:{name:'สนามทิศทาง',color:'mint',desc:'ลากนิ้วทายรูปเส้นโค้งคำตอบจากขีดความชัน แล้วเทียบกับเส้นจริง',when:'หลังเรียนบท 3',
+   easy:'เล่นอิสระ เลือกสมการเองได้ มีคำอธิบายและ isocline ช่วย',hard:'ภารกิจ 5 รอบ สมการสุ่ม ขีดน้อยลง ต้องเริ่มวาดจากดาวที่กำหนด'},
+ order:{name:'เรียงเฉลย',color:'orange',desc:'บรรทัดเฉลยถูกสลับ เรียงกลับให้ถูกลำดับ',when:'หลังเรียนบท 4–9',
+   easy:'บรรทัดแรกวางให้แล้ว ไม่มีบรรทัดหลอก',hard:'มีบรรทัดหลอกปนอยู่ ต้องเรียงเองทั้งหมด'},
+ bug:{name:'จับผิดเฉลย',color:'coral',desc:'เฉลยแต่ละข้อมีจุดผิดซ่อนอยู่หนึ่งบรรทัด หาให้เจอ',when:'หลังเรียนครบทุกบท',
+   easy:'ไฮไลต์บรรทัดที่น่าสงสัยให้ 3 บรรทัด แตะผิดลองใหม่ได้',hard:'ไม่มีไฮไลต์ แตะได้ครั้งเดียวต่อข้อ'},
+ reverse:{name:'ย้อนรอยคำตอบ',color:'grape',desc:'ได้คำตอบมาก่อน ให้หาว่าสมการตั้งต้นคืออะไร',when:'หลังเรียนบท 10',
+   easy:'ทำทีละขั้น หารากก่อนแล้วค่อยหาสมการ ตัวเลือก 3 ข้อ',hard:'ข้ามไปหาสมการเลย ตัวเลือก 4 ข้อ'},
+ escape:{name:'แล็บปิดตาย',color:'pink',desc:'ไขรหัส 6 ประตูเพื่อหนีออกจากแล็บ ใช้ความรู้ทุกบท',when:'ปิดท้าย',
+   easy:'ขอคำใบ้ได้ฟรี ตอบผิดไม่โดนบวกเวลา',hard:'คำใบ้บวกเวลา 2 นาที ตอบผิดบวก 20 วินาที'}
+};
+const GORDER=['field','detective','order','bug','reverse','escape'];
+const diff=g=>P.diff[g]||'easy';
+const isHard=g=>diff(g)==='hard';
+const DNAME={easy:'ง่าย',hard:'ยาก'};
+let CUR=null,TIMERS=[];
+function stopTimers(){TIMERS.forEach(t=>clearInterval(t));TIMERS=[];}
+const gPlay=()=>$('#gPlay');
+
+/* ================= demos (how to play) ================= */
+function miniField(opt={}){
+  const S=220,L=4,px=x=>(x+L)/(2*L)*S,py=y=>(L-y)/(2*L)*S;let s=`<svg class="mini-field" viewBox="0 0 ${S} ${S}">`;
+  s+=`<line x1="0" y1="${S/2}" x2="${S}" y2="${S/2}" stroke="var(--line)" stroke-width="1.5"/><line x1="${S/2}" y1="0" x2="${S/2}" y2="${S}" stroke="var(--line)" stroke-width="1.5"/>`;
+  const N=11;for(let i=0;i<N;i++)for(let j=0;j<N;j++){const X=px(-L+(i+.5)*2*L/N),Y=py(-L+(j+.5)*2*L/N);const x=-L+(i+.5)*2*L/N,y=-L+(j+.5)*2*L/N;const a=Math.atan(-x/y),r=7;
+    s+=`<line x1="${X-r*Math.cos(a)}" y1="${Y+r*Math.sin(a)}" x2="${X+r*Math.cos(a)}" y2="${Y-r*Math.sin(a)}" stroke="var(--ink)" stroke-opacity=".45" stroke-width="1.6" stroke-linecap="round"/>`;}
+  if(opt.guess){let d='';for(let t=0;t<=Math.PI*1.2;t+=.12){const rr=2+.25*Math.sin(t*3);d+=(t?'L':'M')+px(rr*Math.cos(t+.7)).toFixed(1)+' '+py(rr*Math.sin(t+.7)).toFixed(1);}s+=`<path d="${d}" stroke="var(--orange)" stroke-width="4" fill="none" stroke-linecap="round"/>`;}
+  if(opt.truth)s+=`<circle cx="${S/2}" cy="${S/2}" r="${2*S/(2*L)}" stroke="var(--grape)" stroke-width="3" fill="none"/>`;
+  if(opt.start)s+=`<circle cx="${px(2*Math.cos(.7))}" cy="${py(2*Math.sin(.7))}" r="6" fill="var(--sun)" stroke="var(--sun-d)" stroke-width="2"/>`;
+  return s+'</svg>';
+}
+const DEMO={
+ detective:()=>{const eq=T`<div class="eq">\[\frac{dy}{dx}=e^{x+y}\]</div>`;
+   const ch=(tap,ok)=>`<div class="choices"><div class="btn ${tap?'demo-tap':''} ${ok?'ok':''}">แยกตัวแปรได้<small>Separable</small></div><div class="btn">เชิงเส้นอันดับ 1<small>Linear</small></div><div class="btn">แม่นตรง<small>Exact</small></div><div class="btn">เอกพันธ์<small>Homogeneous</small></div></div>`;
+   return [
+   {cap:'อ่านสมการก่อน ยังไม่ต้องแก้ แค่ดูว่าหน้าตาแบบนี้ควรใช้วิธีไหน',html:`<span class="pill acc">ข้อ 1 / 8</span>${eq}`},
+   {cap:T`แตะวิธีที่คิดว่าใช่ ข้อนี้ \(e^{x+y}=e^x e^y\) แยกตัวแปรได้`,html:eq+ch(1,0)},
+   {cap:'ถ้าถูก จะมีเหตุผลให้อ่าน ถ้าผิดจะบอกว่าผิดเพราะอะไรแล้วเลือกใหม่ได้ ทุกครั้งที่ตอบถูกวิธีใหม่ ผังเลือกวิธีด้านล่างจะเปิดเพิ่ม',html:ch(0,1)+`<div class="fb good"><b>ถูกต้อง!</b><div>แยกเป็น \\(e^{-y}dy=e^xdx\\) ได้</div></div>`},
+   {cap:'เล่นครบ 8 ข้อแล้วจะสรุปคะแนนให้ โหมดยากมีตัวเลือกครบ 7 วิธีและจับเวลา',html:`<div class="row center"><div class="stars" style="gap:6px">${starSvg(1)+starSvg(1)+starSvg(0)}</div></div><div class="big" style="text-align:center">6/8</div>`}];},
+ field:()=>[
+   {cap:'ขีดสั้นๆ แต่ละเส้นบอกความชันของเส้นโค้งคำตอบตรงจุดนั้น',html:miniField({})},
+   {cap:'ลากนิ้วเริ่มจากจุดไหนก็ได้ (โหมดยากต้องเริ่มที่ดาว) แล้ววาดไปตามทิศของขีด',html:miniField({guess:1,start:1})},
+   {cap:'ปล่อยนิ้วแล้วเส้นจริงสีส้มจะขึ้นมาทับ พร้อมบอกว่าคลาดไปเท่าไร ยิ่งน้อยยิ่งแม่น',html:miniField({guess:1,truth:1,start:1})+`<div class="fb good"><b>คลาดเฉลี่ย 0.18 หน่วย</b><div>แม่นมาก!</div></div>`}],
+ order:()=>{const o=ORD[0];const ch=(t,cls='')=>`<div class="chip ${cls}"><span class="ln">+</span><span class="lt">\\(\\displaystyle ${t}\\)</span></div>`;
+   return [
+   {cap:'โจทย์อยู่ด้านบน ส่วนบรรทัดของเฉลยถูกสลับมาอยู่ด้านล่าง',html:`<div class="eq">\\(${o.q}\\)</div><div class="slot-area empty"></div><div class="pool">${ch(o.steps[2])+ch(o.steps[0])+ch(o.steps[1])}</div>`},
+   {cap:'แตะบรรทัดที่ควรมาก่อน มันจะย้ายขึ้นไปอยู่ในช่องคำตอบ ถ้าวางผิด แตะซ้ำเพื่อเอาออกได้',html:`<div class="slot-area empty"></div><div class="pool">${ch(o.steps[2])+ch(o.steps[0],'demo-tap')+ch(o.steps[1])}</div>`},
+   {cap:'เรียงครบแล้วกดตรวจ บรรทัดสีเขียวคือถูกตำแหน่ง โหมดยากจะมีบรรทัดหลอกที่ไม่ต้องใช้ปนมาด้วย',html:`<div class="slot-area">${o.steps.map(t=>ch(t,'right')).join('')}</div><div class="btn primary demo-tap" style="align-self:flex-start">ตรวจ</div>`}];},
+ bug:()=>{const b=BUGS[0];const ln=(i,cls='')=>`<div class="line ${cls}"><span class="ln">${i+1}</span><span class="lt">\\(\\displaystyle ${b.lines[i]}\\)</span></div>`;
+   return [
+   {cap:'เฉลยข้อนี้มีบรรทัดผิดอยู่หนึ่งบรรทัด อ่านไล่จากบนลงล่าง',html:`<div class="lines">${[0,1,2,3].map(i=>ln(i)).join('')}</div>`},
+   {cap:'แตะบรรทัดแรกที่ผิด บรรทัดหลังจากนั้นอาจคำนวณต่อจากที่ผิดมา เลยดูเหมือนถูก',html:`<div class="lines">${ln(1)+ln(2,'demo-tap')+ln(3)}</div>`},
+   {cap:'จะเห็นบรรทัดที่ถูกต้องและเหตุผล โหมดง่ายจะไฮไลต์บรรทัดที่น่าสงสัยให้ด้วย',html:`<div class="lines">${ln(1,'okline')+ln(2,'bugline')}<div class="fixline">\\(\\displaystyle ${b.fix}\\)</div></div>`}];},
+ reverse:()=>[
+   {cap:'คราวนี้ได้คำตอบทั่วไปมาก่อน',html:T`<div class="eq">\[y=C_1e^{2x}+C_2e^{-3x}\]</div>`},
+   {cap:'ขั้นแรกหาราก เลขชี้กำลังของ e แต่ละตัวคือรากของสมการช่วย',html:T`<div class="choices"><div class="btn demo-tap">\(m=2,-3\)</div><div class="btn">\(m=-2,3\)</div></div>`},
+   {cap:T`แล้วหาสมการจาก \((m-2)(m+3)=m^2+m-6\) โหมดยากจะข้ามขั้นหารากไปเลย`,html:T`<div class="choices"><div class="btn ok">\(y''+y'-6y=0\)</div><div class="btn">\(y''-y'-6y=0\)</div></div>`}],
+ escape:()=>[
+   {cap:'แต่ละประตูมีเรื่องเล่าสั้นๆ กับโจทย์หนึ่งข้อ',html:`<div class="door"><div class="door-head"><h3>ประตู 1 · ตู้บ่มเชื้อ</h3><span class="stat">00:42</span></div><div class="door-body"><div class="locks"><span></span><span></span><span></span><span></span><span></span><span></span></div><p class="story">รหัส = อันดับ ตามด้วย ระดับขั้น</p></div></div>`},
+   {cap:'คำนวณแล้วพิมพ์รหัสเป็นตัวเลข (ใส่เศษส่วนอย่าง 1/2 ได้) แล้วกดปลดล็อก',html:`<div class="code"><input type="text" value="32" tabindex="-1"><div class="btn primary demo-tap">ปลดล็อก</div></div>`},
+   {cap:'ผ่านครบ 6 ประตูก็หนีออกได้ ใช้เวลายิ่งน้อยยิ่งดี เล่นเป็นทีมแข่งกันได้',html:`<div class="locks"><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span><span class="on"></span></div><div class="big" style="text-align:center">07:31</div>`}]
+};
+function renderIntro(gid){
+  const g=GAMES[gid];const steps=DEMO[gid]();let k=0;
+  $('#gIntro').innerHTML=`<div class="say">${mascot('happy',68)}<div class="bubble"><b>${g.name}</b> ${g.desc}<br><span class="small muted">ดูตัวอย่างการเล่นด้านล่างก่อนนะ แตะ "ถัดไป" ได้เลย</span></div></div>
+   <div class="demo"><div class="demo-head">ตัวอย่างการเล่น<span id="dmN"></span></div><div class="demo-stage" id="dmS"></div><div class="demo-cap"><span class="num" id="dmK"></span><div id="dmC"></div></div>
+   <div class="demo-nav"><div class="dots" id="dmD"></div><div class="row"><button class="btn" id="dmP">ก่อนหน้า</button><button class="btn grape" id="dmX">ถัดไป</button></div></div></div>
+   <h3>เลือกระดับ</h3>
+   <div class="diffs">${['easy','hard'].map(d=>`<button class="diff" data-d="${d}" aria-pressed="${diff(gid)===d}"><div class="lvl"><i></i><i></i><i></i></div><h4>${DNAME[d]}</h4><p>${g[d]}</p></button>`).join('')}</div>
+   <button class="btn primary big wide" id="gStart">เริ่มเล่น</button>`;
+  const draw=()=>{$('#dmS').innerHTML=steps[k].html;$('#dmC').innerHTML=steps[k].cap;$('#dmK').textContent=k+1;$('#dmN').textContent=`${k+1}/${steps.length}`;
+    $('#dmD').innerHTML=steps.map((_,i)=>`<i class="${i===k?'on':''}"></i>`).join('');$('#dmP').disabled=k===0;$('#dmX').textContent=k===steps.length-1?'ดูอีกรอบ':'ถัดไป';typeset($('#gIntro .demo'));};
+  $('#dmP').onclick=()=>{if(k>0){k--;draw();}};$('#dmX').onclick=()=>{k=(k+1)%steps.length;draw();};
+  document.querySelectorAll('#gIntro .diff').forEach(b=>b.onclick=()=>{setDiff(gid,b.dataset.d,false);document.querySelectorAll('#gIntro .diff').forEach(x=>x.setAttribute('aria-pressed',x===b));});
+  $('#gStart').onclick=()=>startGame(gid);
+  draw();typeset($('#gIntro'));
+}
+function setDiff(gid,d,restart=true){P.diff[gid]=d;save();document.querySelectorAll('#gDiff button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.d===d));if(restart&&!$('#gPlay').hidden&&$('#gIntro').hidden)startGame(gid);}
+function openGame(gid){
+  CUR=gid;stopTimers();show('game');const g=GAMES[gid];$('#gTitle').textContent=g.name;
+  document.querySelectorAll('#gDiff button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.d===diff(gid)));
+  $('#gIntro').hidden=false;$('#gPlay').hidden=true;$('#gPlay').innerHTML='';$('#gHow').hidden=true;renderIntro(gid);
+}
+function startGame(gid){stopTimers();$('#gIntro').hidden=true;$('#gPlay').hidden=false;$('#gHow').hidden=false;$('#gPlay').innerHTML='';PLAY[gid]();window.scrollTo(0,0);}
+$('#gBack').onclick=()=>go('games');
+$('#gHow').onclick=()=>openGame(CUR);
+document.querySelectorAll('#gDiff button').forEach(b=>b.onclick=()=>setDiff(CUR,b.dataset.d,true));
+
+/* ================= summary ================= */
+function summary(gid,score,total,note=''){
+  stopTimers();const pct=score/total;const st=pct>=.9?3:pct>=.6?2:pct>0?1:0;const key=gid+'-'+diff(gid);
+  if(P.best[key]==null||score>P.best[key])P.best[key]=score;P.played[gid]=1;save();
+  const other=isHard(gid)?'easy':'hard';
+  gPlay().innerHTML=`<div class="card done-card">${mascot(st===3?'wow':st?'happy':'think',110)}<h2>${['ลองอีกรอบนะ','ใช้ได้เลย!','เก่งมาก!','สุดยอด!'][st]}</h2><div class="stars">${[1,2,3].map(i=>starSvg(i<=st)).join('')}</div>
+   <div class="big">${score}/${total}</div><p class="muted">${note}สถิติดีที่สุดโหมด${DNAME[diff(gid)]}: ${P.best[key]}/${total}</p>
+   <div class="row center"><button class="btn primary big" id="sAgain">เล่นอีกรอบ</button><button class="btn coral big" id="sSw">ลองโหมด${DNAME[other]}</button></div>
+   <button class="btn ghost" id="sBack">กลับไปเลือกเกม</button></div>`;
+  celebrate(30+st*45);
+  $('#sAgain').onclick=()=>startGame(gid);$('#sSw').onclick=()=>{setDiff(gid,other,false);startGame(gid);};$('#sBack').onclick=()=>go('games');
+}
+const topRow=(i,n,score,extra='')=>`<div class="row spread"><span class="pill acc">ข้อ ${i+1} / ${n}</span><span class="pill sun">คะแนน ${score}</span>${extra}</div>`;
+
+/* ================= 1. detective ================= */
+let D={};
+function renderFlow(){
+  const f=$('#flow');if(!f)return;f.innerHTML='';let n=0;
+  FLOW.forEach((k,i)=>{const open=!!P.cat[k];if(open)n++;
+    const d=el('div',{class:'node '+(open?'open':'locked')});
+    d.innerHTML=`<div class="n">${i+1}</div><div class="q">${open?`<b>${CATS[k].name}</b> <span class="pill">${CATS[k].sub}</span><br>${CATS[k].test}`:'ยังล็อกอยู่ ตอบข้อที่ใช้วิธีนี้ให้ถูกเพื่อเปิด'}</div>`;f.appendChild(d);});
+  $('#flowStat').textContent=`${n}/7 ขั้น`;typeset(f);
+}
+var PLAY_detective;PLAY_detective=()=>{D={list:shuffle(DET).slice(0,8),i:0,score:0};detQ();};
+function detQ(){
+  stopTimers();if(D.i>=D.list.length)return summary('detective',D.score,D.list.length);
+  const p=D.list[D.i],hard=isHard('detective');
+  let keys=hard?FLOW.slice():FLOW.filter(k=>p.ok.includes(k)||shuffle(FLOW.filter(x=>!p.ok.includes(x))).slice(0,0).includes(k));
+  if(!hard){const others=shuffle(FLOW.filter(x=>!p.ok.includes(x))).slice(0,Math.max(1,4-p.ok.length));keys=FLOW.filter(k=>p.ok.includes(k)||others.includes(k));}
+  D.tried=0;D.done=false;
+  gPlay().innerHTML=`<div class="card">${topRow(D.i,D.list.length,D.score)}${hard?'<div class="timer"><i id="tbar" style="width:100%"></i></div>':''}
+   <div class="eq">\\[${p.q}\\]</div><div class="choices" id="detCh"></div><div id="detFb"></div>
+   <div class="row">${hard?'':'<button class="btn" id="detHint">ขอคำใบ้</button>'}<button class="btn primary" id="detNext" hidden>${D.i===D.list.length-1?'ดูสรุป':'ข้อต่อไป'}</button></div></div>
+   <div class="card"><div class="row spread"><h3>ผังเลือกวิธีของฉัน</h3><span class="stat" id="flowStat"></span></div><p class="small muted">ไล่ถามจากบนลงล่าง ข้อไหนตอบ "ใช่" ก่อนก็ใช้วิธีนั้น</p><div class="flow" id="flow"></div></div>`;
+  keys.forEach(k=>{const b=el('button',{class:'btn'},`${CATS[k].name}<small>${CATS[k].sub}</small>`);b.dataset.k=k;b.onclick=()=>detPick(k,b);$('#detCh').appendChild(b);});
+  $('#detNext').onclick=()=>{D.i++;detQ();window.scrollTo(0,0);};
+  if(!hard)$('#detHint').onclick=()=>{const k=p.ok[0];$('#detFb').innerHTML=`<div class="fb info"><b>คำใบ้</b><div>ลองเช็กข้อนี้ดู: ${CATS[k].test.replace(/→.*$/,'')}</div></div>`;typeset($('#detFb'));};
+  if(hard){let t=30;TIMERS.push(setInterval(()=>{t--;const b=$('#tbar');if(b)b.style.width=(t/30*100)+'%';if(t<=0){stopTimers();detTimeout();}},1000));}
+  renderFlow();typeset(gPlay());
+}
+function detReveal(){[...$('#detCh').children].forEach(b=>{if(D.list[D.i].ok.includes(b.dataset.k))b.classList.add('ok');});$('#detNext').hidden=false;const h=$('#detHint');if(h)h.hidden=true;}
+function detTimeout(){if(D.done)return;D.done=true;const p=D.list[D.i];detReveal();$('#detFb').innerHTML=`<div class="fb bad"><b>หมดเวลา!</b><div>${p.why}</div></div>`;typeset($('#detFb'));}
+function detPick(k,b){
+  if(D.done)return;const p=D.list[D.i],fb=$('#detFb');
+  if(p.ok.includes(k)){D.done=true;stopTimers();if(D.tried===0)D.score++;
+    if(!(p.id in P.det))P.det[p.id]=D.tried===0?1:0;const newly=p.ok.filter(x=>!P.cat[x]);p.ok.forEach(x=>P.cat[x]=1);save();
+    const others=p.ok.filter(x=>x!==k).map(x=>CATS[x].name);detReveal();
+    fb.innerHTML=`<div class="fb good"><b>${D.tried===0?'ถูกตั้งแต่ครั้งแรก! +1':'ถูกแล้ว'}</b><div>${p.why}</div>${others.length?`<div>ข้อนี้ตอบ <b>${others.join(', ')}</b> ก็ถูกเหมือนกัน</div>`:''}${newly.length?`<div class="small">เปิดผังขั้นใหม่: ${newly.map(x=>CATS[x].name).join(', ')}</div>`:''}</div>`;
+    renderFlow();
+  }else{D.tried++;b.classList.add('no');b.disabled=true;
+    fb.innerHTML=`<div class="fb bad"><b>ยังไม่ใช่</b><div>${p.w[k]||`ลองเช็กเงื่อนไขของ${CATS[k].name}: ${CATS[k].test}`}</div></div>`;}
+  typeset(fb);
+}
+
+/* ================= 2. field ================= */
+let cv,ctx,ffun=null,curves=[],guesses=[],drawing=null,fmode='guess';
+const FX={L:4};
+const F={sparse:false,iso:false,target:null,mission:null};
+function drawTarget(){if(!F.target||!ctx)return;const [a,b]=toPx(F.target[0],F.target[1]);
+  ctx.save();ctx.translate(a,b);ctx.fillStyle=css('--sun');ctx.strokeStyle=css('--sun-d');ctx.lineWidth=2;ctx.beginPath();
+  for(let i=0;i<10;i++){const r=i%2?5:12,t=i*Math.PI/5-Math.PI/2;ctx.lineTo(r*Math.cos(t),r*Math.sin(t));}ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();}
+function redraw(){drawField();drawTarget();}
+function fieldShell(hard){
+  gPlay().innerHTML=`${hard?`<div class="card"><div class="row spread"><span class="pill acc" id="mRound"></span><span class="pill sun" id="mScore"></span></div><div class="eq" id="mEq"></div><p class="small muted">เริ่มลากนิ้วจาก<b>ดาว</b> แล้ววาดเส้นโค้งตามทิศของขีดความชัน</p></div>`:
+   `<div class="card"><div class="inp"><label for="fexpr">dy/dx =</label><input type="text" id="fexpr" value="-x/y" autocomplete="off" spellcheck="false"><button class="btn primary" id="fdraw">วาด</button></div>
+    <div class="inp"><label for="fpreset" class="small">ตัวอย่าง</label><select id="fpreset"></select></div>
+    <div class="row"><div class="seg" role="group" aria-label="โหมด"><button id="mGuess" aria-pressed="true">ทายก่อน</button><button id="mShow" aria-pressed="false">จิ้มดูเส้นจริง</button></div>
+    <label class="chk"><input type="checkbox" id="fiso"> isocline</label><button class="btn ghost" id="fclear">ล้างเส้น</button></div><div class="small" id="ferr" style="color:var(--bad)"></div></div>`}
+   <div class="canvas-box"><canvas id="fld" aria-label="สนามทิศทาง"></canvas></div>
+   <div class="legend"><span><i style="background:var(--ink);opacity:.5"></i>ขีดความชัน</span><span><i style="background:var(--grape)"></i>เส้นจริง</span><span><i style="background:var(--orange)"></i>เส้นที่ทาย</span>${hard?'':'<span><i style="background:#8a63d2"></i>isocline</span>'}</div>
+   <div id="fnote"></div><div class="row" id="mNextRow" hidden><button class="btn primary big" id="mNext">รอบต่อไป</button></div>`;
+  cv=$('#fld');ctx=cv.getContext('2d');W=0;curves=[];guesses=[];drawing=null;sizeCanvas();
+  cv.addEventListener('pointerdown',fDown);cv.addEventListener('pointermove',ev=>{if(drawing){drawing.push(evtXY(ev));redraw();}});cv.addEventListener('pointerup',fUp);cv.addEventListener('pointercancel',()=>{drawing=null;redraw();});
+}
+function evtXY(ev){const r=cv.getBoundingClientRect();return toXY(ev.clientX-r.left,ev.clientY-r.top);}
+function setFun(src,note){try{ffun=compile(src);const e=$('#ferr');if(e)e.textContent='';}catch(e){const er=$('#ferr');if(er)er.textContent=e.message;return false;}curves=[];guesses=[];
+  if(note!==undefined){$('#fnote').innerHTML=note?`<div class="fb info"><b>รู้ไหม</b><div>${note}</div></div>`:'';typeset($('#fnote'));}redraw();return true;}
+function fDown(ev){if(!ffun)return;const [x,y]=evtXY(ev);
+  if(F.mission){if(F.mission.done)return;if(Math.hypot(x-F.target[0],y-F.target[1])>0.6){$('#fnote').innerHTML='<div class="fb bad"><b>เริ่มจากดาวนะ</b><div>วางนิ้วลงตรงดาวสีเหลือง แล้วค่อยลากไปตามขีด</div></div>';return;}}
+  if(fmode==='show'&&!F.mission){curves.push({x0:x,y0:y,pts:trace(x,y)});redraw();}
+  else{drawing=[F.mission?F.target.slice():[x,y]];try{cv.setPointerCapture(ev.pointerId);}catch(e){}}}
+function fUp(){if(!drawing)return;const g=drawing;drawing=null;if(g.length<5){redraw();return;}
+  guesses.push(g);const [x0,y0]=g[0];const tr=trace(x0,y0);curves.push({x0,y0,pts:tr});
+  let s=0;for(const [x,y] of g){let m=1e9;for(const [a,b] of tr){const d=(a-x)**2+(b-y)**2;if(d<m)m=d;}s+=Math.sqrt(m);}
+  const avg=s/g.length,good=avg<0.35;
+  const msg=avg<0.15?'แม่นมาก เส้นที่ทายแทบทับเส้นจริง':avg<0.35?'ดีเลย ทิศทางถูกต้อง':avg<0.6?'ใกล้แล้ว ลองเกาะขีดความชันให้แน่นขึ้น':'ยังห่างอยู่ ลองดูขีดรอบๆ จุดเริ่มอีกที แล้ววาดตามทิศของขีด';
+  if(F.mission){F.mission.done=true;if(good)F.mission.score++;$('#mScore').textContent=`ผ่าน ${F.mission.score}`;$('#mNextRow').hidden=false;$('#mNext').textContent=F.mission.r>=F.mission.n-1?'ดูสรุป':'รอบต่อไป';}
+  else P.played.field=1,save();
+  $('#fnote').innerHTML=`<div class="fb ${good?'good':'bad'}"><b>คลาดเฉลี่ย ${avg.toFixed(2)} หน่วย</b><div>${msg}${F.mission?(good?' ผ่านรอบนี้!':' (ต้องคลาดไม่เกิน 0.35 ถึงจะผ่าน)'):''}</div>${F.mission&&F.mission.note?`<div class="small">${F.mission.note}</div>`:''}</div>`;typeset($('#fnote'));redraw();}
+var PLAY_field;PLAY_field=()=>{
+  const hard=isHard('field');F.sparse=hard;F.iso=false;F.target=null;F.mission=null;fmode='guess';fieldShell(hard);
+  if(!hard){
+    const sel=$('#fpreset');PRE.forEach((p,i)=>sel.appendChild(el('option',{value:i},p.n)));
+    sel.onchange=()=>{const p=PRE[sel.value];$('#fexpr').value=p.e;setFun(p.e,p.note);};
+    $('#fdraw').onclick=()=>{const v=$('#fexpr').value;const p=PRE.find(p=>p.e===v.trim());setFun(v,p?p.note:'สมการที่พิมพ์เอง ลองทายรูปเส้นโค้งจากขีดความชันก่อน แล้วค่อยกดดูของจริง');};
+    $('#fexpr').addEventListener('keydown',e=>{if(e.key==='Enter')$('#fdraw').click();});
+    $('#fclear').onclick=()=>{curves=[];guesses=[];redraw();};
+    $('#fiso').onchange=()=>{F.iso=$('#fiso').checked;redraw();};
+    $('#mGuess').onclick=()=>{fmode='guess';$('#mGuess').setAttribute('aria-pressed','true');$('#mShow').setAttribute('aria-pressed','false');};
+    $('#mShow').onclick=()=>{fmode='show';$('#mShow').setAttribute('aria-pressed','true');$('#mGuess').setAttribute('aria-pressed','false');};
+    setFun(PRE[0].e,PRE[0].note);
+  }else{
+    F.mission={n:5,r:-1,score:0,list:shuffle(PRE.filter(p=>p.e!=='x^2+y^2-1'))};
+    $('#mNext').onclick=()=>missionNext();missionNext();
+  }
+};
+function missionNext(){
+  const M=F.mission;M.r++;if(M.r>=M.n)return summary('field',M.score,M.n,'');
+  const p=M.list[M.r%M.list.length];M.done=false;M.note=p.note;setFun(p.e,'');$('#fnote').innerHTML='';
+  let x,y,tries=0;do{x=Math.round((Math.random()*5-2.5)*2)/2;y=Math.round((Math.random()*5-2.5)*2)/2;tries++;}while(tries<60&&(!isFinite(ffun(x,y))||Math.abs(ffun(x,y))>4||Math.abs(y)<0.6||Math.abs(x)<0.4));
+  F.target=[x,y];$('#mRound').textContent=`รอบ ${M.r+1} / ${M.n}`;$('#mScore').textContent=`ผ่าน ${M.score}`;
+  const TX={'-x/y':'-\\frac{x}{y}','cos(x)':'\\cos x','y*(2-y)':'y(2-y)','y/x':'\\frac{y}{x}'};$('#mEq').innerHTML=`\\[\\frac{dy}{dx}=${TX[p.e]||p.e}\\]`;typeset($('#mEq'));$('#mNextRow').hidden=true;redraw();
+}
+window.addEventListener('resize',()=>{if(cv&&document.body.contains(cv)){sizeCanvas();redraw();}});
+
+/* ================= 3. bug ================= */
+let B={};
+var PLAY_bug;PLAY_bug=()=>{B={list:shuffle(BUGS).slice(0,5),i:0,score:0};bugQ();};
+function bugQ(){
+  if(B.i>=B.list.length)return summary('bug',B.score,B.list.length);
+  const b=B.list[B.i],hard=isHard('bug'),n=b.lines.length;B.miss=0;B.done=false;
+  let lo=Math.max(0,Math.min(b.bug-1,n-3));const cand=hard?null:[lo,lo+1,lo+2];
+  gPlay().innerHTML=`<div class="card">${topRow(B.i,B.list.length,B.score,`<span class="pill">${b.tag}</span>`)}
+   <div><div class="small muted">โจทย์</div><div class="eq">\\(${b.q}\\)</div></div>
+   <p class="small muted">${hard?'แตะบรรทัดแรกที่ผิด แตะได้ครั้งเดียวนะ':'จุดผิดอยู่ใน 3 บรรทัดที่ไฮไลต์สีเหลือง แตะบรรทัดแรกที่ผิด'}</p>
+   <div class="lines" id="bugLines"></div><div id="bugFb"></div><div class="row"><button class="btn primary" id="bugNext" hidden>${B.i===B.list.length-1?'ดูสรุป':'ข้อต่อไป'}</button></div></div>`;
+  b.lines.forEach((t,i)=>{const dim=cand&&!cand.includes(i);const r=el('button',{class:'line'+(cand?(dim?' dim':' cand'):'')},`<span class="ln">${i+1}</span><span class="lt">\\(\\displaystyle ${t}\\)</span>`);if(dim)r.disabled=true;r.onclick=()=>bugPick(i,r);$('#bugLines').appendChild(r);});
+  $('#bugNext').onclick=()=>{B.i++;bugQ();window.scrollTo(0,0);};typeset(gPlay());
+}
+function bugShow(){const b=B.list[B.i];B.done=true;const rows=[...$('#bugLines').children];
+  rows.forEach((x,k)=>{x.classList.remove('cand','dim');if(k<b.bug)x.classList.add('okline');if(k>b.bug)x.classList.add('after');if(k===b.bug)x.classList.add('bugline');});
+  const fx=el('div',{class:'fixline'},`<div class="small" style="color:var(--good)">ที่ถูกต้อง</div>\\(\\displaystyle ${b.fix}\\)`);rows[b.bug].after(fx);typeset(fx);$('#bugNext').hidden=false;}
+function bugPick(i,r){
+  if(B.done)return;const b=B.list[B.i],fb=$('#bugFb'),hard=isHard('bug');
+  if(i===b.bug){if(B.miss===0)B.score++;P.bug[b.id]=1;save();bugShow();fb.innerHTML=`<div class="fb good"><b>${B.miss===0?'เจอแล้ว! +1':'เจอแล้ว'} บรรทัด ${i+1}</b><div>${b.why}</div></div>`;}
+  else if(hard){r.classList.add('shake');bugShow();fb.innerHTML=`<div class="fb bad"><b>พลาดไป ที่ผิดคือบรรทัด ${b.bug+1}</b><div>${b.why}</div></div>`;}
+  else{B.miss++;r.classList.remove('shake');void r.offsetWidth;r.classList.add('shake');fb.innerHTML=`<div class="fb bad"><b>บรรทัด ${i+1} ยังถูกอยู่</b><div>${i>b.bug?'ผิดตั้งแต่ก่อนหน้านี้แล้ว บรรทัดนี้แค่คำนวณต่อจากของที่ผิดมา ลองไล่ขึ้นไปข้างบน':'ลองไล่ต่อลงไปข้างล่าง'}</div></div>`;}
+  typeset(fb);
+}
+
+/* ================= 4. order ================= */
+let O={};
+var PLAY_order;PLAY_order=()=>{O={list:shuffle(ORD).slice(0,4),i:0,score:0};ordQ();};
+function ordQ(){
+  if(O.i>=O.list.length)return summary('order',O.score,O.list.length);
+  const o=O.list[O.i],hard=isHard('order');O.checks=0;O.solved=false;
+  const items=o.steps.map((t,i)=>({t,i}));O.ans=[];
+  if(!hard){O.ans=[Object.assign(items[0],{lock:true})];O.pool=shuffle(items.slice(1));}else O.pool=shuffle(items.concat([{t:o.fake,i:-1}]));
+  gPlay().innerHTML=`<div class="card">${topRow(O.i,O.list.length,O.score,`<span class="pill">${o.tag}</span>`)}
+   <div><div class="small muted">โจทย์</div><div class="eq">\\(${o.q}\\)</div></div>
+   <div class="small muted">คำตอบของฉัน (${o.steps.length} บรรทัด)${hard?' · มีบรรทัดหลอก 1 บรรทัด':''}</div><div class="slot-area" id="ordAns"></div>
+   <div class="small muted">บรรทัดที่เหลือ</div><div class="pool" id="ordPool"></div><div id="ordFb"></div>
+   <div class="row"><button class="btn primary" id="ordCheck">ตรวจ</button><button class="btn ghost" id="ordGive">ดูเฉลย</button><button class="btn primary" id="ordNext" hidden>${O.i===O.list.length-1?'ดูสรุป':'ข้อต่อไป'}</button></div></div>`;
+  $('#ordCheck').onclick=ordCheck;$('#ordNext').onclick=()=>{O.i++;ordQ();window.scrollTo(0,0);};
+  $('#ordGive').onclick=()=>{O.ans=o.steps.map((t,i)=>({t,i,mark:'right',lock:true}));O.pool=hard?[{t:o.fake,i:-1}]:[];O.solved=true;ordDraw();ordDone(false);};
+  ordDraw();typeset(gPlay());
+}
+function ordDraw(){
+  const A=$('#ordAns'),Pl=$('#ordPool');A.innerHTML='';Pl.innerHTML='';A.classList.toggle('empty',!O.ans.length);
+  O.ans.forEach((s,k)=>{const b=el('button',{class:'chip'+(s.mark?' '+s.mark:'')+(s.lock&&!s.mark?' locked':'')},`<span class="ln">${k+1}</span><span class="lt">\\(\\displaystyle ${s.t}\\)</span>`);
+    b.onclick=()=>{if(s.lock||O.solved)return;O.ans.splice(k,1);O.pool.push(s);O.ans.forEach(x=>delete x.mark);$('#ordFb').innerHTML='';ordDraw();};A.appendChild(b);});
+  O.pool.forEach((s,k)=>{const b=el('button',{class:'chip'},`<span class="ln">+</span><span class="lt">\\(\\displaystyle ${s.t}\\)</span>`);
+    b.onclick=()=>{if(O.solved)return;O.pool.splice(k,1);O.ans.push(s);O.ans.forEach(x=>delete x.mark);$('#ordFb').innerHTML='';ordDraw();};Pl.appendChild(b);});
+  typeset(A);typeset(Pl);
+}
+function ordDone(scored){$('#ordCheck').hidden=true;$('#ordGive').hidden=true;$('#ordNext').hidden=false;}
+function ordCheck(){
+  const o=O.list[O.i],fb=$('#ordFb');let right=0;O.checks++;
+  O.ans.forEach((s,k)=>{s.mark=s.i===k?'right':'wrong';if(s.i===k)right++;});const hasFake=O.ans.some(s=>s.i===-1);ordDraw();
+  if(right===o.steps.length&&O.ans.length===o.steps.length){O.solved=true;if(O.checks===1)O.score++;P.ord[o.id]=1;save();ordDone();
+    fb.innerHTML=`<div class="fb good"><b>เรียงถูกครบ!${O.checks===1?' +1':''}</b><div>${isHard('order')?`บรรทัดหลอกคือ \\(${o.fake}\\) ลองอธิบายว่าทำไมมันผิด`:'ลองอธิบายให้เพื่อนฟังว่าแต่ละบรรทัดมาจากไหน'}</div></div>`;}
+  else fb.innerHTML=`<div class="fb bad"><b>ถูกตำแหน่ง ${right}/${o.steps.length}</b><div>${hasFake?'มีบรรทัดหลอกอยู่ในคำตอบด้วย ':''}${O.ans.length<o.steps.length?`ยังใส่ไม่ครบ ต้องมี ${o.steps.length} บรรทัด `:''}บรรทัดสีแดงอยู่ผิดตำแหน่ง แตะเพื่อเอาออกแล้วลองใหม่</div></div>`;
+  typeset(fb);
+}
+
+/* ================= 5. reverse ================= */
+let R={};
+var PLAY_reverse;PLAY_reverse=()=>{R={list:shuffle(REV).slice(0,6),i:0,s:0,score:0,clean:true};revQ();};
+function revQ(){
+  if(R.i>=R.list.length)return summary('reverse',R.score,R.list.length);
+  const r=R.list[R.i],hard=isHard('reverse');const steps=hard?[r.steps[r.steps.length-1]]:r.steps;const s=steps[R.s];
+  let opts=s.o.map((t,i)=>i);if(!hard)opts=[s.a].concat(shuffle(opts.filter(i=>i!==s.a)).slice(0,2));opts=shuffle(opts);
+  gPlay().innerHTML=`<div class="card">${topRow(R.i,R.list.length,R.score,`<span class="pill">${r.tag||'อันดับ n'}</span>`)}
+   <div><div class="small muted">คำตอบทั่วไปที่ได้มา</div><div class="eq">\\[${r.sol}\\]</div></div>
+   <div class="row spread"><b>${s.q}</b>${steps.length>1?`<span class="stat">ขั้น ${R.s+1}/${steps.length}</span>`:''}</div>
+   <div class="choices" id="revCh"></div><div id="revFb"></div><div class="row"><button class="btn primary" id="revNext" hidden>ต่อไป</button></div></div>`;
+  let done=false;
+  opts.forEach(i=>{const b=el('button',{class:'btn'},`\\(\\displaystyle ${s.o[i]}\\)`);b.onclick=()=>{if(done)return;const fb=$('#revFb');
+    if(i===s.a){done=true;b.classList.add('ok');const last=R.s===steps.length-1;if(last&&R.clean){R.score++;P.rev[r.id]=1;save();}
+      fb.innerHTML=`<div class="fb good"><b>${last&&R.clean?'ถูกต้อง! +1':'ถูกแล้ว'}</b><div>${s.why}</div></div>`;$('#revNext').hidden=false;$('#revNext').textContent=last?(R.i===R.list.length-1?'ดูสรุป':'ข้อต่อไป'):'ขั้นต่อไป';}
+    else{R.clean=false;b.classList.add('no');b.disabled=true;fb.innerHTML=`<div class="fb bad"><b>ยังไม่ใช่</b><div>ลองกระจายสมการช่วยของตัวเลือกนี้ แล้วดูว่ารากตรงกับคำตอบไหม</div></div>`;}
+    typeset(fb);};$('#revCh').appendChild(b);});
+  $('#revNext').onclick=()=>{if(R.s<steps.length-1)R.s++;else{R.s=0;R.i++;R.clean=true;}revQ();};
+  typeset(gPlay());
+}
+
+/* ================= 6. escape ================= */
+let esc={};
+function parseNum(s){s=String(s).trim().replace(/\s/g,'').replace('−','-');if(/^-?\d+(\.\d+)?\/-?\d+(\.\d+)?$/.test(s)){const [a,b]=s.split('/');return +a/ +b;}return s===''?NaN:+s;}
+function fmtT(sec){sec=Math.max(0,Math.round(sec));return `${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`;}
+const elapsed=()=>(Date.now()-esc.start)/1000+esc.pen;
+var PLAY_escape;PLAY_escape=()=>{esc={room:0,start:Date.now(),pen:0,hinted:{}};escRoom();};
+function escRoom(){
+  stopTimers();const hard=isHard('escape');
+  if(esc.room>=ROOMS.length){const t=Math.round(esc.final),key='escape-'+diff('escape');const best=P.best[key]==null||t<P.best[key];if(best)P.best[key]=t;P.played.escape=1;save();
+    gPlay().innerHTML=`<div class="card done-card">${mascot('wow',110)}<h2>หนีออกจากแล็บได้แล้ว!</h2><div class="locks" style="align-self:stretch">${ROOMS.map(()=>'<span class="on"></span>').join('')}</div><div class="big">${fmtT(t)}</div>
+     <p class="muted">${best?'สถิติใหม่ของโหมด'+DNAME[diff('escape')]+'!':'สถิติดีที่สุด '+fmtT(P.best[key])} · ใช้คำใบ้ ${Object.keys(esc.hinted).length} ครั้ง</p>
+     <div class="row center"><button class="btn primary big" id="eAgain">เล่นอีกรอบ</button><button class="btn ghost" id="eBack">กลับไปเลือกเกม</button></div></div>`;
+    celebrate(170);$('#eAgain').onclick=()=>startGame('escape');$('#eBack').onclick=()=>go('games');return;}
+  const r=ROOMS[esc.room];
+  gPlay().innerHTML=`<div class="door"><div class="door-head"><h3>${r.title}</h3><span class="stat" id="escT">${fmtT(elapsed())}</span></div><div class="door-body">
+   <div class="locks">${ROOMS.map((_,i)=>`<span class="${i<esc.room?'on':''}"></span>`).join('')}</div>
+   <p class="story">${r.story}</p>${r.q?`<div class="eq">\\[${r.q}\\]</div>`:''}${r.list?`<ol class="plan">${r.list.map(t=>`<li>\\(${t}\\)</li>`).join('')}</ol>`:''}
+   <div class="code">${r.inputs.map((inp,i)=>`<label class="small" for="ein${i}">${inp.label}</label><input type="text" inputmode="decimal" id="ein${i}" autocomplete="off">`).join('')}<button class="btn primary" id="escTry">ปลดล็อก</button></div>
+   <div id="escFb"></div><div class="row"><button class="btn" id="escHint">${esc.hinted[esc.room]?'ดูคำใบ้':hard?'ขอคำใบ้ (+2 นาที)':'ขอคำใบ้ (ฟรี)'}</button><button class="btn ghost" id="escQuit">เริ่มใหม่</button></div></div></div>`;
+  TIMERS.push(setInterval(()=>{const t=$('#escT');if(t)t.textContent=fmtT(elapsed());},1000));
+  const tryIt=()=>{const ok=r.inputs.every((inp,i)=>{const v=parseNum($('#ein'+i).value);return Math.abs(v-inp.a)<=Math.max(1e-6,Math.abs(inp.a)*0.005);});
+    if(ok){esc.room++;if(esc.room>=ROOMS.length)esc.final=elapsed();else celebrate(60);escRoom();}
+    else{if(hard)esc.pen+=20;$('#escFb').innerHTML=`<div class="fb bad"><b>ไฟแดงกะพริบ รหัสไม่ถูก</b><div>ตรวจเครื่องหมายและการแทนค่าอีกที${hard?' (+20 วินาที)':''}</div></div>`;const d=gPlay().querySelector('.door');d.classList.remove('shake');void d.offsetWidth;d.classList.add('shake');}};
+  $('#escTry').onclick=tryIt;r.inputs.forEach((_,i)=>$('#ein'+i).addEventListener('keydown',e=>{if(e.key==='Enter')tryIt();}));
+  $('#escHint').onclick=()=>{if(!esc.hinted[esc.room]){esc.hinted[esc.room]=1;if(hard)esc.pen+=120;}$('#escHint').textContent='ดูคำใบ้';$('#escFb').innerHTML=`<div class="fb info"><b>คำใบ้</b><div>${r.hint}</div></div>`;typeset($('#escFb'));};
+  $('#escQuit').onclick=()=>startGame('escape');typeset(gPlay());
+}
+const PLAY={detective:()=>PLAY_detective(),field:()=>PLAY_field(),order:()=>PLAY_order(),bug:()=>PLAY_bug(),reverse:()=>PLAY_reverse(),escape:()=>PLAY_escape()};
+
+/* ================= games hub ================= */
+function bestText(g){const e=P.best[g+'-easy'],h=P.best[g+'-hard'];if(g==='escape')return e==null&&h==null?'ยังไม่เคยเล่น':`ดีที่สุด ${h!=null?'ยาก '+fmtT(h):'ง่าย '+fmtT(e)}`;
+  const tot={detective:8,field:5,order:4,bug:5,reverse:6}[g];if(g==='field'&&h==null)return P.played.field?'เล่นแล้ว':'ยังไม่เคยเล่น';
+  return e==null&&h==null?'ยังไม่เคยเล่น':`ดีที่สุด ${h!=null?'ยาก '+h:'ง่าย '+e}/${tot}`;}
+function renderGames(){
+  $('#gamesSay').innerHTML=`${mascot('wow',64)}<div class="bubble">เลือกเกมได้เลย! ทุกเกมมีตัวอย่างการเล่นให้ดูก่อน และเลือกระดับ <b>ง่าย</b> หรือ <b>ยาก</b> ได้ ถ้ายังไม่แน่ใจ เริ่มจากเกมแรกซ้ายบนแล้วไล่ไปตามลำดับ</div>`;
+  const g=$('#modeCards');g.innerHTML='';
+  GORDER.forEach((v,i)=>{const G=GAMES[v];const b=el('button',{class:'mode',style:`--c:var(--${G.color});--cd:var(--${G.color}-d)`},
+    `<div class="ic">${ICON[v]}<span class="k">${i+1}. ${G.when}</span></div><div class="tx"><h3>${G.name}</h3><p>${G.desc}</p><div class="lv">${bestText(v)}</div></div>`);b.onclick=()=>go(v);g.appendChild(b);});
+}
+
+/* ================= home roadmap ================= */
+const lessonsDone=ids=>ids.every(id=>P.learn[id]);
+const ROAD=[
+ {t:'เรียนบทนำ',d:'บทที่ 1–3: DE คืออะไร, อันดับ/ระดับขั้น/เชิงเส้น, คำตอบและเส้นโค้งคำตอบ',done:()=>lessonsDone(['l1','l2','l3']),btns:[['เรียนบทที่ 1–3','learn:0']]},
+ {t:'ลองเล่นสนามทิศทาง',d:'เห็นภาพว่าคำตอบของ DE คือเส้นโค้ง ทายรูปจากขีดความชัน',done:()=>!!P.played.field,btns:[['เล่นสนามทิศทาง','field']]},
+ {t:'เรียนวิธีแก้สมการอันดับ 1',d:'บทที่ 4–9: แยกตัวแปร, เอกพันธ์, แม่นตรง, ตัวประกอบอินทิเกรต, เชิงเส้น, เบอร์นูลลี',done:()=>lessonsDone(['l4','l5','l6','l7','l8','l9']),btns:[['เรียนบทที่ 4–9','learn:3']]},
+ {t:'ฝึกเลือกวิธีและเรียงเฉลย',d:'นักสืบสมการช่วยให้รู้ว่าโจทย์แบบไหนใช้วิธีไหน เรียงเฉลยช่วยจำขั้นตอน',done:()=>!!(P.played.detective&&P.played.order),btns:[['นักสืบสมการ','detective'],['เรียงเฉลย','order']]},
+ {t:'เรียนสมการเชิงเส้นอันดับ n',d:'บทที่ 10–13: สมการช่วย, ตัวดำเนินการผกผัน, UC, แปรผันพารามิเตอร์',done:()=>lessonsDone(['l10','l11','l12','l13']),btns:[['เรียนบทที่ 10–13','learn:9']]},
+ {t:'ทวนจุดพลาดยอดฮิต',d:'ย้อนรอยคำตอบฝึกเรื่องราก จับผิดเฉลยฝึกหาจุดที่คนพลาดบ่อย',done:()=>!!(P.played.reverse&&P.played.bug),btns:[['ย้อนรอยคำตอบ','reverse'],['จับผิดเฉลย','bug']]},
+ {t:'บอสปิดท้าย: แล็บปิดตาย',d:'ใช้ทุกเรื่องที่เรียนมา ไขรหัส 6 ประตู ลองโหมดยากถ้ามั่นใจ',done:()=>!!P.played.escape,btns:[['เล่นแล็บปิดตาย','escape']]}
+];
+function renderHome(){
+  const stars=LESSONS.reduce((s,l)=>s+(P.learn[l.id]||0),0),doneN=ROAD.filter(r=>r.done()).length;const now=ROAD.findIndex(r=>!r.done());
+  $('#hero').innerHTML=`${mascot('happy',104,'#ffffff')}<div><h2>${doneN?'กลับมาแล้ว!':'มาเรียน DE กัน!'}</h2><p>${doneN===ROAD.length?'ผ่านครบทุกขั้นแล้ว เก่งสุดๆ':`ผ่านไปแล้ว ${doneN}/${ROAD.length} ขั้น · ดาวบทเรียน ${stars}/${LESSONS.length*3}`}</p></div>`;
+  $('#roadSay').innerHTML=`${mascot('think',56)}<div class="bubble"><b>เริ่มตรงไหนดี?</b> ทำตามเส้นทางนี้จากบนลงล่าง ขั้นที่ต้องทำต่อจะมีกรอบสีฟ้า จะข้ามไปเล่นอะไรก่อนก็ได้นะ</div>`;
+  const R=$('#road');R.innerHTML='';
+  ROAD.forEach((r,i)=>{const d=r.done(),isNow=i===now;const s=el('div',{class:'step'+(d?' done':'')+(isNow?' now':'')});
+    s.innerHTML=`<div class="dot">${d?'✓':i+1}</div><div class="body"><span class="tag">${d?'ผ่านแล้ว':isNow?'ทำขั้นนี้ต่อ':'ขั้นที่ '+(i+1)}</span><h4>${r.t}</h4><p>${r.d}</p><div class="btns">${r.btns.map(([l,v],k)=>`<button class="btn ${isNow&&k===0?'grape':''}" data-go="${v}">${l}</button>`).join('')}</div></div>`;
+    R.appendChild(s);});
+  R.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{const v=b.dataset.go;if(v.startsWith('learn:')){go('learn');const k=+v.split(':')[1];const ids=LESSONS.map(l=>l.id);let st=k;for(let j=k;j<LESSONS.length;j++){if(!P.learn[ids[j]]){st=j;break;}}startLesson(st);}else go(v);});
+}
+
+/* ================= routing ================= */
+function show(v){
+  document.querySelectorAll('section.view').forEach(s=>s.hidden=s.id!=='v-'+v);
+  const tab=v==='game'?'games':v;document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.v===tab?'true':'false'));
+}
+function go(v){
+  stopTimers();
+  if(GAMES[v]){openGame(v);try{history.replaceState(null,'','#'+v);}catch(e){}window.scrollTo(0,0);return;}
+  if(!['home','learn','games'].includes(v))v='home';
+  show(v);try{history.replaceState(null,'','#'+v);}catch(e){}
+  if(v==='home')renderHome();
+  if(v==='games')renderGames();
+  if(v==='learn'){if(!LS){$('#lesson').hidden=true;$('#learnMap').hidden=false;}renderPath();}
+  window.scrollTo(0,0);
+}
+const TABIC={home:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-5h4v5"/></svg>`,
+ learn:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6c3-1.5 6-1.5 9 1 3-2.5 6-2.5 9-1v13c-3-1.5-6-1.5-9 1-3-2.5-6-2.5-9-1z"/><path d="M12 7v13"/></svg>`,
+ games:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7" width="19" height="11" rx="5"/><path d="M7 11v3M5.5 12.5h3"/><circle cx="16" cy="11.5" r="1" fill="currentColor"/><circle cx="18" cy="13.8" r="1" fill="currentColor"/></svg>`};
+document.querySelectorAll('#tabs button').forEach(b=>{b.insertAdjacentHTML('afterbegin',TABIC[b.dataset.v]);b.onclick=()=>{if(b.dataset.v==='learn'&&LS)closeLesson();go(b.dataset.v);};});
+$('#logo').innerHTML=mascot('happy',50);
+let resetArm=false;
+$('#resetAll').onclick=()=>{if(!resetArm){resetArm=true;$('#resetAll').textContent='แตะอีกครั้งเพื่อยืนยันการล้าง';return;}
+  P=P0();save();resetArm=false;$('#resetAll').textContent='ล้างความคืบหน้าทั้งหมด';$('#resetMsg').textContent='ล้างแล้ว';renderHome();};
+go((location.hash||'#home').slice(1));
+window.addEventListener('hashchange',()=>go((location.hash||'#home').slice(1)));
+
+/* ================= day / night ================= */
+const SUN_I=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>`;
+const MOON_I=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></svg>`;
+const effTheme=()=>document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+function paintThemeBtn(){const dk=effTheme()==='dark';const b=$('#themeBtn');b.innerHTML=(dk?MOON_I:SUN_I)+`<span>${dk?'กลางคืน':'กลางวัน'}</span>`;b.setAttribute('aria-label',dk?'เปลี่ยนเป็นโหมดกลางวัน':'เปลี่ยนเป็นโหมดกลางคืน');}
+try{const t=localStorage.getItem('de-theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t;}catch(e){}
+$('#themeBtn').onclick=()=>{const n=effTheme()==='dark'?'light':'dark';document.documentElement.dataset.theme=n;try{localStorage.setItem('de-theme',n);}catch(e){}paintThemeBtn();if(cv&&document.body.contains(cv))redraw();};
+matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',()=>{paintThemeBtn();if(cv&&document.body.contains(cv))redraw();});
+paintThemeBtn();
+
+</script>
+</body>
+</html>

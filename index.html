@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>สนามฝึก DE</title>
-<meta name="description" content="เรียนและฝึก Differential Equations แบบเกม กับน้องอินทิ: บทเรียนสั้น 18 บท รวมลาปลาซ เกมฝึก 6 แบบ โจทย์ 150 ข้อ หน้าทบทวนจุดที่พลาด และโหมดคู่ติวสำหรับพี่">
+<meta name="description" content="เรียนและฝึก Differential Equations แบบเกม กับน้องอินทิ: บทเรียนสั้น 18 บท รวมลาปลาซ เกมฝึก 6 แบบ โจทย์ 150 ข้อ เลือกหัวข้อได้ สูตรย่อ หน้าทบทวนจุดที่พลาด และโหมดคู่ติวสำหรับพี่">
 <meta property="og:title" content="สนามฝึก DE">
 <meta property="og:description" content="เรียนและฝึก Differential Equations แบบเกม กับน้องอินทิ">
 <meta name="theme-color" content="#2563eb">
@@ -274,6 +274,19 @@ mjx-container{color:inherit}
 .mode .lv .miss{color:var(--bad);font-weight:600}
 .mode:disabled{opacity:.55;cursor:default}
 .mode:disabled:hover,.mode:disabled:active{transform:none}
+/* topic chips + formula sheet */
+.tchips{display:flex;flex-wrap:wrap;gap:8px}
+.tchip{border:2px solid var(--line);background:var(--card);color:var(--muted);border-radius:999px;padding:5px 12px;font:600 .86rem var(--f-body);cursor:pointer;box-shadow:0 2px 0 var(--line)}
+.tchip[aria-pressed="true"]{background:var(--sky);border-color:var(--sky-d);color:#fff;box-shadow:0 2px 0 var(--sky-d)}
+.sheet-card{scroll-margin-top:84px}
+.sheet-card .row.spread h3{min-width:0}
+.tscroll{overflow-x:auto;min-width:0}
+.ftab{width:100%;border-collapse:collapse;font-size:.95rem}
+.ftab th{text-align:left;font-size:.8rem;color:var(--muted);font-weight:700;padding:4px 8px;border-bottom:2px solid var(--line)}
+.ftab td{padding:8px;border-bottom:1px solid var(--line);vertical-align:middle;white-space:nowrap}
+.ftab td.w{white-space:normal;min-width:9em}
+@media (max-width:520px){.ftab.stack tr:first-child{display:none}.ftab.stack tr{display:block;padding:8px 0;border-bottom:1px solid var(--line)}.ftab.stack td{display:block;border:none;padding:2px 4px;white-space:normal}.ftab.stack td:first-child{font-size:.85rem;font-weight:700;color:var(--muted)}.ftab.uc td:first-child::before{content:"ถ้า Q เป็น "}.ftab.uc td+td::before{content:"เดา ";font-size:.85rem;font-weight:700;color:var(--muted)}}
+.rule{background:var(--sun-soft);border-radius:14px;padding:10px 12px;font-size:.93rem}
 /* tutor mode */
 html.tutor{font-size:110%}
 html.tutor body{font-size:1rem}
@@ -291,7 +304,8 @@ html.tutor .eq{font-size:1.3rem}
 .tutor-box li summary{cursor:pointer;font-size:.86rem;color:var(--muted)}
 .tutor-box .lbl{display:block;font-size:.8rem;font-weight:700;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-@media (max-width:480px){nav.tabs button{font-size:1rem;padding:6px 6px}nav.tabs button svg{width:18px;height:18px}h1{font-size:1.5rem}h2{font-size:1.45rem}.card{padding:14px}.choices{grid-template-columns:repeat(2,minmax(0,1fr))}#revCh{grid-template-columns:minmax(0,1fr)}.hero{grid-template-columns:auto 1fr}.hero h2{font-size:1.4rem}}
+@media (max-width:480px){nav.tabs{gap:6px}nav.tabs button{font-size:1rem;padding:6px 4px;gap:4px}nav.tabs button svg{width:18px;height:18px}h1{font-size:1.5rem}h2{font-size:1.45rem}.card{padding:14px}.choices{grid-template-columns:repeat(2,minmax(0,1fr))}#revCh{grid-template-columns:minmax(0,1fr)}.hero{grid-template-columns:auto 1fr}.hero h2{font-size:1.4rem}}
+@media (max-width:420px){nav.tabs button svg{display:none}}
 @media (max-width:360px){.choices{grid-template-columns:minmax(0,1fr)}.diffs{grid-template-columns:1fr}}
 </style>
 </head>
@@ -307,6 +321,7 @@ html.tutor .eq{font-size:1.3rem}
     <button role="tab" data-v="home">หน้าแรก</button>
     <button role="tab" data-v="learn">เรียน</button>
     <button role="tab" data-v="games">เกม</button>
+    <button role="tab" data-v="sheet">สูตรย่อ</button>
   </nav>
 
   <section class="view" id="v-home">
@@ -336,6 +351,12 @@ html.tutor .eq{font-size:1.3rem}
       <div class="path" id="path"></div>
     </div>
     <div id="lesson" hidden></div>
+  </section>
+
+  <section class="view" id="v-sheet" hidden>
+    <div class="say" id="shSay"></div>
+    <div class="tchips" id="shNav"></div>
+    <div id="shBody" style="display:flex;flex-direction:column;gap:18px"></div>
   </section>
 
   <section class="view" id="v-review" hidden>
@@ -372,7 +393,7 @@ const el=(tag,attrs={},html='')=>{const e=document.createElement(tag);for(const 
 function typeset(node){if(node&&window.MathJax&&MathJax.typesetPromise){MathJax.typesetClear&&MathJax.typesetClear([node]);MathJax.typesetPromise([node]).catch(()=>{});}}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 const KEY='de-lab-v2';
-const P0=()=>({det:{},cat:{},bug:{},ord:{},rev:{},learn:{},diff:{},best:{},played:{},miss:{},tutor:0});
+const P0=()=>({det:{},cat:{},bug:{},ord:{},rev:{},learn:{},diff:{},best:{},played:{},miss:{},tutor:0,topic:{}});
 let P=P0();
 try{let s=localStorage.getItem(KEY);if(!s){const o=localStorage.getItem('de-lab-v1');if(o){const v=JSON.parse(o);P.learn=v.learn||{};P.cat=v.cat||{};}}else P=Object.assign(P0(),JSON.parse(s));}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(P));}catch(e){}}
@@ -811,7 +832,7 @@ function closeLesson(){LS=null;$('#lesson').hidden=true;$('#learnMap').hidden=fa
 function renderStep(){
   const L=LESSONS[LS.i],box=$('#lesson');const n=L.steps.length;
   if(LS.s>=n)return renderLessonEnd();
-  const s=L.steps[LS.s];LS.answered=s.k!=='quiz';LS.rev=0;
+  const s=L.steps[LS.s];LS.answered=s.k!=='quiz';LS.rev=0;LS.wrongHere=false;const qid={id:L.id+'-'+LS.s};
   let body='';
   if(s.k==='talk')body=`<div class="say">${mascot(s.m||'happy',80)}<div class="bubble">${s.t}</div></div>`;
   if(s.k==='show')body=`<div class="card"><h3>${s.h}</h3><div>${s.t}</div></div>`;
@@ -825,8 +846,8 @@ function renderStep(){
     if(LS.rev>=s.lines.length){rb.hidden=true;$('#lnext').disabled=false;}};}
   if(s.k==='quiz'){const order=shuffle(s.o.map((_,i)=>i));
     order.forEach(i=>{const b=el('button',{class:'btn','data-i':i},s.o[i]);b.onclick=()=>{if(LS.answered)return;const fb=$('#lfb');
-      if(i===s.a){LS.answered=true;b.classList.add('ok');fb.innerHTML=`<div class="fb good"><b>${['เยี่ยม!','ถูกต้อง!','เก่งมาก!','ใช่เลย!'][Math.floor(Math.random()*4)]}</b><div>${s.why}</div></div>`;$('#lnext').disabled=false;celebrate(35);}
-      else{LS.miss++;b.classList.add('no');b.disabled=true;fb.innerHTML=`<div class="fb bad"><b>ยังไม่ใช่ ลองอีกที</b><div>ตัดตัวเลือกนี้ออกได้แล้ว ลองนึกถึงสิ่งที่เพิ่งอ่านมา</div></div>`;}
+      if(i===s.a){LS.answered=true;if(!LS.wrongHere)clearMiss('learn',qid);b.classList.add('ok');fb.innerHTML=`<div class="fb good"><b>${['เยี่ยม!','ถูกต้อง!','เก่งมาก!','ใช่เลย!'][Math.floor(Math.random()*4)]}</b><div>${s.why}</div></div>`;$('#lnext').disabled=false;celebrate(35);}
+      else{LS.miss++;if(!LS.wrongHere){LS.wrongHere=true;markMiss('learn',qid);}b.classList.add('no');b.disabled=true;fb.innerHTML=`<div class="fb bad"><b>ยังไม่ใช่ ลองอีกที</b><div>ตัดตัวเลือกนี้ออกได้แล้ว ลองนึกถึงสิ่งที่เพิ่งอ่านมา</div></div>`;}
       typeset(fb);};$('#lq').appendChild(b);});}
   typeset(box);
 }
@@ -834,7 +855,7 @@ function renderLessonEnd(){
   const L=LESSONS[LS.i];const st=LS.miss===0?3:LS.miss<=2?2:1;P.learn=P.learn||{};if(st>(P.learn[L.id]||0))P.learn[L.id]=st;save();
   const nx=LS.i+1<LESSONS.length?LS.i+1:null;
   $('#lesson').innerHTML=`<div class="card done-card">${mascot(st===3?'wow':'happy',110)}<h2>จบบท "${L.title}" แล้ว!</h2><div class="stars">${[1,2,3].map(i=>starSvg(i<=st)).join('')}</div>
-   <p class="muted">${st===3?'ไม่ผิดเลยสักข้อ สุดยอด':'ตอบพลาดไป '+LS.miss+' ครั้ง ไม่เป็นไรเลย ทวนอีกรอบเพื่อเก็บดาวให้ครบได้'}</p>
+   <p class="muted">${st===3?'ไม่ผิดเลยสักข้อ สุดยอด':'ตอบพลาดไป '+LS.miss+' ครั้ง ไม่เป็นไรเลย ข้อที่พลาดเก็บไว้ในหน้าทบทวนจุดที่พลาดแล้ว ทวนอีกรอบเพื่อเก็บดาวให้ครบได้'}</p>
    <div class="row" style="justify-content:center">${nx!==null?`<button class="btn primary big" id="leNext">บทต่อไป</button>`:''}<button class="btn coral big" id="leGo">ไปฝึก: ${GONAME[L.go]}</button></div>
    <button class="btn ghost" id="leMap">กลับไปหน้าบทเรียน</button></div>`;
   celebrate(110);
@@ -1469,8 +1490,10 @@ const gPlay=()=>$('#gPlay');
 
 /* ================= ทบทวนจุดที่พลาด ================= */
 // P.miss เก็บ "เกม:id" ของข้อที่เคยพลาด (escape ใช้ชื่อห้อง t แทน id) ตอบถูกตั้งแต่ครั้งแรกเมื่อไรก็ออกจากรายการ
-const RV_G=['detective','order','bug','reverse','escape'];
-const RV_BANK={detective:()=>DET,order:()=>ORD,bug:()=>BUGS,reverse:()=>REV,escape:()=>ROOMS_MID.concat(ROOMS_FIN)};
+const RV_G=['detective','order','bug','reverse','escape','learn'];
+const RV_BANK={detective:()=>DET,order:()=>ORD,bug:()=>BUGS,reverse:()=>REV,escape:()=>ROOMS_MID.concat(ROOMS_FIN),
+ learn:()=>LESSONS.flatMap((l,li)=>l.steps.map((s,i)=>s.k==='quiz'?{id:l.id+'-'+i,l,li,s}:null).filter(Boolean))};
+const GAME_LEARN={name:'คำถามในบทเรียน',color:'sky'};
 const RV_MAX=10;
 const rvId=x=>x.id||x.t;
 let RVW=null;
@@ -1478,9 +1501,11 @@ function markMiss(g,x){P.miss=P.miss||{};P.miss[g+':'+rvId(x)]=1;save();}
 function clearMiss(g,x){const k=g+':'+rvId(x);if(P.miss&&P.miss[k]){delete P.miss[k];save();}}
 function missItems(g){const m=P.miss||{};return RV_BANK[g]?RV_BANK[g]().filter(x=>m[g+':'+rvId(x)]):[];}
 const missN=g=>g?missItems(g).length:RV_G.reduce((n,k)=>n+missItems(k).length,0);
-const gameList=(g,bank,n)=>RVW===g?shuffle(missItems(g)).slice(0,RV_MAX):shuffle(bank).slice(0,n);
+const gameList=(g,bank,n)=>RVW===g?shuffle(missItems(g)).slice(0,RV_MAX):shuffle(tpFilter(g,bank)).slice(0,n);
 const rvPill=()=>RVW?'<span class="pill rv">โหมดทบทวน</span>':'';
-function startReview(g){openGame(g);RVW=g;startGame(g);}
+function startReview(g){
+  if(g==='learn'){CUR='learn';stopTimers();show('game');$('#gTitle').textContent=GAME_LEARN.name;$('#gDiff').hidden=true;$('#gIntro').hidden=true;RVW='learn';startGame('learn');return;}
+  openGame(g);RVW=g;startGame(g);}
 const RV_IC=`<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none;color:var(--bad)"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v4h4"/><path d="M12 8v4l3 2"/></svg>`;
 function rvBanner(){const n=missN();if(!n&&!Object.keys(P.played).length)return '';
   return `<button class="rv-banner${n?'':' clear'}" data-go="review">${RV_IC}<div><b>ทบทวนจุดที่พลาด</b><span>${n?`ค้างอยู่ ${n} ข้อ แตะเพื่อทำซ้ำเฉพาะข้อที่เคยพลาด`:'ไม่มีข้อค้างแล้ว ข้อที่ตอบพลาดในเกมจะมารอตรงนี้'}</span></div><span class="rv-n">${n}</span></button>`;}
@@ -1489,11 +1514,74 @@ function renderReview(){
   const n=missN();
   $('#rvSay').innerHTML=`${mascot(n?'think':'wow',64)}<div class="bubble">${n?`มีข้อที่เคยพลาดค้างอยู่ <b>${n} ข้อ</b> เลือกเกมแล้วทำซ้ำเฉพาะข้อพวกนั้น (รอบละไม่เกิน ${RV_MAX} ข้อ) ข้อไหนตอบถูกตั้งแต่ครั้งแรกจะออกจากรายการ`:'ไม่มีข้อค้างเลย เก่งมาก! ถ้าเล่นเกมแล้วตอบพลาด ข้อนั้นจะมารอให้ทบทวนที่หน้านี้'}</div>`;
   const g=$('#rvCards');g.innerHTML='';
-  RV_G.forEach(v=>{const G=GAMES[v],k=missN(v);const b=el('button',{class:'mode',style:`--c:var(--${G.color});--cd:var(--${G.color}-d)`},
-    `<div class="ic">${ICON[v]}<span class="k">ค้าง ${k} ข้อ</span></div><div class="tx"><h3>${G.name}</h3><p>${k?`ทำซ้ำ ${Math.min(k,RV_MAX)} ข้อที่เคยพลาด ระดับ${DNAME[diff(v)]}`:'ไม่มีข้อค้างในเกมนี้'}</p></div>`);
+  RV_G.forEach(v=>{const G=GAMES[v]||GAME_LEARN,k=missN(v);const b=el('button',{class:'mode',style:`--c:var(--${G.color});--cd:var(--${G.color}-d)`},
+    `<div class="ic">${ICON[v]}<span class="k">ค้าง ${k} ข้อ</span></div><div class="tx"><h3>${G.name}</h3><p>${k?`ทำซ้ำ ${Math.min(k,RV_MAX)} ข้อที่เคยพลาด${v==='learn'?' จากคำถามระหว่างบทเรียน':' ระดับ'+DNAME[diff(v)]}`:v==='learn'?'ไม่มีคำถามในบทเรียนที่ค้าง':'ไม่มีข้อค้างในเกมนี้'}</p></div>`);
     if(k)b.onclick=()=>startReview(v);else b.disabled=true;g.appendChild(b);});
 }
 $('#rvBack').onclick=()=>go('home');
+
+/* ================= เลือกหัวข้อ ================= */
+const TOPICS={o1:'อันดับ 1',aux:'สมการช่วย',uc:'UC',inv:'ตัวดำเนินการผกผัน',vop:'แปรผันพารามิเตอร์',lap:'ลาปลาซ'};
+const TOPIC_IDS={
+ o1:'d1 d2 d3 d4 d5 d6 d7 d10 d11 d12 d13 d14 d15 d17 d18 d19 d20 d21 d22 d23 d24 d26 d27 d28 d34 d35 b1 b2 b3 b4 b5 b9 b10 b11 b12 b13 o1 o2 o3 o4 o5 o8 o9 r8 r9 r10 r16 r17 r18',
+ aux:'d8 d16 b6 b7 b14 o10 r1 r2 r3 r4 r5 r6 r7 r11 r12 r13 r14 r19',
+ uc:'d9 d25 d32 d37 d39 d44 b8 b18 b19 o6 o14 o15 r15 r20 r21',
+ inv:'d9 d25 d37 d40 b20 b21 o16 o17 r22',
+ vop:'d36 d42 b22 b23 o7 o18 r28',
+ lap:'d29 d30 d31 d32 d33 d34 d38 d41 d43 b15 b16 b17 b24 b25 b26 b27 o11 o12 o13 o19 o20 o21 o22 r23 r24 r25 r26 r27'};
+const TOPIC_OF={};for(const k in TOPIC_IDS)TOPIC_IDS[k].split(' ').forEach(id=>(TOPIC_OF[id]=TOPIC_OF[id]||[]).push(k));
+const TP_G=['detective','order','bug','reverse'];
+const tpSel=g=>(P.topic&&P.topic[g])||[];
+function tpFilter(g,bank){const sel=tpSel(g);if(!TP_G.includes(g)||!sel.length)return bank;const f=bank.filter(x=>(TOPIC_OF[x.id]||[]).some(k=>sel.includes(k)));return f.length?f:bank;}
+const tpOn=g=>TP_G.includes(g)&&tpSel(g).length>0;
+const tpPill=()=>!RVW&&tpOn(CUR)?`<span class="pill">หัวข้อ: ${tpSel(CUR).map(k=>TOPICS[k]).join(', ')}</span>`:'';
+function drawTp(gid){const box=$('#tpChips');if(!box)return;const bank=RV_BANK[gid](),sel=tpSel(gid);
+  const cnt=k=>bank.filter(x=>(TOPIC_OF[x.id]||[]).includes(k)).length;
+  box.innerHTML=`<button class="tchip" data-k="" aria-pressed="${!sel.length}">ทุกหัวข้อ (${bank.length})</button>`+Object.keys(TOPICS).filter(k=>cnt(k)).map(k=>`<button class="tchip" data-k="${k}" aria-pressed="${sel.includes(k)}">${TOPICS[k]} (${cnt(k)})</button>`).join('');
+  $('#tpInfo').textContent=sel.length?`สุ่มจาก ${tpFilter(gid,bank).length} ข้อในหัวข้อที่เลือก (รอบที่เลือกหัวข้อไม่นับสถิติดีที่สุด)`:'สุ่มจากโจทย์ทุกหัวข้อ เลือกได้หลายหัวข้อ';
+  box.querySelectorAll('.tchip').forEach(b=>b.onclick=()=>{const k=b.dataset.k;let s=tpSel(gid);s=!k?[]:s.includes(k)?s.filter(x=>x!==k):s.concat(k);P.topic=P.topic||{};P.topic[gid]=s;save();drawTp(gid);});}
+
+/* ================= สูตรย่อ ================= */
+const SHEET=[
+ {id:'o1',h:'เลือกวิธี: สมการอันดับ 1',l:3,body:()=>`<p class="small muted">ไล่ถามจากบนลงล่าง ข้อไหนตอบ "ใช่" ก่อนก็ใช้วิธีนั้น</p><ol class="plan">${FLOW.filter(k=>k!=='nth'&&k!=='lap').map(k=>`<li><b>${CATS[k].name}</b> <span class="small muted">${CATS[k].sub}</span><br>${CATS[k].test}</li>`).join('')}</ol>`},
+ {id:'aux',h:'สมการช่วย 3 กรณี',l:9,body:()=>T`<p>เขียน \(\phi(D)y=0\) แล้วแก้ \(\phi(m)=0\)</p><div class="boxset"><div class="box c1"><h4>รากจริงต่างกัน</h4>\(C_1e^{m_1x}+C_2e^{m_2x}\)</div><div class="box c2"><h4>รากซ้ำ</h4>\(C_1e^{mx}+C_2\,x\,e^{mx}\)</div><div class="box c3"><h4>รากเชิงซ้อน \(\alpha\pm\beta i\)</h4>\(e^{\alpha x}(C_1\cos\beta x+C_2\sin\beta x)\)</div></div><div class="rule">รากซ้ำ \(k\) ตัว คูณ \(1,\,x,\,\dots,\,x^{k-1}\) และจำนวนค่าคงที่ต้องเท่ากับอันดับของสมการเสมอ</div>`},
+ {id:'uc',h:'UC: ตารางเดา y_p',l:11,body:()=>T`<div class="tscroll"><table class="ftab stack uc"><tr><th>ถ้า \(Q(x)\) เป็น</th><th>เดา \(y_p\)</th></tr>
+  <tr><td>\(e^{ax}\)</td><td>\(Ae^{ax}\)</td></tr>
+  <tr><td class="w">พหุนามดีกรี \(n\)</td><td>\(A_nx^n+\dots+A_1x+A_0\)</td></tr>
+  <tr><td>\(\sin bx\) หรือ \(\cos bx\)</td><td>\(A\cos bx+B\sin bx\)</td></tr>
+  <tr><td class="w">\(e^{ax}\times\) พหุนามดีกรี \(n\)</td><td>\(e^{ax}(A_nx^n+\dots+A_0)\)</td></tr>
+  <tr><td>\(e^{ax}\sin bx\)</td><td>\(e^{ax}(A\cos bx+B\sin bx)\)</td></tr>
+  <tr><td>\(x\,e^{ax}\sin bx\)</td><td>\(e^{ax}\left[(Ax+B)\cos bx+(Cx+D)\sin bx\right]\)</td></tr></table></div>
+  <div class="rule"><b>กฎคูณ x:</b> ถ้า \(a\) (หรือ \(a\pm bi\)) เป็นรากของสมการช่วย \(k\) ตัว ให้คูณ \(x^k\) ทั้งก้อน<br>• \(y''-y'-2y=e^{2x}\) ราก \(2\) ซ้ำ 1 ตัว เดา \(Axe^{2x}\)<br>• \(y''+4y'+4y=e^{-2x}\) ราก \(-2\) ซ้ำ 2 ตัว เดา \(Ax^2e^{-2x}\)</div>`},
+ {id:'inv',h:'ตัวดำเนินการผกผัน (สูตรลัด)',l:10,body:()=>T`<div class="tscroll"><table class="ftab stack"><tr><th>กรณี</th><th>สูตร</th></tr>
+  <tr><td class="w">\(e^{ax}\), \(\phi(a)\ne0\)</td><td>\(\dfrac{1}{\phi(D)}e^{ax}=\dfrac{e^{ax}}{\phi(a)}\)</td></tr>
+  <tr><td class="w">\(e^{ax}\), \(\phi(a)=0\) (รากเดี่ยว)</td><td>\(\dfrac{1}{\phi(D)}e^{ax}=\dfrac{x\,e^{ax}}{\phi'(a)}\)</td></tr>
+  <tr><td class="w">\(\sin ax,\ \cos ax\)</td><td>\(\dfrac{1}{\phi(D^2)}\sin ax=\dfrac{\sin ax}{\phi(-a^2)}\) (\(\cos\) ก็แบบเดียวกัน)</td></tr>
+  <tr><td class="w">ตัวส่วนเป็น 0 (ซ้ำกับ \(y_c\))</td><td>\(\dfrac{1}{D^2+a^2}\sin ax=-\dfrac{x}{2a}\cos ax\)<br>\(\dfrac{1}{D^2+a^2}\cos ax=\dfrac{x}{2a}\sin ax\)</td></tr>
+  <tr><td class="w">พหุนาม \(x^n\)</td><td>กระจาย \(\dfrac{1}{\phi(D)}\) เป็นอนุกรมกำลังของ \(D\) ถึง \(D^n\) เช่น \(\dfrac{1}{1-D}=1+D+D^2+\dots\)</td></tr>
+  <tr><td class="w">\(e^{ax}V(x)\)</td><td>\(\dfrac{1}{\phi(D)}e^{ax}V=e^{ax}\dfrac{1}{\phi(D+a)}V\)</td></tr></table></div>
+  <div class="rule">แทน \(D^2\to-a^2\) แล้วยังเหลือ \(D\) ในตัวส่วน ให้คูณ conjugate เช่น \(\dfrac{1}{1-3D}=\dfrac{1+3D}{1-9D^2}\) แล้วแทน \(D^2\) อีกรอบ</div>`},
+ {id:'vop',h:'แปรผันพารามิเตอร์',l:12,body:()=>T`<p>ใช้เมื่อ \(Q\) เป็นแบบที่ UC เดาไม่ได้ เช่น \(\sec x,\ \csc x,\ \tan x,\ \frac{e^x}{x},\ \ln x\) (จัดให้หน้า \(y''\) เป็น 1 ก่อน)</p><div class="eq">\[W=y_1y_2'-y_2y_1'\]\[u_1'=-\frac{y_2\,Q}{W},\qquad u_2'=\frac{y_1\,Q}{W}\]\[y_p=u_1y_1+u_2y_2\]</div><div class="rule">ระวังเครื่องหมายลบที่ \(u_1'\) และถ้าได้ \(W=0\) ให้สงสัยว่าดิฟ \(y_1,y_2\) ผิด</div>`},
+ {id:'lapt',h:'ตารางลาปลาซ',l:13,body:()=>T`<div class="tscroll"><table class="ftab"><tr><th>\(f(t)\)</th><th>\(F(s)=\mathcal L\{f\}\)</th></tr>
+  <tr><td>\(1\)</td><td>\(\dfrac1s\)</td></tr><tr><td>\(t^n\)</td><td>\(\dfrac{n!}{s^{n+1}}\)</td></tr><tr><td>\(e^{at}\)</td><td>\(\dfrac{1}{s-a}\)</td></tr>
+  <tr><td>\(\sin bt\)</td><td>\(\dfrac{b}{s^2+b^2}\)</td></tr><tr><td>\(\cos bt\)</td><td>\(\dfrac{s}{s^2+b^2}\)</td></tr>
+  <tr><td>\(\sinh bt\)</td><td>\(\dfrac{b}{s^2-b^2}\)</td></tr><tr><td>\(\cosh bt\)</td><td>\(\dfrac{s}{s^2-b^2}\)</td></tr>
+  <tr><td>\(u(t-a)\)</td><td>\(\dfrac{e^{-as}}{s}\)</td></tr><tr><td>\(\delta(t-a)\)</td><td>\(e^{-as}\)</td></tr></table></div>`},
+ {id:'lapr',h:'กฎลาปลาซที่ใช้แก้ IVP',l:15,body:()=>T`<div class="tscroll"><table class="ftab stack"><tr><th>กฎ</th><th>สูตร</th></tr>
+  <tr><td class="w">อนุพันธ์</td><td>\(\mathcal L\{y'\}=sY-y(0)\)<br>\(\mathcal L\{y''\}=s^2Y-s\,y(0)-y'(0)\)</td></tr>
+  <tr><td class="w">เลื่อนครั้งที่ 1</td><td>\(\mathcal L\{e^{at}f(t)\}=F(s-a)\)</td></tr>
+  <tr><td class="w">เลื่อนครั้งที่ 2</td><td>\(\mathcal L\{u(t-a)\,f(t-a)\}=e^{-as}F(s)\)</td></tr>
+  <tr><td class="w">คอนโวลูชัน</td><td>\(\mathcal L\left\{\int_0^t f(\tau)g(t-\tau)\,d\tau\right\}=F(s)\,G(s)\)</td></tr></table></div>
+  <div class="rule">ขั้นตอน: แปลงทั้งสองข้าง (ใส่เงื่อนไขเริ่มต้น) → แก้หา \(Y(s)\) → เศษส่วนย่อยหรือทำกำลังสองสมบูรณ์ → แปลงกลับ<br>กฎเลื่อนครั้งที่ 2 ต้องจัดให้อยู่ในรูป \(t-a\) ก่อน เช่น \(t\,u(t-2)=[(t-2)+2]\,u(t-2)\)</div>`}
+];
+function renderSheet(){
+  $('#shSay').innerHTML=`${mascot('think',60)}<div class="bubble">สูตรที่ต้องใช้ทั้งหมดอยู่ในหน้านี้ แตะหัวข้อเพื่อกระโดดไป หรือกด "ทวนบทเรียน" เพื่อกลับไปดูที่มาของสูตร</div>`;
+  $('#shNav').innerHTML=SHEET.map(c=>`<button class="tchip" data-j="${c.id}">${c.h}</button>`).join('');
+  $('#shBody').innerHTML=SHEET.map(c=>`<div class="card sheet-card" id="sh-${c.id}"><div class="row spread"><h3>${c.h}</h3><button class="btn" data-l="${c.l}" style="padding:5px 10px;font-size:.85rem">ทวนบทที่ ${c.l+1}</button></div>${c.body()}</div>`).join('');
+  $('#shNav').querySelectorAll('[data-j]').forEach(b=>b.onclick=()=>$('#sh-'+b.dataset.j).scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}));
+  $('#shBody').querySelectorAll('[data-l]').forEach(b=>b.onclick=()=>{go('learn');startLesson(+b.dataset.l);});
+  typeset($('#v-sheet'));
+}
 
 /* ================= โหมดคู่ติว ================= */
 function tutorBox(ans,key){if(!P.tutor)return '';const qs=(typeof TQ!=='undefined'&&TQ[key])||[];
@@ -1550,29 +1638,30 @@ function renderIntro(gid){
    <div class="demo-nav"><div class="dots" id="dmD"></div><div class="row"><button class="btn" id="dmP">ก่อนหน้า</button><button class="btn grape" id="dmX">ถัดไป</button></div></div></div>
    <h3>เลือกระดับ</h3>
    <div class="diffs">${['easy','hard'].map(d=>`<button class="diff" data-d="${d}" aria-pressed="${diff(gid)===d}"><div class="lvl"><i></i><i></i><i></i></div><h4>${DNAME[d]}</h4><p>${g[d]}</p></button>`).join('')}</div>
+   ${TP_G.includes(gid)?'<h3>เลือกหัวข้อ</h3><div class="tchips" id="tpChips"></div><p class="small muted" id="tpInfo"></p>':''}
    <button class="btn primary big wide" id="gStart">เริ่มเล่น</button>${RV_BANK[gid]&&missN(gid)?`<button class="btn wide" id="gReview" style="text-align:center">ทบทวนเฉพาะข้อที่เคยพลาด (ค้าง ${missN(gid)} ข้อ)</button>`:''}`;
   const draw=()=>{$('#dmS').innerHTML=steps[k].html;$('#dmC').innerHTML=steps[k].cap;$('#dmK').textContent=k+1;$('#dmN').textContent=`${k+1}/${steps.length}`;
     $('#dmD').innerHTML=steps.map((_,i)=>`<i class="${i===k?'on':''}"></i>`).join('');$('#dmP').disabled=k===0;$('#dmX').textContent=k===steps.length-1?'ดูอีกรอบ':'ถัดไป';typeset($('#gIntro .demo'));};
   $('#dmP').onclick=()=>{if(k>0){k--;draw();}};$('#dmX').onclick=()=>{k=(k+1)%steps.length;draw();};
   document.querySelectorAll('#gIntro .diff').forEach(b=>b.onclick=()=>{setDiff(gid,b.dataset.d,false);document.querySelectorAll('#gIntro .diff').forEach(x=>x.setAttribute('aria-pressed',x===b));});
   $('#gStart').onclick=()=>startGame(gid);const gr=$('#gReview');if(gr)gr.onclick=()=>startReview(gid);
-  draw();typeset($('#gIntro'));
+  drawTp(gid);draw();typeset($('#gIntro'));
 }
 function setDiff(gid,d,restart=true){P.diff[gid]=d;save();document.querySelectorAll('#gDiff button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.d===d));if(restart&&!$('#gPlay').hidden&&$('#gIntro').hidden)startGame(gid);}
 function openGame(gid){
-  CUR=gid;RVW=null;stopTimers();show('game');const g=GAMES[gid];$('#gTitle').textContent=g.name;
+  CUR=gid;RVW=null;stopTimers();show('game');$('#gDiff').hidden=false;const g=GAMES[gid];$('#gTitle').textContent=g.name;
   document.querySelectorAll('#gDiff button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.d===diff(gid)));
   $('#gIntro').hidden=false;$('#gPlay').hidden=true;$('#gPlay').innerHTML='';$('#gHow').hidden=true;renderIntro(gid);
 }
-function startGame(gid){stopTimers();$('#gIntro').hidden=true;$('#gPlay').hidden=false;$('#gHow').hidden=false;$('#gPlay').innerHTML='';PLAY[gid]();window.scrollTo(0,0);}
+function startGame(gid){stopTimers();$('#gIntro').hidden=true;$('#gPlay').hidden=false;$('#gHow').hidden=gid==='learn';$('#gPlay').innerHTML='';PLAY[gid]();window.scrollTo(0,0);}
 $('#gBack').onclick=()=>go('games');
 $('#gHow').onclick=()=>openGame(CUR);
 document.querySelectorAll('#gDiff button').forEach(b=>b.onclick=()=>setDiff(CUR,b.dataset.d,true));
 
 /* ================= summary ================= */
 function summary(gid,score,total,note=''){
-  stopTimers();const pct=score/total;const st=pct>=.9?3:pct>=.6?2:pct>0?1:0;const key=gid+'-'+diff(gid);const rv=RVW===gid,left=missN(gid);
-  if(!rv&&(P.best[key]==null||score>P.best[key]))P.best[key]=score;P.played[gid]=1;save();
+  stopTimers();const pct=score/total;const st=pct>=.9?3:pct>=.6?2:pct>0?1:0;const key=gid+'-'+diff(gid);const rv=RVW===gid,left=missN(gid),tf=!rv&&tpOn(gid);
+  if(!rv&&!tf&&(P.best[key]==null||score>P.best[key]))P.best[key]=score;P.played[gid]=1;save();
   const other=isHard(gid)?'easy':'hard';
   if(rv){gPlay().innerHTML=`<div class="card done-card">${mascot(left?'happy':'wow',110)}<h2>${left?'ทบทวนจบรอบแล้ว':'เคลียร์ข้อค้างหมดแล้ว!'}</h2><div class="stars">${[1,2,3].map(i=>starSvg(i<=st)).join('')}</div>
      <div class="big">${score}/${total}</div><p class="muted">${left?`ยังค้างในเกมนี้อีก ${left} ข้อ ข้อที่ตอบถูกตั้งแต่ครั้งแรกออกจากรายการแล้ว`:'ไม่เหลือข้อค้างในเกมนี้'}</p>
@@ -1580,13 +1669,13 @@ function summary(gid,score,total,note=''){
      <button class="btn ghost" id="sBack">กลับไปเลือกเกม</button></div>`;
     celebrate(30+st*45);if(left)$('#sAgain').onclick=()=>startGame(gid);$('#sRv').onclick=()=>go('review');$('#sBack').onclick=()=>go('games');return;}
   gPlay().innerHTML=`<div class="card done-card">${mascot(st===3?'wow':st?'happy':'think',110)}<h2>${['ลองอีกรอบนะ','ใช้ได้เลย!','เก่งมาก!','สุดยอด!'][st]}</h2><div class="stars">${[1,2,3].map(i=>starSvg(i<=st)).join('')}</div>
-   <div class="big">${score}/${total}</div><p class="muted">${note}สถิติดีที่สุดโหมด${DNAME[diff(gid)]}: ${P.best[key]}/${total}</p>
+   <div class="big">${score}/${total}</div><p class="muted">${note}${tf?`รอบนี้เลือกหัวข้อ: ${tpSel(gid).map(k=>TOPICS[k]).join(', ')} (ไม่นับสถิติ)`:`สถิติดีที่สุดโหมด${DNAME[diff(gid)]}: ${P.best[key]}/${total}`}</p>
    <div class="row center"><button class="btn primary big" id="sAgain">เล่นอีกรอบ</button><button class="btn coral big" id="sSw">ลองโหมด${DNAME[other]}</button></div>
    <button class="btn ghost" id="sBack">กลับไปเลือกเกม</button></div>`;
   celebrate(30+st*45);
   $('#sAgain').onclick=()=>startGame(gid);$('#sSw').onclick=()=>{setDiff(gid,other,false);startGame(gid);};$('#sBack').onclick=()=>go('games');
 }
-const topRow=(i,n,score,extra='')=>`<div class="row spread"><span class="pill acc">ข้อ ${i+1} / ${n}</span><span class="pill sun">คะแนน ${score}</span>${rvPill()}${extra}</div>`;
+const topRow=(i,n,score,extra='')=>`<div class="row spread"><span class="pill acc">ข้อ ${i+1} / ${n}</span><span class="pill sun">คะแนน ${score}</span>${rvPill()}${tpPill()}${extra}</div>`;
 
 /* ================= 1. detective ================= */
 let D={};
@@ -1806,7 +1895,23 @@ function escRoom(){
   $('#escHint').onclick=()=>{if(!esc.hinted[esc.room]){esc.hinted[esc.room]=1;if(hard)esc.pen+=120;}$('#escHint').textContent='ดูคำใบ้';$('#escFb').innerHTML=`<div class="fb info"><b>คำใบ้</b><div>${r.hint}</div></div>`;typeset($('#escFb'));};
   $('#escQuit').onclick=()=>startGame('escape');typeset(gPlay());
 }
-const PLAY={detective:()=>PLAY_detective(),field:()=>PLAY_field(),order:()=>PLAY_order(),bug:()=>PLAY_bug(),reverse:()=>PLAY_reverse(),escape:()=>PLAY_escape()};
+/* ================= ทบทวนคำถามในบทเรียน ================= */
+let LQ={};
+var PLAY_learn;PLAY_learn=()=>{LQ={list:gameList('learn',RV_BANK.learn(),RV_MAX),i:0,score:0};lqQ();};
+function lqQ(){
+  if(LQ.i>=LQ.list.length)return summary('learn',LQ.score,LQ.list.length);
+  const it=LQ.list[LQ.i],s=it.s;LQ.wrong=false;LQ.done=false;
+  gPlay().innerHTML=`<div class="card">${topRow(LQ.i,LQ.list.length,LQ.score,`<span class="pill">บทที่ ${it.li+1} · ${it.l.title}</span>`)}
+   <div class="eq" style="font-size:1.05rem">${s.q}</div><div class="choices" id="lqCh"></div><div id="lqFb"></div>
+   <div class="row"><button class="btn primary" id="lqNext" hidden>${LQ.i===LQ.list.length-1?'ดูสรุป':'ข้อต่อไป'}</button><button class="btn ghost" id="lqLes">เปิดบทที่ ${it.li+1}</button></div></div>`;
+  shuffle(s.o.map((_,i)=>i)).forEach(i=>{const b=el('button',{class:'btn','data-i':i},s.o[i]);b.onclick=()=>{if(LQ.done)return;const fb=$('#lqFb');
+    if(i===s.a){LQ.done=true;b.classList.add('ok');if(!LQ.wrong){LQ.score++;clearMiss('learn',it);}fb.innerHTML=`<div class="fb good"><b>${LQ.wrong?'ถูกแล้ว':'ถูกต้อง! +1'}</b><div>${s.why}</div></div>`;$('#lqNext').hidden=false;}
+    else{LQ.wrong=true;b.classList.add('no');b.disabled=true;fb.innerHTML=`<div class="fb bad"><b>ยังไม่ใช่ ลองอีกที</b><div>ตัดตัวเลือกนี้ออกได้แล้ว ถ้ายังไม่แน่ใจ กดเปิดบทเรียนดูได้</div></div>`;}
+    typeset(fb);};$('#lqCh').appendChild(b);});
+  $('#lqNext').onclick=()=>{LQ.i++;lqQ();window.scrollTo(0,0);};$('#lqLes').onclick=()=>{go('learn');startLesson(it.li);};
+  typeset(gPlay());
+}
+const PLAY={learn:()=>PLAY_learn(),detective:()=>PLAY_detective(),field:()=>PLAY_field(),order:()=>PLAY_order(),bug:()=>PLAY_bug(),reverse:()=>PLAY_reverse(),escape:()=>PLAY_escape()};
 
 /* ================= games hub ================= */
 function bestText(g){const e=P.best[g+'-easy'],h=P.best[g+'-hard'];if(g==='escape')return e==null&&h==null?'ยังไม่เคยเล่น':`ดีที่สุด ${h!=null?'ยาก '+fmtT(h):'ง่าย '+fmtT(e)}`;
@@ -1847,22 +1952,24 @@ function renderHome(){
 /* ================= routing ================= */
 function show(v){
   document.querySelectorAll('section.view').forEach(s=>s.hidden=s.id!=='v-'+v);
-  const tab=v==='game'?'games':v==='review'?'home':v;document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.v===tab?'true':'false'));
+  const tab=v==='game'?(CUR==='learn'?'home':'games'):v==='review'?'home':v;document.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.v===tab?'true':'false'));
 }
 function go(v){
   stopTimers();
   if(GAMES[v]){openGame(v);try{history.replaceState(null,'','#'+v);}catch(e){}window.scrollTo(0,0);return;}
   RVW=null;
-  if(!['home','learn','games','review'].includes(v))v='home';
+  if(!['home','learn','games','review','sheet'].includes(v))v='home';
   show(v);try{history.replaceState(null,'','#'+v);}catch(e){}
   if(v==='home')renderHome();
   if(v==='games')renderGames();
   if(v==='review')renderReview();
+  if(v==='sheet')renderSheet();
   if(v==='learn'){if(!LS){$('#lesson').hidden=true;$('#learnMap').hidden=false;}renderPath();}
   window.scrollTo(0,0);
 }
 const TABIC={home:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-5h4v5"/></svg>`,
  learn:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6c3-1.5 6-1.5 9 1 3-2.5 6-2.5 9-1v13c-3-1.5-6-1.5-9 1-3-2.5-6-2.5-9-1z"/><path d="M12 7v13"/></svg>`,
+ sheet:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>`,
  games:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7" width="19" height="11" rx="5"/><path d="M7 11v3M5.5 12.5h3"/><circle cx="16" cy="11.5" r="1" fill="currentColor"/><circle cx="18" cy="13.8" r="1" fill="currentColor"/></svg>`};
 document.querySelectorAll('#tabs button').forEach(b=>{b.insertAdjacentHTML('afterbegin',TABIC[b.dataset.v]);b.onclick=()=>{if(b.dataset.v==='learn'&&LS)closeLesson();go(b.dataset.v);};});
 $('#logo').innerHTML=mascot('happy',50);

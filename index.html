@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>สนามฝึก DE</title>
-<meta name="description" content="เรียนและฝึก Differential Equations แบบเกม กับน้องอินทิ: บทเรียนสั้น 13 บท และเกมฝึก 6 แบบ">
+<meta name="description" content="เรียนและฝึก Differential Equations แบบเกม กับน้องอินทิ: บทเรียนสั้น 18 บท รวมลาปลาซ และเกมฝึก 6 แบบ">
 <meta property="og:title" content="สนามฝึก DE">
 <meta property="og:description" content="เรียนและฝึก Differential Equations แบบเกม กับน้องอินทิ">
 <meta name="theme-color" content="#2563eb">
@@ -804,6 +804,260 @@ function renderLessonEnd(){
 }
 
 
+/* ================= more.js : โจทย์ชุดขยาย + หมวดลาปลาซ ================= */
+
+/* ---------- ลาปลาซใน CATS / FLOW ---------- */
+CATS.lap={name:'ลาปลาซ',sub:'Laplace transform',test:T`เป็นสมการเชิงเส้นสัมประสิทธิ์คงที่ที่มีเงื่อนไขเริ่มต้น และฝั่งขวาเป็น step \(u(t-a)\), เดลต้า \(\delta(t-a)\), หลายท่อน หรือมีอินทิกรัลคอนโวลูชันไหม → แปลง \(\mathcal L\) แก้เป็นพีชคณิต แล้วแปลงกลับ (ถ้าฝั่งขวาเป็นฟังก์ชันธรรมดาและไม่มีเงื่อนไขเริ่มต้น สมการช่วยเร็วกว่า)`};
+FLOW.push('lap');
+
+/* ---------- 1. นักสืบสมการ ---------- */
+DET.push(
+ {id:'d18',q:T`(x^2+1)\,y' = xy`,ok:['sep','lin'],why:T`หารด้วย \(y(x^2+1)\) ได้ \(\frac{dy}{y}=\frac{x}{x^2+1}dx\) แยกตัวแปรได้ และเขียนเป็น \(y'-\frac{x}{x^2+1}y=0\) แบบเชิงเส้นก็ได้ (สมการเชิงเส้นที่ \(Q=0\) แยกตัวแปรได้เสมอ)`,w:{exa:T`\(xy\,dx-(x^2+1)\,dy=0\) ได้ \(M_y=x\) แต่ \(N_x=-2x\) ไม่เท่ากัน`}},
+ {id:'d19',q:T`\frac{dy}{dx}=\frac{x^2+y^2}{2xy}`,ok:['hom','ber'],why:T`ทุกพจน์ดีกรี 2 จึงเป็นเอกพันธ์ (แทน \(y=ux\)) หรือแยกได้เป็น \(y'-\frac{1}{2x}y=\frac{x}{2}y^{-1}\) แบบเบอร์นูลลี \(n=-1\)`,w:{sep:T`\(x^2+y^2\) แยกเป็นผลคูณไม่ได้`,exa:T`\((x^2+y^2)dx-2xy\,dy=0\) ได้ \(M_y=2y\) แต่ \(N_x=-2y\)`}},
+ {id:'d20',q:T`(3x^2y+2xy+y^3)\,dx+(x^2+y^2)\,dy=0`,ok:['nex'],why:T`\(M_y=3x^2+2x+3y^2,\ N_x=2x\) ไม่ exact แต่ \(\frac{M_y-N_x}{N}=\frac{3x^2+3y^2}{x^2+y^2}=3\) เป็นค่าคงที่ จึงได้ \(\mu=e^{3x}\)`,w:{exa:T`\(M_y=3x^2+2x+3y^2\) แต่ \(N_x=2x\)`,hom:T`\(3x^2y\) ดีกรี 3 แต่ \(2xy\) ดีกรี 2`,sep:T`ฝั่ง \(dx\) มีพจน์ \(3x^2y+2xy+y^3\) แยกเป็นผลคูณไม่ได้`}},
+ {id:'d21',q:T`x\,\frac{dy}{dx}+y=x^2y^2`,ok:['ber'],why:T`หารด้วย \(x\) ได้ \(y'+\frac{1}{x}y=x\,y^2\) เป็นเบอร์นูลลี \(n=2\) ให้ \(u=y^{-1}\)`,w:{lin:T`มี \(y^2\) ฝั่งขวา ไม่เชิงเส้น`,sep:T`\(x^2y^2-y\) แยกเป็นผลคูณของฟังก์ชัน \(x\) กับ \(y\) ไม่ได้`}},
+ {id:'d22',q:T`\frac{dy}{dx}=\frac{2x+y}{x+2y}`,ok:['hom'],why:T`เศษและส่วนดีกรี 1 เท่ากัน หารบนล่างด้วย \(x\) ได้ \(f(y/x)\)`,w:{exa:T`\((2x+y)dx-(x+2y)dy=0\) ได้ \(M_y=1\) แต่ \(N_x=-1\)`,sep:T`\(2x+y\) แยกเป็นผลคูณไม่ได้`}},
+ {id:'d23',q:T`(2xy+\cos y)\,dx+(x^2-x\sin y)\,dy=0`,ok:['exa'],why:T`\(M_y=2x-\sin y=N_x\) จึงเป็น exact ได้ \(x^2y+x\cos y=C\)`,w:{lin:T`มี \(\cos y\) และ \(\sin y\) จึงไม่เชิงเส้น`,sep:T`ฝั่ง \(dx\) มี \(2xy+\cos y\) แยกไม่ได้`,hom:T`\(2xy\) ดีกรี 2 แต่ \(\cos y\) ไม่ใช่พหุนาม`}},
+ {id:'d24',q:T`\frac{dy}{dx}=\frac{y}{x}+\tan\frac{y}{x}`,ok:['hom'],why:T`ขวามือเป็นฟังก์ชันของ \(y/x\) ล้วน แทน \(y=ux\) จะได้ \(x\,u'=\tan u\) แยกตัวแปรต่อได้`,w:{lin:T`มี \(\tan\frac{y}{x}\) ซึ่งไม่เชิงเส้นใน \(y\)`,sep:T`ตอนนี้ยังแยกไม่ได้ ต้องแทน \(y=ux\) ก่อน`}},
+ {id:'d25',q:T`y''+4y'+4y=e^{-2x}`,ok:['nth'],why:T`สัมประสิทธิ์คงที่ สมการช่วย \((m+2)^2=0\) รากซ้ำ และ \(e^{-2x}\) ซ้ำกับ \(y_c\) สองชั้น ต้องคูณ \(x^2\)`,w:{lap:T`ไม่มีเงื่อนไขเริ่มต้น และฝั่งขวาเป็นฟังก์ชันธรรมดา ใช้สมการช่วยกับ UC เร็วกว่า`}},
+ {id:'d26',q:T`x\,\frac{dy}{dx}=y+\sqrt{x^2-y^2}`,ok:['hom'],why:T`หารด้วย \(x\) ได้ \(y'=\frac{y}{x}+\sqrt{1-\left(\frac{y}{x}\right)^2}\) เป็น \(f(y/x)\)`,w:{sep:T`\(y+\sqrt{x^2-y^2}\) แยกเป็นผลคูณไม่ได้`,lin:T`มีรากที่สองของ \(y\) จึงไม่เชิงเส้น`}},
+ {id:'d27',q:T`\frac{dy}{dx}=\frac{y\cos x}{1+y^2}`,ok:['sep'],why:T`ย้ายข้างได้ \(\frac{1+y^2}{y}dy=\cos x\,dx\)`,w:{lin:T`มี \(\frac{y}{1+y^2}\) ไม่เชิงเส้นใน \(y\)`,hom:T`มี \(\cos x\) ไม่ใช่พหุนาม ดีกรีไม่เท่ากัน`}},
+ {id:'d28',q:T`(y^2+2xy)\,dx-x^2\,dy=0`,ok:['hom','nex'],why:T`ทุกพจน์ดีกรี 2 จึงเป็นเอกพันธ์ หรือไม่ exact (\(M_y=2y+2x,\ N_x=-2x\)) แต่ \(\frac{N_x-M_y}{M}=-\frac{2}{y}\) ได้ \(\mu=y^{-2}\) และคำตอบ \(x+\frac{x^2}{y}=C\)`,w:{exa:T`\(M_y=2y+2x\) แต่ \(N_x=-2x\)`,sep:T`\(y^2+2xy\) แยกเป็นผลคูณของ \(x\) กับ \(y\) ไม่ได้`}},
+ {id:'d29',q:T`y''+3y'+2y=\delta(t-2),\quad y(0)=0,\ y'(0)=0`,ok:['lap'],why:T`ฝั่งขวามีฟังก์ชันเดลต้า (แรงกระแทก ณ เวลา \(t=2\)) ลาปลาซจัดการได้ตรงๆ: \(\mathcal L\{\delta(t-2)\}=e^{-2s}\) ได้ \(Y=\frac{e^{-2s}}{(s+1)(s+2)}\)`,w:{nth:T`สมการช่วยหา \(y_c\) ได้ แต่ \(\delta\) ใช้ UC หรือ variation ไม่สะดวก ข้อนี้ลาปลาซเหมาะกว่ามาก`}},
+ {id:'d30',q:T`y''+y=\begin{cases}t&0\le t<1\\0&t\ge1\end{cases},\quad y(0)=0,\ y'(0)=0`,ok:['lap'],why:T`ฝั่งขวาเป็นฟังก์ชันหลายท่อน เขียนเป็น \(t-t\,u(t-1)\) แล้วแปลงลาปลาซด้วยกฎเลื่อนครั้งที่ 2 ได้เลย`,w:{nth:T`UC ใช้กับ \(Q\) ที่เป็นสูตรเดียวตลอดช่วง แต่ข้อนี้เปลี่ยนสูตรที่ \(t=1\) ต้องใช้ลาปลาซ`}},
+ {id:'d31',q:T`y(t)=t+\int_0^t (t-\tau)\,y(\tau)\,d\tau`,ok:['lap'],why:T`อินทิกรัลนี้คือคอนโวลูชัน \(t * y\) แปลงแล้วได้ \(Y=\frac{1}{s^2}+\frac{1}{s^2}Y\) ดังนั้น \(Y=\frac{1}{s^2-1}\) และ \(y=\sinh t\)`,w:{sep:T`มีอินทิกรัลของ \(y\) อยู่ แยกตัวแปรตรงๆ ไม่ได้`,lin:T`ไม่ใช่รูป \(y'+Py=Q\) เพราะมีอินทิกรัลของ \(y\)`}},
+ {id:'d32',q:T`y''-4y=e^{t},\quad y(0)=1,\ y'(0)=0`,ok:['lap','nth'],why:T`ทำได้ทั้งสองทาง: สมการช่วย + UC แล้วค่อยแทนเงื่อนไขหา \(C_1,C_2\) หรือลาปลาซที่ใส่เงื่อนไขเริ่มต้นเข้าไปตั้งแต่ขั้นแรก ผลลัพธ์เดียวกัน`,w:{}},
+ {id:'d33',q:T`y''+9y=\sin t\;u(t-\pi),\quad y(0)=0,\ y'(0)=0`,ok:['lap'],why:T`มีตัวสวิตช์ \(u(t-\pi)\) คูณอยู่ เป็นสัญญาณของลาปลาซ (กฎเลื่อนครั้งที่ 2)`,w:{nth:T`ฝั่งขวาเปลี่ยนรูปที่ \(t=\pi\) UC ทำตรงๆ ไม่ได้`}},
+ {id:'d34',q:T`y'+2y=4,\quad y(0)=1`,ok:['lin','lap','sep'],why:T`เป็นเชิงเส้นอันดับ 1 (\(\mu=e^{2x}\)) แยกตัวแปรได้ (\(\frac{dy}{4-2y}=dx\)) และลาปลาซก็ทำได้ ผลคือ \(y=2-e^{-2t}\) ข้อนี้เลือกวิธีไหนก็ถูก`,w:{}}
+);
+
+/* ---------- 2. จับผิดเฉลย ---------- */
+BUGS.push(
+ {id:'b9',tag:'เชิงเส้นอันดับ 1 · เครื่องหมาย',q:T`\frac{dy}{dx}-2y=e^{3x}`,lines:[
+   T`P=-2,\quad Q=e^{3x}`,
+   T`\mu=e^{\int 2\,dx}=e^{2x}`,
+   T`(ye^{2x})'=e^{5x}`,
+   T`ye^{2x}=\frac{e^{5x}}{5}+C`,
+   T`y=\frac{e^{3x}}{5}+Ce^{-2x}`],bug:1,fix:T`\mu=e^{\int P\,dx}=e^{-2x}\;\Rightarrow\;(ye^{-2x})'=e^{x}\;\Rightarrow\;y=e^{3x}+Ce^{2x}`,
+   why:T`\(\mu=e^{\int P\,dx}\) โดย \(P\) คือสัมประสิทธิ์ของ \(y\) หลังจัดให้อยู่ในรูป \(y'+Py=Q\) ข้อนี้ \(P=-2\) ไม่ใช่ \(+2\) ตรวจโดยแทนคำตอบกลับ: \(y'-2y\) ได้ \(\frac{e^{3x}}{5}\) ไม่ใช่ \(e^{3x}\)`},
+ {id:'b10',tag:'แยกตัวแปร · อินทิเกรตทีละส่วน',q:T`\frac{dy}{dx}=\frac{x}{y\,e^{y}}`,lines:[
+   T`y\,e^{y}\,dy=x\,dx`,
+   T`\int y\,e^{y}\,dy=\int x\,dx`,
+   T`\frac{y^2}{2}e^{y}=\frac{x^2}{2}+C`,
+   T`y^2e^{y}=x^2+C'`],bug:2,fix:T`\int y e^{y}dy=ye^{y}-e^{y}\;\Rightarrow\;ye^{y}-e^{y}=\frac{x^2}{2}+C`,
+   why:T`อินทิเกรตผลคูณ \(y\cdot e^y\) ทีละตัวแล้วคูณกันไม่ได้ ต้องใช้ integration by parts ลองดิฟ \(\frac{y^2}{2}e^y\) กลับ จะได้ \(ye^y+\frac{y^2}{2}e^y\) ซึ่งเกินมา`},
+ {id:'b11',tag:'เบอร์นูลลี · เครื่องหมายจากการเปลี่ยนตัวแปร',q:T`\frac{dy}{dx}+\frac{1}{x}y=y^2`,lines:[
+   T`n=2,\ \text{หารด้วย }y^2:\ y^{-2}y'+\tfrac{1}{x}y^{-1}=1`,
+   T`u=y^{-1},\quad u'=-y^{-2}y'`,
+   T`u'+\tfrac{1}{x}u=1`,
+   T`\mu=x\;\Rightarrow\;(xu)'=x`,
+   T`u=\frac{x}{2}+\frac{C}{x}`],bug:2,fix:T`-u'+\tfrac{1}{x}u=1\;\Rightarrow\;u'-\tfrac{1}{x}u=-1,\ \mu=\tfrac1x\;\Rightarrow\;u=-x\ln|x|+Cx`,
+   why:T`\(y^{-2}y'=-u'\) มีเครื่องหมายลบ ตอนแทนเข้าสมการต้องได้ \(-u'+\frac1xu=1\) แล้วคูณ \(-1\) ตลอด จุดนี้ทำให้ทั้ง \(\mu\) และคำตอบเปลี่ยนไปหมด`},
+ {id:'b12',tag:'แม่นตรง · หา g(y)',q:T`(2xy+3)\,dx+(x^2-1)\,dy=0`,lines:[
+   T`M_y=2x=N_x\;\Rightarrow\;\text{exact}`,
+   T`F=\int(2xy+3)\,dx=x^2y+3x+g(y)`,
+   T`F_y=x^2+g'(y)=x^2-1\;\Rightarrow\;g'(y)=-1`,
+   T`g(y)=-1`,
+   T`x^2y+3x-1=C`],bug:3,fix:T`g(y)=\int(-1)\,dy=-y\;\Rightarrow\;x^2y+3x-y=C`,
+   why:T`\(g'(y)=-1\) ต้องอินทิเกรตเทียบ \(y\) ได้ \(g(y)=-y\) ไม่ใช่ \(-1\) ลองดิฟ \(x^2y+3x-1\) เทียบ \(y\) จะได้ \(x^2\) ไม่ตรงกับ \(N=x^2-1\)`},
+ {id:'b13',tag:'เอกพันธ์ · ย้อนกลับ y = ux',q:T`\frac{dy}{dx}=\frac{x+y}{x}`,lines:[
+   T`y=ux,\quad \frac{dy}{dx}=u+x\frac{du}{dx}`,
+   T`u+x\frac{du}{dx}=1+u`,
+   T`du=\frac{dx}{x}`,
+   T`u=\ln|x|+C`,
+   T`y=\ln|x|+C`],bug:4,fix:T`y=ux=x\left(\ln|x|+C\right)=x\ln|x|+Cx`,
+   why:T`ขั้นสุดท้ายต้องแทน \(u=\frac{y}{x}\) กลับ คือ \(y=ux\) ไม่ใช่ \(y=u\) ตรวจโดยแทนกลับ: \(y=\ln|x|+C\) ได้ \(y'=\frac1x\) แต่ขวามือ \(\frac{x+y}{x}\) ไม่เท่ากัน`},
+ {id:'b14',tag:'สมการช่วย · หาค่าคงที่จากเงื่อนไข',q:T`y''-3y'+2y=0,\quad y(0)=1,\ y'(0)=0`,lines:[
+   T`m^2-3m+2=0\;\Rightarrow\;m=1,2`,
+   T`y=C_1e^{x}+C_2e^{2x}`,
+   T`y(0)=C_1+C_2=1`,
+   T`y'(0)=C_1+C_2=0`,
+   T`\text{ขัดแย้งกับ }C_1+C_2=1\;\Rightarrow\;\text{ไม่มีคำตอบ}`],bug:3,fix:T`y'=C_1e^{x}+2C_2e^{2x}\;\Rightarrow\;C_1+2C_2=0,\ C_1+C_2=1\;\Rightarrow\;y=2e^{x}-e^{2x}`,
+   why:T`ต้องดิฟ \(y\) ก่อนแล้วค่อยแทน \(x=0\) ตัวคูณหน้า \(C_2\) กลายเป็น 2 ถ้าได้ระบบสมการขัดแย้งแบบนี้ ให้สงสัยว่าลืมดิฟ`},
+ {id:'b15',tag:'ลาปลาซ · สูตรอนุพันธ์',q:T`y'+3y=6,\quad y(0)=1`,lines:[
+   T`\mathcal L\{y'\}+3\mathcal L\{y\}=\mathcal L\{6\}`,
+   T`sY+1+3Y=\frac{6}{s}`,
+   T`(s+3)Y=\frac{6-s}{s}`,
+   T`Y=\frac{2}{s}-\frac{3}{s+3}`,
+   T`y=2-3e^{-3t}`],bug:1,fix:T`\mathcal L\{y'\}=sY-y(0)\;\Rightarrow\;sY-1+3Y=\tfrac6s\;\Rightarrow\;y=2-e^{-3t}`,
+   why:T`\(\mathcal L\{y'\}=sY(s)-y(0)\) เป็นเครื่องหมายลบ ตรวจคำตอบง่ายๆ: \(y=2-3e^{-3t}\) ได้ \(y(0)=-1\) ไม่ตรงกับโจทย์ที่ให้ \(y(0)=1\)`},
+ {id:'b16',tag:'ลาปลาซ · แปลงกลับ กฎเลื่อน',q:T`Y(s)=\frac{s+1}{s^2+2s+5}\ \text{จงหา }y(t)`,lines:[
+   T`s^2+2s+5=(s+1)^2+4`,
+   T`Y=\frac{s+1}{(s+1)^2+2^2}`,
+   T`\mathcal L^{-1}\left\{\frac{s}{s^2+2^2}\right\}=\cos2t`,
+   T`s\to s+1\text{ ให้คูณ }e^{t}:\ y=e^{t}\cos2t`],bug:3,fix:T`F(s+a)\leftrightarrow e^{-at}f(t)\;\Rightarrow\;y=e^{-t}\cos2t`,
+   why:T`กฎเลื่อน: \(\mathcal L\{e^{at}f(t)\}=F(s-a)\) ดังนั้น \(s+1=s-(-1)\) ต้องได้ \(e^{-t}\) ไม่ใช่ \(e^{t}\)`},
+ {id:'b17',tag:'ลาปลาซ · อนุพันธ์อันดับ 2',q:T`y''+4y=0,\quad y(0)=1,\ y'(0)=2`,lines:[
+   T`\mathcal L\{y''\}=s^2Y-s\,y(0)-y'(0)`,
+   T`(s^2Y-1-2)+4Y=0`,
+   T`Y=\frac{3}{s^2+4}`,
+   T`y=\tfrac32\sin2t`],bug:1,fix:T`s^2Y-s\cdot1-2+4Y=0\;\Rightarrow\;Y=\frac{s+2}{s^2+4}\;\Rightarrow\;y=\cos2t+\sin2t`,
+   why:T`ใน \(\mathcal L\{y''\}\) ค่า \(y(0)\) ต้องคูณ \(s\) ด้วย (\(s\,y(0)\)) ตรวจคำตอบ: \(y=\frac32\sin2t\) ได้ \(y(0)=0\) แต่โจทย์ให้ \(y(0)=1\)`}
+);
+
+/* ---------- 3. เรียงเฉลย ---------- */
+ORD.push(
+ {id:'o8',tag:'แยกตัวแปร · IVP',q:T`\frac{dy}{dx}=2xy,\quad y(0)=3`,steps:[
+   T`\frac{dy}{y}=2x\,dx`,
+   T`\ln|y|=x^2+C_0`,
+   T`y=Ce^{x^2}`,
+   T`y(0)=3\;\Rightarrow\;C=3`,
+   T`y=3e^{x^2}`],fake:T`y=Ce^{2x}`},
+ {id:'o9',tag:'ตัวประกอบอินทิเกรต',q:T`(y^2+2xy)\,dx-x^2\,dy=0`,steps:[
+   T`M_y=2y+2x,\ N_x=-2x\;\Rightarrow\;\text{ไม่ exact}`,
+   T`\frac{N_x-M_y}{M}=-\frac{2}{y}\;\Rightarrow\;\mu=y^{-2}`,
+   T`\left(1+\frac{2x}{y}\right)dx-\frac{x^2}{y^2}\,dy=0`,
+   T`F=\int M\,dx=x+\frac{x^2}{y}+g(y)`,
+   T`F_y=-\frac{x^2}{y^2}+g'(y)\;\Rightarrow\;g'(y)=0`,
+   T`x+\frac{x^2}{y}=C`],fake:T`\mu=y^{2}`},
+ {id:'o10',tag:'สมการช่วย · รากเชิงซ้อน',q:T`y''+2y'+5y=0`,steps:[
+   T`m^2+2m+5=0`,
+   T`m=\frac{-2\pm\sqrt{4-20}}{2}=-1\pm2i`,
+   T`\alpha=-1,\ \beta=2`,
+   T`y=e^{-x}\left(C_1\cos2x+C_2\sin2x\right)`],fake:T`y=e^{2x}\left(C_1\cos x+C_2\sin x\right)`},
+ {id:'o11',tag:'ลาปลาซ · IVP อันดับ 1',q:T`y'+3y=6,\quad y(0)=1`,steps:[
+   T`sY-1+3Y=\frac{6}{s}`,
+   T`(s+3)Y=\frac{s+6}{s}`,
+   T`Y=\frac{s+6}{s(s+3)}=\frac{2}{s}-\frac{1}{s+3}`,
+   T`y=2-e^{-3t}`],fake:T`\mathcal L\{y'\}=sY+y(0)`},
+ {id:'o12',tag:'ลาปลาซ · IVP อันดับ 2',q:T`y''+3y'+2y=0,\quad y(0)=0,\ y'(0)=1`,steps:[
+   T`(s^2Y-1)+3sY+2Y=0`,
+   T`(s^2+3s+2)\,Y=1`,
+   T`Y=\frac{1}{(s+1)(s+2)}`,
+   T`Y=\frac{1}{s+1}-\frac{1}{s+2}`,
+   T`y=e^{-t}-e^{-2t}`],fake:T`Y=\frac{1}{s+1}+\frac{1}{s+2}`},
+ {id:'o13',tag:'ลาปลาซ · ฟังก์ชันขั้นบันได',q:T`y'+y=u(t-1),\quad y(0)=0`,steps:[
+   T`(s+1)Y=\frac{e^{-s}}{s}`,
+   T`Y=e^{-s}\,\frac{1}{s(s+1)}`,
+   T`Y=e^{-s}\left(\frac{1}{s}-\frac{1}{s+1}\right)`,
+   T`y=u(t-1)\left(1-e^{-(t-1)}\right)`],fake:T`y=u(t-1)\left(1-e^{-t}\right)`}
+);
+
+/* ---------- 4. ย้อนรอยคำตอบ ---------- */
+REV.push(
+ {id:'r11',sol:T`y=C_1e^{-x}+C_2e^{-4x}`,steps:[
+   {q:'รากของสมการช่วยคือ',o:[T`m=-1,-4`,T`m=1,4`,T`m=-1,4`,T`m=\pm1,\pm4`],a:0,why:T`เลขชี้กำลังของ \(e\) แต่ละตัวคือรากหนึ่งตัว`},
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y''+5y'+4y=0`,T`y''-5y'+4y=0`,T`y''+3y'-4y=0`,T`y''+4y=0`],a:0,why:T`\((m+1)(m+4)=m^2+5m+4\)`}]},
+ {id:'r12',sol:T`y=(C_1+C_2x)\,e^{-2x}`,steps:[
+   {q:'รากของสมการช่วยคือ',o:[T`m=-2,-2`,T`m=2,2`,T`m=-2,0`,T`m=\pm2`],a:0,why:T`มี \(x\) คูณ แปลว่ารากซ้ำ และเลขชี้กำลังคือ \(-2\)`},
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y''+4y'+4y=0`,T`y''-4y'+4y=0`,T`y''+4y=0`,T`y''+2y'=0`],a:0,why:T`\((m+2)^2=m^2+4m+4\)`}]},
+ {id:'r13',sol:T`y=e^{2x}\left(C_1\cos3x+C_2\sin3x\right)`,steps:[
+   {q:'รากของสมการช่วยคือ',o:[T`m=2\pm3i`,T`m=3\pm2i`,T`m=-2\pm3i`,T`m=2,3`],a:0,why:T`\(\alpha=2\) อยู่บน \(e\), \(\beta=3\) อยู่ใน \(\cos,\sin\)`},
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y''-4y'+13y=0`,T`y''+4y'+13y=0`,T`y''-4y'+5y=0`,T`y''+9y=0`],a:0,why:T`\((m-2)^2+9=m^2-4m+13\)`}]},
+ {id:'r14',sol:T`y=C_1+C_2x+C_3e^{-x}`,steps:[
+   {q:'รากของสมการช่วยคือ',o:[T`m=0,0,-1`,T`m=0,-1,-1`,T`m=1,1,-1`,T`m=0,\pm i`],a:0,why:T`\(C_1+C_2x\) คือรากซ้ำที่ \(m=0\) สองตัว ส่วน \(e^{-x}\) ให้ \(m=-1\)`},
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y'''+y''=0`,T`y'''-y''=0`,T`y'''+y'=0`,T`y'''+y=0`],a:0,why:T`\(m^2(m+1)=m^3+m^2\)`}]},
+ {id:'r15',sol:T`y=C_1\cos2x+C_2\sin2x+\tfrac13\sin x`,tag:'ไม่เอกพันธ์',steps:[
+   {q:'ส่วนที่คูณ \\(C_1,C_2\\) บอกว่าด้านซ้ายคือ',o:[T`y''+4y`,T`y''-4y`,T`y''+2y`,T`y'+4y`],a:0,why:T`\(\cos2x,\sin2x\) มาจากราก \(m=\pm2i\) ได้ \(m^2+4\)`},
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y''+4y=\sin x`,T`y''+4y=0`,T`y''+4y=\tfrac13\sin x`,T`y''-4y=\sin x`],a:0,why:T`แทน \(y_p=\tfrac13\sin x\): \(-\tfrac13\sin x+\tfrac43\sin x=\sin x\)`}]},
+ {id:'r16',sol:T`y=Ce^{-x^2}`,tag:'อันดับ 1 · กำจัดค่าคงที่',steps:[
+   {q:'ดิฟแล้วกำจัด C จะได้สมการ',o:[T`\frac{dy}{dx}=-2xy`,T`\frac{dy}{dx}=2xy`,T`\frac{dy}{dx}=-x^2y`,T`\frac{dy}{dx}=-2x`],a:0,why:T`\(y'=-2xCe^{-x^2}=-2xy\)`}]},
+ {id:'r17',sol:T`y=Cx^3`,tag:'อันดับ 1 · กำจัดค่าคงที่',steps:[
+   {q:'ดิฟแล้วกำจัด C จะได้สมการ',o:[T`x\,y'=3y`,T`y'=3x^2`,T`x\,y'=y`,T`y'=3Cx^2`],a:0,why:T`\(y'=3Cx^2\) และ \(C=y/x^3\) แทนได้ \(y'=3y/x\)`}]},
+ {id:'r18',sol:T`x^2-y^2=C`,tag:'อันดับ 1 · เส้นโค้งคำตอบ',steps:[
+   {q:'ดิฟโดยปริยายแล้วได้สมการ',o:[T`\frac{dy}{dx}=\frac{x}{y}`,T`\frac{dy}{dx}=-\frac{x}{y}`,T`\frac{dy}{dx}=\frac{y}{x}`,T`\frac{dy}{dx}=x-y`],a:0,why:T`\(2x-2y\,y'=0\Rightarrow y'=x/y\) ต่างจาก \(x^2+y^2=C\) ที่ได้ \(-x/y\)`}]},
+ {id:'r19',sol:T`y=C_1e^{x}+C_2e^{-x}`,steps:[
+   {q:'สมการเชิงอนุพันธ์คือ',o:[T`y''-y=0`,T`y''+y=0`,T`y''-y'=0`,T`y''+y'=0`],a:0,why:T`รากคือ \(\pm1\) ได้ \(m^2-1=0\) ระวัง \(y''+y=0\) ให้ \(\cos x,\sin x\)`}]}
+);
+
+/* ---------- 5. แล็บปิดตาย: ห้องเพิ่ม + pool สุ่ม ---------- */
+const ROOMS_MID=ROOMS.slice(0,5);
+const ROOMS_FIN=[ROOMS[5]];
+ROOMS_MID.concat(ROOMS_FIN).forEach(r=>{r.t=r.title.replace(/^ประตู \d+ · /,'');});
+function addRoom(arr,t,o){o.t=t;arr.push(o);}
+addRoom(ROOMS_MID,'เครื่องปั่นเหวี่ยง',{story:'สมการบนหน้าจอเครื่องปั่นเหวี่ยงแสดงค่าที่ผิดปกติ ป้ายเขียนว่า "รหัส = อันดับ ตามด้วย ระดับขั้น"',
+  q:T`\left(\frac{d^2y}{dx^2}\right)^{4}+x\left(\frac{dy}{dx}\right)^{5}=e^{x}`,inputs:[{label:'รหัส 2 หลัก',a:24}],
+  hint:T`อนุพันธ์สูงสุดคือ \(d^2y/dx^2\) (อันดับ 2) ยกกำลัง 4 (ระดับขั้น 4) กำลัง 5 ของ \(dy/dx\) ไม่เกี่ยว`});
+addRoom(ROOMS_MID,'ตู้เก็บสไลด์',{story:'สไลด์ 6 แผ่นติดสมการไว้ ใต้ตู้เขียนว่า "รหัส = จำนวนสมการที่แยกตัวแปรได้"',
+  list:[T`y'=xy`,T`y'=x+y`,T`y'=e^{x+y}`,T`y'=\sin(xy)`,T`y'=\dfrac{x^2+1}{y}`,T`y'=x^2y+y`],inputs:[{label:'จำนวน',a:4}],
+  hint:T`ลองจัดเป็นผลคูณ \(f(x)\,g(y)\): \(xy\), \(e^{x}e^{y}\), \(\frac{x^2+1}{y}\) และ \(y(x^2+1)\) ทำได้ ส่วน \(x+y\) กับ \(\sin(xy)\) ทำไม่ได้`});
+addRoom(ROOMS_MID,'ไมโครสโคปห้องมืด',{story:'ภาพบนจอไมโครสโคปคือเส้นโค้งที่ผ่านจุด (0, 3) ป้ายเขียนว่า "รหัส = y ที่ x = √(ln 2)"',
+  q:T`\frac{dy}{dx}=2xy,\qquad y(0)=3`,inputs:[{label:'y',a:6}],
+  hint:T`แยกตัวแปรได้ \(y=3e^{x^2}\) แล้วแทน \(x^2=\ln 2\) จะได้ \(e^{\ln 2}=2\)`});
+addRoom(ROOMS_MID,'ตู้นิรภัยตัวอย่างเลือด',{story:'เส้นโค้งผ่านจุด (1, 2) รหัสตู้คือค่า y ที่ x = 0',
+  q:T`(2xy+3)\,dx+(x^2+1)\,dy=0,\qquad y(1)=2`,inputs:[{label:'y(0)',a:7}],
+  hint:T`\(M_y=2x=N_x\) exact ได้ \(x^2y+3x+y=C\) แทน \((1,2)\) หา \(C\) แล้วแทน \(x=0\)`});
+addRoom(ROOMS_MID,'เครื่องล้างหลอดทดลอง',{story:'หน้าจอแสดงสมการ D-operator พร้อมเงื่อนไขเริ่มต้น กุญแจคือค่าคงที่ในคำตอบทั่วไป',
+  q:T`(D^2-3D+2)\,y=0,\qquad y(0)=1,\ y'(0)=0`,inputs:[{label:'C₁',a:2},{label:'C₂',a:-1}],
+  hint:T`\(y=C_1e^{x}+C_2e^{2x}\) ใช้ \(C_1+C_2=1\) และ \(C_1+2C_2=0\)`});
+addRoom(ROOMS_MID,'ชั้นเก็บสารละลาย',{story:'แผ่นป้ายระบุว่าเดา y_p ได้เป็น Axe^(−x) รหัสคือค่า A',
+  q:T`y''+4y'+3y=10e^{-x}`,inputs:[{label:'A',a:5}],
+  hint:T`\(e^{-x}\) ซ้ำกับ \(y_c\) จึงต้องคูณ \(x\) แทน \(y_p=Axe^{-x}\) ได้ \(2A\,e^{-x}=10e^{-x}\)`});
+addRoom(ROOMS_MID,'จอควบคุมลาปลาซ',{story:'ตารางบนจอเขียนว่า F(s) คือการแปลงลาปลาซของ t·e^(2t) รหัส = 100·F(4)',
+  q:T`F(s)=\mathcal L\{\,t\,e^{2t}\}`,inputs:[{label:'100·F(4)',a:25}],
+  hint:T`\(\mathcal L\{t\}=\frac{1}{s^2}\) แล้วเลื่อน \(s\to s-2\) ได้ \(F(s)=\frac{1}{(s-2)^2}\)`});
+addRoom(ROOMS_MID,'ตู้ควบคุมอุณหภูมิ',{story:'อุณหภูมิตู้เป็นไปตามสมการนี้ รหัส = 10·y ที่ t = (ln 2)/3',
+  q:T`y'+3y=6,\qquad y(0)=1`,inputs:[{label:'10·y',a:15}],
+  hint:T`ลาปลาซ: \(Y=\frac{2}{s}-\frac{1}{s+3}\) ได้ \(y=2-e^{-3t}\) แทน \(e^{-3t}=\tfrac12\)`});
+addRoom(ROOMS_MID,'เครื่องสั่นสะเทือน',{story:'แท่นสั่นเคลื่อนไหวตามสมการนี้ รหัส = 10·y ที่ t = π/4',
+  q:T`y''+4y=0,\qquad y(0)=0,\ y'(0)=2`,inputs:[{label:'10·y',a:10}],
+  hint:T`ลาปลาซ: \(s^2Y-2+4Y=0\Rightarrow Y=\frac{2}{s^2+4}\Rightarrow y=\sin2t\) แล้วแทน \(t=\pi/4\)`});
+addRoom(ROOMS_MID,'สวิตช์ปั๊มน้ำ',{story:'ปั๊มเปิดที่ t = 1 รหัส = 100·y ที่ t = 1 + ln 2',
+  q:T`y'+y=u(t-1),\qquad y(0)=0`,inputs:[{label:'100·y',a:50}],
+  hint:T`\(y=u(t-1)\left(1-e^{-(t-1)}\right)\) แทน \(t-1=\ln2\) ได้ \(1-\tfrac12\)`});
+addRoom(ROOMS_MID,'จอสนามทิศทาง',{story:'ขีดสนามทิศทาง ณ จุด (3, 5) บนจอเกิดรอยร้าว รหัสคือความชันตรงจุดนั้น',
+  q:T`\frac{dy}{dx}=x^2-y`,inputs:[{label:'ความชัน',a:4}],
+  hint:T`แทน \(x=3,\ y=5\) ใน \(f(x,y)=x^2-y\)`});
+addRoom(ROOMS_MID,'ตู้ตรวจความเป็นอิสระ',{story:'คำตอบสองตัวนี้อิสระต่อกันหรือไม่ ต้องคำนวณ Wronskian รหัส = W ที่ x = 3',
+  q:T`y_1=x,\quad y_2=x^2,\qquad W=y_1y_2'-y_2y_1'`,inputs:[{label:'W(3)',a:9}],
+  hint:T`\(W=x\cdot2x-x^2\cdot1=x^2\) แล้วแทน \(x=3\)`});
+addRoom(ROOMS_FIN,'ประตูทางออก (สมการจากคำตอบ)',{story:'แผงสุดท้ายถามหาค่า a กับ b ของสมการที่มีคำตอบทั่วไปตามนี้',
+  q:T`y''+a\,y'+b\,y=0\quad\text{มีคำตอบ}\quad y=C_1e^{x}+C_2\,x\,e^{x}`,inputs:[{label:'a',a:-2},{label:'b',a:1}],
+  hint:T`รากซ้ำ \(m=1,1\) → \((m-1)^2=m^2-2m+1\)`});
+addRoom(ROOMS_FIN,'ประตูทางออก (รากเชิงซ้อน)',{story:'แผงสุดท้ายถามหาค่า a กับ b ของสมการที่มีคำตอบทั่วไปตามนี้',
+  q:T`y''+a\,y'+b\,y=0\quad\text{มีคำตอบ}\quad y=e^{-x}\left(C_1\cos2x+C_2\sin2x\right)`,inputs:[{label:'a',a:2},{label:'b',a:5}],
+  hint:T`ราก \(-1\pm2i\) → \((m+1)^2+4=m^2+2m+5\)`});
+ROOMS_FIN[0].t='ประตูทางออก';
+function pickRooms(){return shuffle(ROOMS_MID).slice(0,5).concat(shuffle(ROOMS_FIN).slice(0,1)).map((r,i)=>Object.assign({},r,{title:`ประตู ${i+1} · ${r.t}`}));}
+
+/* ---------- 6. บทเรียนลาปลาซ ---------- */
+UNITS.push({n:'การแปลงลาปลาซ',c:'mint'});
+LESSONS[12].steps[LESSONS[12].steps.length-1]={k:'talk',m:'happy',t:'จบบทอันดับ n แล้ว! ด่านสุดท้ายคือ <b>การแปลงลาปลาซ</b> เครื่องมือที่เปลี่ยน DE ให้เป็นพีชคณิต'};
+LESSONS.push(
+ {id:'l14',unit:3,title:'ลาปลาซเบื้องต้น',go:'escape',steps:[
+  {k:'talk',m:'happy',t:'ลาปลาซเหมือน<b>เครื่องแปลภาษา</b> เอา DE ที่ยากไปแปลงเป็นสมการพีชคณิตธรรมดา แก้ให้เสร็จ แล้วแปลกลับมาเป็นคำตอบ'},
+  {k:'show',h:'นิยาม',t:T`<div class="eq">\[\mathcal L\{f(t)\}=F(s)=\int_0^{\infty}e^{-st}f(t)\,dt\]</div><div class="boxset"><div class="box c1"><h4>โลก t</h4>\(y(t)\) และอนุพันธ์ ทำให้ DE ยาก</div><div class="box c2"><h4>โลก s</h4>\(Y(s)\) แก้เป็นพีชคณิตธรรมดา</div></div>`},
+  {k:'show',h:'ตารางที่ต้องจำ',t:T`<div class="boxset"><div class="box c3"><h4>แปลงไปข้างหน้า</h4>\(1\to\dfrac1s\)<br>\(t^n\to\dfrac{n!}{s^{n+1}}\)<br>\(e^{at}\to\dfrac{1}{s-a}\)</div><div class="box c4"><h4>ตรีโกณ</h4>\(\sin bt\to\dfrac{b}{s^2+b^2}\)<br>\(\cos bt\to\dfrac{s}{s^2+b^2}\)</div></div>`},
+  {k:'quiz',q:T`\(\mathcal L\{e^{3t}\}\) เท่ากับ`,o:[T`\(\dfrac{1}{s-3}\)`,T`\(\dfrac{1}{s+3}\)`,T`\(\dfrac{3}{s}\)`,T`\(\dfrac{s}{s-3}\)`],a:0,why:T`\(\mathcal L\{e^{at}\}=\frac{1}{s-a}\) โดย \(a=3\) จะได้ \(s-3\) ตัวหาร`},
+  {k:'quiz',q:T`\(\mathcal L\{t^2\}\) เท่ากับ`,o:[T`\(\dfrac{2}{s^3}\)`,T`\(\dfrac{1}{s^3}\)`,T`\(\dfrac{2}{s^2}\)`,T`\(\dfrac{t^2}{s}\)`],a:0,why:T`\(\frac{n!}{s^{n+1}}\) โดย \(n=2\) ได้ \(\frac{2}{s^3}\)`},
+  {k:'quiz',q:T`\(\mathcal L\{\sin2t\}\) เท่ากับ`,o:[T`\(\dfrac{2}{s^2+4}\)`,T`\(\dfrac{s}{s^2+4}\)`,T`\(\dfrac{2}{s^2-4}\)`,T`\(\dfrac{1}{s^2+4}\)`],a:0,why:T`\(\sin bt\to\frac{b}{s^2+b^2}\) โดย \(b=2\) ตัวเศษคือ \(b\) ส่วน \(s\) อยู่ที่ \(\cos\)`},
+  {k:'reveal',h:T`ลองแปลง \(3t^2-5e^{-t}+2\cos4t\)`,lines:[[T`3\,\mathcal L\{t^2\}=\dfrac{6}{s^3}`,'ลาปลาซเป็นเชิงเส้น แปลงทีละพจน์ได้'],[T`-5\,\mathcal L\{e^{-t}\}=-\dfrac{5}{s+1}`,''],[T`2\,\mathcal L\{\cos4t\}=\dfrac{2s}{s^2+16}`,''],[T`F(s)=\dfrac{6}{s^3}-\dfrac{5}{s+1}+\dfrac{2s}{s^2+16}`,'รวมกันได้เลย']]}
+ ]},
+ {id:'l15',unit:3,title:'แปลงกลับ & เศษส่วนย่อย',go:'order',steps:[
+  {k:'talk',m:'think',t:T`แก้ได้ \(Y(s)\) แล้ว ต้องแปลงกลับเป็น \(y(t)\) เทคนิคคือ<b>จัด Y ให้เป็นชิ้นเล็กๆ</b> ที่อยู่ในตารางก่อน มีสองเครื่องมือหลัก`},
+  {k:'show',h:'สองเครื่องมือ',t:T`<div class="boxset"><div class="box c1"><h4>เศษส่วนย่อย</h4>ตัวส่วนแยกตัวประกอบได้ เช่น \(\dfrac{1}{(s+1)(s+2)}\)</div><div class="box c2"><h4>ทำให้เป็นกำลังสองสมบูรณ์</h4>ตัวส่วนแยกไม่ได้ เช่น \(s^2+2s+5=(s+1)^2+4\)</div></div><div class="eq">\[\mathcal L\{e^{at}f(t)\}=F(s-a)\]</div>`},
+  {k:'reveal',h:T`ลองแปลงกลับ \(\dfrac{1}{(s+1)(s+2)}\)`,lines:[[T`\dfrac{1}{(s+1)(s+2)}=\dfrac{A}{s+1}+\dfrac{B}{s+2}`,'ตั้งเศษส่วนย่อย'],[T`1=A(s+2)+B(s+1)`,'คูณตัวส่วนออก'],[T`s=-1:\ A=1,\qquad s=-2:\ B=-1`,'แทน s ที่ทำให้อีกพจน์หายไป'],[T`y=e^{-t}-e^{-2t}`,'แปลงกลับทีละพจน์']]},
+  {k:'quiz',q:T`\(\mathcal L^{-1}\left\{\dfrac{1}{s+3}\right\}\) เท่ากับ`,o:[T`\(e^{-3t}\)`,T`\(e^{3t}\)`,T`\(\dfrac13\)`,T`\(t\,e^{-3t}\)`],a:0,why:T`\(\frac{1}{s-a}\leftrightarrow e^{at}\) ที่นี่ \(s+3=s-(-3)\) จึง \(a=-3\)`},
+  {k:'quiz',q:T`\(\mathcal L^{-1}\left\{\dfrac{s+1}{(s+1)^2+4}\right\}\) เท่ากับ`,o:[T`\(e^{-t}\cos2t\)`,T`\(e^{t}\cos2t\)`,T`\(e^{-t}\sin2t\)`,T`\(\cos2t\)`],a:0,why:T`รูป \(\frac{s}{s^2+4}\) คือ \(\cos2t\) แล้ว \(s\to s+1\) คูณ \(e^{-t}\)`},
+  {k:'quiz',q:T`\(\mathcal L^{-1}\left\{\dfrac{1}{(s-2)^2}\right\}\) เท่ากับ`,o:[T`\(t\,e^{2t}\)`,T`\(e^{2t}\)`,T`\(t^2e^{2t}\)`,T`\(t\,e^{-2t}\)`],a:0,why:T`\(\frac{1}{s^2}\leftrightarrow t\) แล้วเลื่อน \(s\to s-2\) คูณ \(e^{2t}\)`}
+ ]},
+ {id:'l16',unit:3,title:'แก้ IVP ด้วยลาปลาซ',go:'bug',steps:[
+  {k:'talk',m:'happy',t:'จุดเด่นของลาปลาซ: <b>เงื่อนไขเริ่มต้นถูกใส่ตั้งแต่ขั้นแรก</b> ไม่ต้องหา C ทีหลัง สูตรสำคัญคือการแปลงอนุพันธ์'},
+  {k:'show',h:'สูตรอนุพันธ์',t:T`<div class="eq">\[\mathcal L\{y'\}=sY-y(0)\]\[\mathcal L\{y''\}=s^2Y-s\,y(0)-y'(0)\]</div><div class="boxset"><div class="box c3"><h4>ขั้น 1</h4>แปลงทั้งสองข้าง</div><div class="box c4"><h4>ขั้น 2</h4>แก้หา \(Y(s)\)</div><div class="box c2"><h4>ขั้น 3</h4>แปลงกลับ</div></div>`},
+  {k:'quiz',q:T`ถ้า \(y(0)=1,\ y'(0)=2\) แล้ว \(\mathcal L\{y''\}\) เท่ากับ`,o:[T`\(s^2Y-s-2\)`,T`\(s^2Y-1-2\)`,T`\(s^2Y+s+2\)`,T`\(sY-1\)`],a:0,why:T`\(s^2Y-s\,y(0)-y'(0)\) โดยตัว \(y(0)\) ต้องคูณ \(s\) ด้วย`},
+  {k:'reveal',h:T`ลองทำ \(y'+3y=6,\ y(0)=1\)`,lines:[[T`sY-1+3Y=\dfrac6s`,'แปลงทั้งสองข้าง ใส่ y(0)=1'],[T`(s+3)Y=\dfrac{s+6}{s}`,'ย้าย 1 ไปรวมฝั่งขวา'],[T`Y=\dfrac{s+6}{s(s+3)}=\dfrac2s-\dfrac1{s+3}`,'เศษส่วนย่อย'],[T`y=2-e^{-3t}`,'ตรวจ: y(0)=1 ✓']]},
+  {k:'quiz',q:T`\(y''+4y=0,\ y(0)=0,\ y'(0)=2\) ได้ \(Y(s)\) เท่ากับ`,o:[T`\(\dfrac{2}{s^2+4}\)`,T`\(\dfrac{2s}{s^2+4}\)`,T`\(\dfrac{2}{s^2-4}\)`,T`\(\dfrac{1}{s^2+4}\)`],a:0,why:T`\(s^2Y-0-2+4Y=0\Rightarrow Y=\frac{2}{s^2+4}\) แปลงกลับได้ \(\sin2t\)`},
+  {k:'reveal',h:T`ลองทำ \(y''+3y'+2y=0,\ y(0)=0,\ y'(0)=1\)`,lines:[[T`(s^2Y-1)+3sY+2Y=0`,'ใช้สูตรอนุพันธ์อันดับ 2'],[T`Y=\dfrac{1}{(s+1)(s+2)}`,''],[T`Y=\dfrac{1}{s+1}-\dfrac{1}{s+2}`,'เศษส่วนย่อย'],[T`y=e^{-t}-e^{-2t}`,'ตรวจ: y(0)=0, y′(0)=−1+2=1 ✓']]},
+  {k:'talk',m:'wow',t:'เห็นไหมว่าได้<b>คำตอบเฉพาะทันที</b> ไม่ต้องหา \\(C_1,C_2\\) แยกอีกรอบ นี่คือข้อได้เปรียบเมื่อมีเงื่อนไขเริ่มต้น'}
+ ]},
+ {id:'l17',unit:3,title:'ฟังก์ชันขั้นบันได & เดลต้า',go:'detective',steps:[
+  {k:'talk',m:'think',t:'บางครั้งฝั่งขวาของสมการเป็นสวิตช์ที่เปิดปิด หรือแรงกระแทกครั้งเดียว วิธีสมการช่วยกับ UC จะลำบาก แต่ลาปลาซจัดการง่าย'},
+  {k:'show',h:'ฟังก์ชันขั้นบันได (Heaviside)',t:T`<div class="eq">\[u(t-a)=\begin{cases}0&t<a\\1&t\ge a\end{cases}\]\[\mathcal L\{u(t-a)\}=\frac{e^{-as}}{s}\]\[\mathcal L\{u(t-a)\,f(t-a)\}=e^{-as}F(s)\]</div>`},
+  {k:'quiz',q:T`\(\mathcal L\{u(t-3)\}\) เท่ากับ`,o:[T`\(\dfrac{e^{-3s}}{s}\)`,T`\(\dfrac{e^{3s}}{s}\)`,T`\(\dfrac{1}{s-3}\)`,T`\(\dfrac{e^{-3s}}{s^2}\)`],a:0,why:T`\(\mathcal L\{u(t-a)\}=\frac{e^{-as}}{s}\) โดย \(a=3\)`},
+  {k:'quiz',q:T`ฟังก์ชันที่เท่ากับ 1 เมื่อ \(0\le t<2\) และเป็น 0 หลังจากนั้น เขียนด้วย \(u\) ได้เป็น`,o:[T`\(1-u(t-2)\)`,T`\(u(t-2)\)`,T`\(1+u(t-2)\)`,T`\(u(t)+u(t-2)\)`],a:0,why:T`เริ่มจาก 1 ตลอดเวลา แล้วลบสวิตช์ที่เปิดตั้งแต่ \(t=2\) ออก`},
+  {k:'show',h:'เดลต้า (แรงกระแทก)',t:T`<div class="eq">\[\mathcal L\{\delta(t-a)\}=e^{-as}\]</div>\(\delta(t-a)\) คือแรงกระแทกสั้นมากที่ \(t=a\) เช่นการตีลูกบอลหนึ่งครั้ง ทำให้ฝั่งขวาของสมการเป็นแค่ \(e^{-as}\)`},
+  {k:'reveal',h:T`ลองทำ \(y'+y=u(t-1),\ y(0)=0\)`,lines:[[T`(s+1)Y=\dfrac{e^{-s}}{s}`,''],[T`Y=e^{-s}\left(\dfrac1s-\dfrac1{s+1}\right)`,'เศษส่วนย่อยของ 1/(s(s+1))'],[T`y=u(t-1)\left(1-e^{-(t-1)}\right)`,'กฎเลื่อนครั้งที่ 2: f(t)=1−e^{−t} แล้วแทน t→t−1']]},
+  {k:'quiz',q:T`จากข้างบน ก่อนถึง \(t=1\) ค่า \(y\) เป็นเท่าไร`,o:['0',T`\(1\)`,T`\(1-e^{-1}\)`,'บอกไม่ได้'],a:0,why:T`\(u(t-1)=0\) เมื่อ \(t<1\) ระบบยังไม่มีแรงมากระทำ และเริ่มจาก \(y(0)=0\) จึงนิ่งอยู่ที่ 0`}
+ ]},
+ {id:'l18',unit:3,title:'คอนโวลูชัน',go:'escape',steps:[
+  {k:'talk',m:'happy',t:'เครื่องมือสุดท้าย: <b>คูณกันในโลก s</b> เท่ากับ<b>คอนโวลูชัน</b>ในโลก t ใช้แก้สมการที่มีอินทิกรัลของ y ปนอยู่'},
+  {k:'show',h:'ทฤษฎีบทคอนโวลูชัน',t:T`<div class="eq">\[(f*g)(t)=\int_0^t f(\tau)\,g(t-\tau)\,d\tau\]\[\mathcal L\{f*g\}=F(s)\,G(s)\]</div>`},
+  {k:'quiz',q:T`\(\mathcal L\left\{\displaystyle\int_0^t (t-\tau)\,y(\tau)\,d\tau\right\}\) เท่ากับ`,o:[T`\(\dfrac{Y}{s^2}\)`,T`\(s^2Y\)`,T`\(\dfrac{Y}{s}\)`,T`\(\dfrac{1}{s^2}\)`],a:0,why:T`อินทิกรัลนี้คือ \(t*y\) และ \(\mathcal L\{t\}=\frac{1}{s^2}\) จึงได้ \(\frac{1}{s^2}\cdot Y\)`},
+  {k:'reveal',h:T`ลองทำ \(y(t)=t+\displaystyle\int_0^t(t-\tau)\,y(\tau)\,d\tau\)`,lines:[[T`Y=\dfrac{1}{s^2}+\dfrac{1}{s^2}\,Y`,'แปลงทั้งสองข้าง'],[T`Y\left(1-\dfrac{1}{s^2}\right)=\dfrac{1}{s^2}\;\Rightarrow\;Y=\dfrac{1}{s^2-1}`,'แก้หา Y'],[T`y=\sinh t`,'ตาราง: \(\mathcal L\{\sinh t\}=\frac{1}{s^2-1}\)']]},
+  {k:'talk',m:'wow',t:'ครบทุกเนื้อหาแล้ว! ไปลุยด่าน <b>แล็บปิดตาย</b> ที่มีโจทย์ลาปลาซปนอยู่ หรือกลับไปเล่นเกมอื่นเพื่อทวนทุกบท'}
+ ]}
+);
+
 /* ================= confetti hooks + mascot in feedback ================= */
 new MutationObserver(ms=>{for(const m of ms)for(const n of m.addedNodes){if(n.nodeType!==1)continue;
   const list=n.matches('.fb')?[n]:[...n.querySelectorAll('.fb')];
@@ -813,7 +1067,7 @@ new MutationObserver(ms=>{for(const m of ms)for(const n of m.addedNodes){if(n.no
 /* ================= game registry ================= */
 const GAMES={
  detective:{name:'นักสืบสมการ',color:'sky',desc:'ดูสมการแล้วบอกว่าควรใช้วิธีไหนแก้ ยังไม่ต้องแก้จริง',when:'หลังเรียนบท 4–9',
-   easy:'ตัวเลือก 4 ข้อ มีปุ่มคำใบ้ ตอบผิดลองใหม่ได้',hard:'ตัวเลือกครบ 7 วิธี ไม่มีคำใบ้ มีเวลา 30 วินาทีต่อข้อ'},
+   easy:'ตัวเลือก 4 ข้อ มีปุ่มคำใบ้ ตอบผิดลองใหม่ได้',hard:'ตัวเลือกครบ 8 วิธี ไม่มีคำใบ้ มีเวลา 30 วินาทีต่อข้อ'},
  field:{name:'สนามทิศทาง',color:'mint',desc:'ลากนิ้วทายรูปเส้นโค้งคำตอบจากขีดความชัน แล้วเทียบกับเส้นจริง',when:'หลังเรียนบท 3',
    easy:'เล่นอิสระ เลือกสมการเองได้ มีคำอธิบายและ isocline ช่วย',hard:'ภารกิจ 5 รอบ สมการสุ่ม ขีดน้อยลง ต้องเริ่มวาดจากดาวที่กำหนด'},
  order:{name:'เรียงเฉลย',color:'orange',desc:'บรรทัดเฉลยถูกสลับ เรียงกลับให้ถูกลำดับ',when:'หลังเรียนบท 4–9',
@@ -851,7 +1105,7 @@ const DEMO={
    {cap:'อ่านสมการก่อน ยังไม่ต้องแก้ แค่ดูว่าหน้าตาแบบนี้ควรใช้วิธีไหน',html:`<span class="pill acc">ข้อ 1 / 8</span>${eq}`},
    {cap:T`แตะวิธีที่คิดว่าใช่ ข้อนี้ \(e^{x+y}=e^x e^y\) แยกตัวแปรได้`,html:eq+ch(1,0)},
    {cap:'ถ้าถูก จะมีเหตุผลให้อ่าน ถ้าผิดจะบอกว่าผิดเพราะอะไรแล้วเลือกใหม่ได้ ทุกครั้งที่ตอบถูกวิธีใหม่ ผังเลือกวิธีด้านล่างจะเปิดเพิ่ม',html:ch(0,1)+`<div class="fb good"><b>ถูกต้อง!</b><div>แยกเป็น \\(e^{-y}dy=e^xdx\\) ได้</div></div>`},
-   {cap:'เล่นครบ 8 ข้อแล้วจะสรุปคะแนนให้ โหมดยากมีตัวเลือกครบ 7 วิธีและจับเวลา',html:`<div class="row center"><div class="stars" style="gap:6px">${starSvg(1)+starSvg(1)+starSvg(0)}</div></div><div class="big" style="text-align:center">6/8</div>`}];},
+   {cap:'เล่นครบ 8 ข้อแล้วจะสรุปคะแนนให้ โหมดยากมีตัวเลือกครบ 8 วิธีและจับเวลา',html:`<div class="row center"><div class="stars" style="gap:6px">${starSvg(1)+starSvg(1)+starSvg(0)}</div></div><div class="big" style="text-align:center">6/8</div>`}];},
  field:()=>[
    {cap:'ขีดสั้นๆ แต่ละเส้นบอกความชันของเส้นโค้งคำตอบตรงจุดนั้น',html:miniField({})},
    {cap:'ลากนิ้วเริ่มจากจุดไหนก็ได้ (โหมดยากต้องเริ่มที่ดาว) แล้ววาดไปตามทิศของขีด',html:miniField({guess:1,start:1})},
@@ -922,7 +1176,7 @@ function renderFlow(){
   FLOW.forEach((k,i)=>{const open=!!P.cat[k];if(open)n++;
     const d=el('div',{class:'node '+(open?'open':'locked')});
     d.innerHTML=`<div class="n">${i+1}</div><div class="q">${open?`<b>${CATS[k].name}</b> <span class="pill">${CATS[k].sub}</span><br>${CATS[k].test}`:'ยังล็อกอยู่ ตอบข้อที่ใช้วิธีนี้ให้ถูกเพื่อเปิด'}</div>`;f.appendChild(d);});
-  $('#flowStat').textContent=`${n}/7 ขั้น`;typeset(f);
+  $('#flowStat').textContent=`${n}/${FLOW.length} ขั้น`;typeset(f);
 }
 var PLAY_detective;PLAY_detective=()=>{D={list:shuffle(DET).slice(0,8),i:0,score:0};detQ();};
 function detQ(){
@@ -1102,23 +1356,23 @@ let esc={};
 function parseNum(s){s=String(s).trim().replace(/\s/g,'').replace('−','-');if(/^-?\d+(\.\d+)?\/-?\d+(\.\d+)?$/.test(s)){const [a,b]=s.split('/');return +a/ +b;}return s===''?NaN:+s;}
 function fmtT(sec){sec=Math.max(0,Math.round(sec));return `${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`;}
 const elapsed=()=>(Date.now()-esc.start)/1000+esc.pen;
-var PLAY_escape;PLAY_escape=()=>{esc={room:0,start:Date.now(),pen:0,hinted:{}};escRoom();};
+var PLAY_escape;PLAY_escape=()=>{esc={rooms:pickRooms(),room:0,start:Date.now(),pen:0,hinted:{}};escRoom();};
 function escRoom(){
   stopTimers();const hard=isHard('escape');
-  if(esc.room>=ROOMS.length){const t=Math.round(esc.final),key='escape-'+diff('escape');const best=P.best[key]==null||t<P.best[key];if(best)P.best[key]=t;P.played.escape=1;save();
-    gPlay().innerHTML=`<div class="card done-card">${mascot('wow',110)}<h2>หนีออกจากแล็บได้แล้ว!</h2><div class="locks" style="align-self:stretch">${ROOMS.map(()=>'<span class="on"></span>').join('')}</div><div class="big">${fmtT(t)}</div>
+  if(esc.room>=esc.rooms.length){const t=Math.round(esc.final),key='escape-'+diff('escape');const best=P.best[key]==null||t<P.best[key];if(best)P.best[key]=t;P.played.escape=1;save();
+    gPlay().innerHTML=`<div class="card done-card">${mascot('wow',110)}<h2>หนีออกจากแล็บได้แล้ว!</h2><div class="locks" style="align-self:stretch">${esc.rooms.map(()=>'<span class="on"></span>').join('')}</div><div class="big">${fmtT(t)}</div>
      <p class="muted">${best?'สถิติใหม่ของโหมด'+DNAME[diff('escape')]+'!':'สถิติดีที่สุด '+fmtT(P.best[key])} · ใช้คำใบ้ ${Object.keys(esc.hinted).length} ครั้ง</p>
      <div class="row center"><button class="btn primary big" id="eAgain">เล่นอีกรอบ</button><button class="btn ghost" id="eBack">กลับไปเลือกเกม</button></div></div>`;
     celebrate(170);$('#eAgain').onclick=()=>startGame('escape');$('#eBack').onclick=()=>go('games');return;}
-  const r=ROOMS[esc.room];
+  const r=esc.rooms[esc.room];
   gPlay().innerHTML=`<div class="door"><div class="door-head"><h3>${r.title}</h3><span class="stat" id="escT">${fmtT(elapsed())}</span></div><div class="door-body">
-   <div class="locks">${ROOMS.map((_,i)=>`<span class="${i<esc.room?'on':''}"></span>`).join('')}</div>
+   <div class="locks">${esc.rooms.map((_,i)=>`<span class="${i<esc.room?'on':''}"></span>`).join('')}</div>
    <p class="story">${r.story}</p>${r.q?`<div class="eq">\\[${r.q}\\]</div>`:''}${r.list?`<ol class="plan">${r.list.map(t=>`<li>\\(${t}\\)</li>`).join('')}</ol>`:''}
    <div class="code">${r.inputs.map((inp,i)=>`<label class="small" for="ein${i}">${inp.label}</label><input type="text" inputmode="decimal" id="ein${i}" autocomplete="off">`).join('')}<button class="btn primary" id="escTry">ปลดล็อก</button></div>
    <div id="escFb"></div><div class="row"><button class="btn" id="escHint">${esc.hinted[esc.room]?'ดูคำใบ้':hard?'ขอคำใบ้ (+2 นาที)':'ขอคำใบ้ (ฟรี)'}</button><button class="btn ghost" id="escQuit">เริ่มใหม่</button></div></div></div>`;
   TIMERS.push(setInterval(()=>{const t=$('#escT');if(t)t.textContent=fmtT(elapsed());},1000));
   const tryIt=()=>{const ok=r.inputs.every((inp,i)=>{const v=parseNum($('#ein'+i).value);return Math.abs(v-inp.a)<=Math.max(1e-6,Math.abs(inp.a)*0.005);});
-    if(ok){esc.room++;if(esc.room>=ROOMS.length)esc.final=elapsed();else celebrate(60);escRoom();}
+    if(ok){esc.room++;if(esc.room>=esc.rooms.length)esc.final=elapsed();else celebrate(60);escRoom();}
     else{if(hard)esc.pen+=20;$('#escFb').innerHTML=`<div class="fb bad"><b>ไฟแดงกะพริบ รหัสไม่ถูก</b><div>ตรวจเครื่องหมายและการแทนค่าอีกที${hard?' (+20 วินาที)':''}</div></div>`;const d=gPlay().querySelector('.door');d.classList.remove('shake');void d.offsetWidth;d.classList.add('shake');}};
   $('#escTry').onclick=tryIt;r.inputs.forEach((_,i)=>$('#ein'+i).addEventListener('keydown',e=>{if(e.key==='Enter')tryIt();}));
   $('#escHint').onclick=()=>{if(!esc.hinted[esc.room]){esc.hinted[esc.room]=1;if(hard)esc.pen+=120;}$('#escHint').textContent='ดูคำใบ้';$('#escFb').innerHTML=`<div class="fb info"><b>คำใบ้</b><div>${r.hint}</div></div>`;typeset($('#escFb'));};
@@ -1145,6 +1399,7 @@ const ROAD=[
  {t:'เรียนวิธีแก้สมการอันดับ 1',d:'บทที่ 4–9: แยกตัวแปร, เอกพันธ์, แม่นตรง, ตัวประกอบอินทิเกรต, เชิงเส้น, เบอร์นูลลี',done:()=>lessonsDone(['l4','l5','l6','l7','l8','l9']),btns:[['เรียนบทที่ 4–9','learn:3']]},
  {t:'ฝึกเลือกวิธีและเรียงเฉลย',d:'นักสืบสมการช่วยให้รู้ว่าโจทย์แบบไหนใช้วิธีไหน เรียงเฉลยช่วยจำขั้นตอน',done:()=>!!(P.played.detective&&P.played.order),btns:[['นักสืบสมการ','detective'],['เรียงเฉลย','order']]},
  {t:'เรียนสมการเชิงเส้นอันดับ n',d:'บทที่ 10–13: สมการช่วย, ตัวดำเนินการผกผัน, UC, แปรผันพารามิเตอร์',done:()=>lessonsDone(['l10','l11','l12','l13']),btns:[['เรียนบทที่ 10–13','learn:9']]},
+ {t:'เรียนการแปลงลาปลาซ',d:'บทที่ 14–18: ตารางลาปลาซ, แปลงกลับ, แก้ IVP, step/เดลต้า, คอนโวลูชัน',done:()=>lessonsDone(['l14','l15','l16','l17','l18']),btns:[['เรียนบทที่ 14–18','learn:13']]},
  {t:'ทวนจุดพลาดยอดฮิต',d:'ย้อนรอยคำตอบฝึกเรื่องราก จับผิดเฉลยฝึกหาจุดที่คนพลาดบ่อย',done:()=>!!(P.played.reverse&&P.played.bug),btns:[['ย้อนรอยคำตอบ','reverse'],['จับผิดเฉลย','bug']]},
  {t:'บอสปิดท้าย: แล็บปิดตาย',d:'ใช้ทุกเรื่องที่เรียนมา ไขรหัส 6 ประตู ลองโหมดยากถ้ามั่นใจ',done:()=>!!P.played.escape,btns:[['เล่นแล็บปิดตาย','escape']]}
 ];
